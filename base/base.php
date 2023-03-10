@@ -14,10 +14,11 @@
             <div class="col col-2">
                 <?php if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) { ?>
                     <a href="../login/">Login</a>
-                 <?php }else{
-                        echo "Logged";
-                    }
-                ?>
+                 <?php }else{ ?>
+                    <form action="../php/logout.php">
+                        <input type="submit" value="logout">
+                    </form>    
+                <?php }?>
             </div>
         </div>
     </div>
