@@ -6,9 +6,12 @@
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
+    <script type="text/javascript">
+        var ss = '<?php echo json_encode($_SESSION) ?>';
+    </script>
         <?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['role'] == 'admin'){ ?>
-            <div class="container">
-                <div class="row">
+            <div class="container-fluid">
+                <div class="row margin-2">
                     <div class="col-4">
                         <div class="avatar">
                             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="admin" class="rounded-circle" width="150">
