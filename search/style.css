@@ -5,3 +5,11 @@
 table td {
     vertical-align: middle;
 }
+
+#more {
+    background-color: white;
+    border: 0px;
+    color: blue;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}

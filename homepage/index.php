@@ -7,5 +7,7 @@
         <form action="../php/logout.php">
             <input type="submit" name="logout" value="log out">
         </form>
-    <?php } ?>
+    <?php } 
+        include("../base/footer.html");
+    ?>
 </html>

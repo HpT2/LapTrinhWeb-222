@@ -3,9 +3,42 @@
     padding: 0px;
 }
 
-.head {
-    border: 1px solid black;
-    height: 50px;
+.block1 {
+    width: 60%;
+    display: flex;
+}
+
+.block2 {
+    width: 20%;
+    display: flex;
+}
+
+.block3 {
+    width: 20%;
+    display: flex;
+    justify-content: end;
+}
+
+.form-center {
+    display: flex;
+    justify-content: center;
     text-align: center;
-    line-height: 50px;
+}
+
+@media screen and (max-width:400px) {
+    .d-flex {
+        flex-direction: column;
+    }
+
+    .block1 {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .block3 {
+        width: 100%;
+        justify-content: center;
+        margin-top: 4%;
+    }
+
 }

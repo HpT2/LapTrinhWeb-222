@@ -4,25 +4,25 @@
     <head>
         <title>Admin</title>
         <link rel="stylesheet" type="text/css" href="style.css">
-    </head>
+
     <body>
     <script type="text/javascript">
         var ss = '<?php echo json_encode($_SESSION) ?>';
     </script>
         <?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['role'] == 'admin'){ ?>
-            <div class="container-fluid">
-                <div class="row margin-2">
-                    <div class="col-4">
-                        <div class="avatar">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="admin" class="rounded-circle" width="150">
-                        </div>
-                        <div class="info">
-                                Name: <?php echo $_SESSION['username'] ?> <br>
-                                Role: Admin
-                        </div>
+            <div class="container-fluid b">
+                <div class="d-flex">
+                    <div class="b1">
+                            <div class="avatar">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="admin" class="rounded-circle" width="150">
+                            </div> 
+                            <div class="info">
+                                    Name: <?php echo $_SESSION['username'] ?> <br>
+                                    Role: Admin
+                            </div>
                     </div>
-                    <div class="col-8" >
-                        <ul class="list-group" name="user_list">
+                    <div class="b2" >
+                        <ul class="list-group" name="user_list" style="width:100%;">
 
                         </ul>
                     </div>
@@ -30,5 +30,6 @@
             </div>
         <?php }else{echo "You don't have permission to access this page";} ?>
         <script src="admin.js"></script>
+        <?php include('../base/footer.html'); ?>
     </body>
 </html>

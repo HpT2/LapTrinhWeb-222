@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php include('../base/base.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,7 +6,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
     <?php if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {?>
@@ -15,11 +14,6 @@
     <?php }else{ ?>
     <div class="container">
         <div class="main-body">
-            <div class="row">
-                <form action="../php/logout.php" method="POST">
-                    <input type="submit" name="logout" value="log out">
-                </form>
-            </div>
             <!-- Breadcrumb -->
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb">
@@ -183,15 +177,10 @@
                     </div>
                     </div>
                 </div>
-
-
-
                 </div>
             </div>
-
         </div>
-    
     </div>
-    <?php } ?>
+    <?php } include('../base/footer.html');?>
     </body>
 </html>
