@@ -16,7 +16,7 @@
 .block3 {
     width: 20%;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .form-center {
@@ -25,7 +25,11 @@
     text-align: center;
 }
 
-@media screen and (max-width:400px) {
+header {
+    margin-bottom: 2%;
+}
+
+@media screen and (max-width:700px) {
     .d-flex {
         flex-direction: column;
     }

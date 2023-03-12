@@ -1,21 +1,13 @@
-<?php session_start(); ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"> 
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-        <link rel="stylesheet" type="text/css" href="../css/base.css">
-    </head>
-    <body>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" type="text/css">
+        <link rel="stylesheet" href="../css/header.css" type="text/css">
+
         <header class="p-3 bg-dark text-white">
             <div class="container-fluid">
                 <div class="d-flex">
 
                     <div class="block1">
                         <ul class="nav justify-content-center">
-                            <li><a href="../homepage/" class="nav-link px-2 text-secondary">Home</a></li>
+                            <li><a href="../homepage/" class="nav-link px-2 text-white">Home</a></li>
                             <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
                             <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
                             <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
@@ -49,4 +41,3 @@
                 </div>
             </div>
     </header>
-</html>

@@ -1,6 +1,5 @@
-<?php include('../base/base.php'); ?>
-<!DOCTYPE html>
-<html lang="en">
+<?php session_start(); ?>
+<!DOCTYPE html><html lang="en">
     <head>
         <title>User Profile</title>
         <meta charset="UTF-8">
@@ -8,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     </head>
     <body>
+    <?php include('../base/header.php'); ?>
     <?php if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {?>
         <h1>you have not logged in</h1>
         <a href="../login">Click here to login</a>

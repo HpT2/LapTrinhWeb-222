@@ -1,12 +1,11 @@
-<?php include("../base/base.php"); ?>
-
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <?php include("../base/header.php"); ?>
     <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true) { ?>
         <a href="../user_profile"> Click to view profile </a>
-        <form action="../php/logout.php">
-            <input type="submit" name="logout" value="log out">
-        </form>
     <?php } 
         include("../base/footer.html");
     ?>

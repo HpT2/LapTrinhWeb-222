@@ -1,10 +1,13 @@
-<?php include("../base/base.php"); ?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel='stylesheet' href='style.css' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     </head>
     <body>
+    <?php include("../base/header.php"); ?>
         <div class="container-fluid">
             <div class="row margin-2">
                 <div class="col">

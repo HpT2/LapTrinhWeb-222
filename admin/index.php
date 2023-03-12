@@ -1,11 +1,13 @@
-<?php include("../base/base.php"); ?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Admin</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="style.css">
-
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <body>
+    <?php include("../base/header.php"); ?>
     <script type="text/javascript">
         var ss = '<?php echo json_encode($_SESSION) ?>';
     </script>
