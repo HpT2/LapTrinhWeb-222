@@ -1,0 +1,60 @@
+body {
+	background-color: aliceblue;
+}
+
+.payment-body {
+	margin-top: 10px;
+}
+
+.hinhthucgiao, .phuongthucthanhtoan, .info {
+	margin: 10px 0px;
+	background-color: white;
+}
+
+#home {
+	border: 2px solid orange;
+	font-size: 13px;
+	border-radius: 10px;
+	padding: 2px;
+	color: orange;
+}
+
+.Type {
+	width: 80%;
+}
+
+.buy-info {
+	width: 20%;
+	display: flex;
+	margin: 10px;
+	flex-direction: column;
+}
+
+#info {
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+}
+
+.content {
+	display: flex;
+}
+
+
+.final {
+	margin: 10px 0px;
+	background-color: white;
+	padding: 10px;
+}
+
+.col-10 > input {
+	border: none;
+	font-size: 22px;
+	background-color: inherit;
+}
+
+#total {
+	color: red;
+	font-weight: bold;
+}	

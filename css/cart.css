@@ -1,0 +1,125 @@
+body {
+	background-color: aliceblue;
+}
+
+.row{
+	width: 100%;
+}
+
+.tbl-header > div{
+	text-align: center;
+	background-color: white;
+	margin: 0px 0px 20px 0px;
+	height: 50px;
+	line-height: 50px;
+}
+
+.tbl-item > div{
+	text-align: center;
+	background-color: white;
+	margin: 0px 0px 20px 0px;
+	line-height: 100px;
+	height: 100px;
+}
+
+.content {
+	display: flex;
+	margin: 10px auto;
+}
+
+.product-list {
+	width: 80%;
+}
+
+.customer-info {	
+	width: 20%;
+}
+
+td {
+	vertical-align: middle;
+}
+
+.table-header {
+	margin-bottom: 10px;
+}
+
+#info {
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+}
+
+#home {
+	border: 2px solid orange;
+	font-size: 13px;
+	border-radius: 10px;
+	padding: 2px;
+	color: orange;
+}
+
+.home {
+	margin: 10px 0px;
+}
+
+
+.amount {
+	width: 35px;
+	height: 30px;
+	text-align: center;
+	border: 1px solid black;
+}
+
+button {
+	border: None;
+	background-color: inherit;
+}
+
+.product-img {
+	height: 100px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+
+}
+
+.decrease-amount {
+	border: 1px solid black;
+	height: 30px;
+	width: 20px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+.decrease-amount:hover {
+	border: 1px solid black;
+}
+
+
+.final {
+	margin: 10px 0px;
+	background-color: white;
+	padding: 10px;
+}
+
+#total, #ntc {
+	color: red;
+	font-weight: bold;
+}
+
+.col-10 > input {
+	border: none;
+	font-size: 22px;
+	background-color: inherit;
+}
+
+.scrollable {
+	overflow-y: hidden;
+	height: 600px;
+}
+
+.scrollable:hover {
+	overflow-y: overlay;
+}

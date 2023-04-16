@@ -17,6 +17,15 @@
     width: 20%;
     display: flex;
     justify-content: flex-end;
+	padding-right: 2%;
+}
+
+.block3-content {
+	margin-right: 20px;
+}
+
+.nav-bar-icon {
+	margin-top: 2%;
 }
 
 .form-center {
@@ -27,6 +36,11 @@
 
 header {
     margin-bottom: 2%;
+}
+
+#profile-icon {
+	border-radius: 100px;
+	width: 30px;
 }
 
 @media screen and (max-width:700px) {

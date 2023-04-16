@@ -1,4 +1,4 @@
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" type="text/css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" type="text/css">
         <link rel="stylesheet" href="../css/header.css" type="text/css">
 
         <header class="p-3 bg-dark text-white">
@@ -15,7 +15,7 @@
                         </ul>
                     </div>
 
-                    <form class="form-center" action="../search/">
+                    <form class="form-center" action="#">
           
                             <div class="form-outline">
                               <input type="search" class="form-control" placeholder="Search..." name="search" aria-label="Search">
@@ -28,12 +28,18 @@
                     </form>
                     <?php if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) { ?>
                         <div class="block3">
-                                <a href="../login/" class="btn btn-outline-light me-2">Login</a>
-                                <a href="../register/" class="btn btn-warning">Sign-up</a>
+                                <a href="" class="btn btn-outline-light me-2">Login</a>
+                                <a href="" class="btn btn-warning">Sign-up</a>
                         </div>
                     <?php }else{ ?>
                         <div class="block3">
-                            <form action="../php/logout.php">
+							<div class="block3-content nav-bar-icon">
+								<a href=""><img id="profile-icon" src="/image/icon/profile_icon.png"></a>
+							</div>
+							<div class="block3-content nav-bar-icon">
+								<a href="/cart/"><img id="profile-icon" src="/image/icon/cart.png"></a>
+							</div>
+                            <form action="" class="block3-content">
                                 <button type="submit" class="btn btn-danger me-2">Logout</button>
                             </form>
                         </div>
