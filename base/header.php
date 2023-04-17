@@ -49,7 +49,7 @@
 						echo '</a>';
 						echo'<a href="/login/logout.php" class="btn btn-danger" style="margin-left: 5px">Logout</a>';
 					}else{
-						echo'<a href="" class="btn btn-primary">';
+						echo'<a href="/login/login.php" class="btn btn-primary">';
 						echo "Login";
 						echo '</a>';
 					}

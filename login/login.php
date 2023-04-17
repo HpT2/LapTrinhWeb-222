@@ -100,7 +100,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION["loggedin"] = true;
                 $_SESSION["username"] = $username; 
                 $_SESSION["role"] = "admin";                                                                           
-                header("location: admin.php");
+                header("location: /dashboard");
 				mysqli_close($link);
             } else{
                 // Password is not valid, display a generic error message
