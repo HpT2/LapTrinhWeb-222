@@ -1,12 +1,8 @@
 <?php 
 	session_start();
-	$_SESSION['username'] = "hptisme";
-	$_SESSION['password'] = '123';
-	$_SESSION['loggedin'] = true;
-	$_SESSION['role'] = 'customer';
 	if(!isset($_SESSION['username']) || $_SESSION['loggedin'] == false){
 		//show error page
-		echo "You must log in to see this page";
+		header("Location: /login/login.php");
 		exit();
 	}
 	if($_SESSION['role'] != 'customer'){
@@ -14,16 +10,17 @@
 		echo 'This page is only for customer';
 		exit();
 	}else{ 
-		$connection = new mysqli('localhost',$_SESSION['username'],$_SESSION['password'],'laptrinhweb_db');
+		$connection = new mysqli('localhost','root',$_SESSION['password'],'laptrinhweb_db');
 
 		// Check connection
 		if ($connection->connect_error) {
 			die("Connection failed: " . $connection->connect_error);
 	  	}
-		$query = "select id,name,phone,address from customer where username='".$_SESSION['username']."'";
+		$query = "select * from customer where username='".$_SESSION['username']."'";
 		
 		$res = $connection->query($query);
 		$CUSTOMER_INFO = $res->fetch_assoc();
+
 
 		$query = "select id from cart where customerID=".$CUSTOMER_INFO['id'];
 		$res = $connection->query($query);
@@ -53,9 +50,8 @@
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 				<link rel="stylesheet" style="text/css" href="/css/bootstrap.min.css">
 				<link rel="stylesheet" style="text/css" href="/css/cart.css">
-				<link rel="stylesheet" style="text/css" href="/css/header.css">
 			</head>
-			<body>
+			<body style="background-color: #a6a9be;">
 				<?php include('../base/header.php'); ?>
 				<div>
 					<div class="body-content">
@@ -73,7 +69,7 @@
 										<div class="col-1">Total</div>
 										<div class="col-1"><input type="checkbox" class="check" id="checkall"></div>
 										<div class="col-1">
-											<button type="button" value="rm-all" name="rm-btn" ><img class="icon" src="/image/icon/thungrac.png"></button>
+											<button type="button" value="rm-all" name="rm-btn" class="icon"><img  src="/image/icon/thungrac.png"></button>
 										</div>
 									</div>
 									<div class="scrollable">
@@ -98,7 +94,7 @@
 													echo '<div class="col-1" id="to_money_'.$detail['id'].'">'.$detail['to_money'].'</div>';
 													echo  '<div class="col-1"><input name="checkbox_'.$detail['id'].'"type="checkbox" value="1" form="buy"></div>';
 													echo '<div class="col-1">
-														<button type="button" name="rm-btn" value="'.$detail['id'].'"><img class="icon" src="../image/icon/thungrac.png"></button>
+														<button type="button" name="rm-btn" class="icon" value="'.$detail['id'].'"><img src="/image/icon/thungrac.png"></button>
 														</div></div>';
 												}
 											?>

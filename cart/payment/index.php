@@ -5,7 +5,7 @@
 		echo "you must login to see this page";
 		exit();
 	}
-	$connection = new mysqli('localhost',$_SESSION['username'],$_SESSION['password'],'laptrinhweb_db');
+	$connection = new mysqli('localhost','root',$_SESSION['password'],'laptrinhweb_db');
 
 	if ($connection->connect_error) {
 		die("Connection failed: " . $conn->connect_error);

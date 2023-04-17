@@ -10,7 +10,7 @@
 		//show error page
 		echo 'This page is only for customer';
 	}else{
-		$connection = new mysqli('localhost',$_SESSION['username'],$_SESSION['password'],'laptrinhweb_db');
+		$connection = new mysqli('localhost','root','','laptrinhweb_db');
 
 		// Check connection
 		if ($connection->connect_error) {
@@ -56,7 +56,6 @@
 		<title>Orders</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="/css/header.css">
 		<link rel="stylesheet" type="text/css" href="/css/bill.css">
 	</head>
 	<body style="background-color: #a6a9be;">

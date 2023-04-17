@@ -21,8 +21,8 @@
     <link href="/utils/css/style.css" rel="stylesheet">
 <!-- Navbar & Hero Start -->
        
-	<div class="container-fluid position-relative p-0">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+	<div class="container-fluid position-relative p-0"   style="background-color:#0d1025 ;">
+            <nav class="navbar navbar-expand-lg navbar-dark px-4 px-lg-5 py-3 py-lg-0">
                 <a href="/homepage/" class="navbar-brand p-0">
                     <h1 class="text-primary m-0"><i class="fa-solid fa-apple-whole"></i> 4Tech</h1>
                     <!-- <img src="img/logo.png" alt="Logo"> -->
@@ -32,24 +32,30 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="index.html" class="nav-item nav-link">Home</a>
+					<?php if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
+						echo "<a href='/bills/' class='nav-item nav-link'>History</a>";
+						}else{
+							echo "Login";
+						}?>
+                        <a href="/homepage/" class="nav-item nav-link">Home</a>
                         <a href="product.html" class="nav-item nav-link">Product</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
-                        <a href="menu.html" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping" style="font-size:20px"></i></a>
+                        <a href="/cart/" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping" style="font-size:20px"></i></a>
                     </div>
-                    <a href="../login/login.php" class="btn btn-primary py-2 px-4">
 					<?php if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
-						echo "Profile";
+                    	echo'<a href="">';
+						echo '<i class="fa-solid fa-user-circle"></i>';
+						echo '</a>';
+						echo'<a href="/login/logout.php" class="btn btn-danger py-2 px-4" style="margin-left: 5px">Logout</a>';
 					}else{
 						echo "Login";
 					}
 					?>
-					</a>
                 </div>
             </nav>
 
-            <div class="container-fluid py-5 bg-dark hero-header mb-5" id="header-homepage">
+            <div class="container-fluid py-5  hero-header mb" id="header-homepage" style="background-color:#0d1025;">
 
             </div>
         </div>
