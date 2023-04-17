@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2023 at 08:33 AM
+-- Generation Time: Apr 17, 2023 at 08:41 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -53,9 +53,15 @@ CREATE TABLE `bill` (
 --
 
 INSERT INTO `bill` (`id`, `customerID`, `date`, `totalcost`) VALUES
-(1, 2, '2023-04-16 08:27:16', 0),
-(2, 2, '2023-04-16 08:28:50', 100),
-(3, 2, '2023-04-16 08:30:04', 700);
+(1, 2, '2023-04-17 04:18:18', 600),
+(2, 2, '2023-04-17 04:52:19', 1200),
+(3, 2, '2023-04-17 04:55:07', 600),
+(4, 2, '2023-04-17 05:27:45', 2600),
+(5, 2, '2023-04-17 05:40:13', 3400),
+(6, 2, '2023-04-17 06:10:39', 3000),
+(7, 2, '2023-04-17 06:17:04', 1800),
+(8, 2, '2023-04-17 06:21:16', 600),
+(9, 2, '2023-04-17 07:08:45', 600);
 
 -- --------------------------------------------------------
 
@@ -73,7 +79,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `customerID`) VALUES
-(2, 2);
+(2, 2),
+(9, 9);
 
 -- --------------------------------------------------------
 
@@ -98,7 +105,8 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`id`, `username`, `password`, `name`, `phone`, `address`, `birthday`, `adminID`) VALUES
 (1, 'vinhtoan', '$2y$10$BvzPjKizP1YIZcQ1ppm25.WsXBPdBxhn7i1cyNgzuQ31vOEf23ubW', NULL, NULL, NULL, NULL, NULL),
-(2, 'hptisme', '123', 'Tùng', '0971479331', '372/23/7 CMT8 P10 Q3', '2002-02-17', NULL);
+(2, 'hptisme', '123', 'Tùng', '0971479331', '372/23/7 CMT8 P10 Q3', '2002-02-17', NULL),
+(9, 'tung1', '$2y$10$6BGqlXzS35rhe3GdYPKwmunXU2UZeTGkTee1relFinspoIxh1YXN6', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -116,7 +124,6 @@ CREATE TABLE `keep` (
 --
 
 INSERT INTO `keep` (`cartID`, `productID`) VALUES
-(2, 4),
 (2, 5),
 (2, 6);
 
@@ -155,8 +162,8 @@ INSERT INTO `product` (`id`, `name`, `amount`, `price`, `date_release`, `image`)
 (2, 'computer', 10, 100, '2023-04-26', '/image/products/computer.png'),
 (3, 'usb', 10, 100, '2023-04-26', '/image/products/USB.png'),
 (4, 'TV', 10, 100, '2023-04-26', '/image/products/tv.png'),
-(5, 'phone', 10, 100, '2023-04-26', '/image/products/phone.png'),
-(6, 'Keyboard', 10, 500, '2023-04-26', '/image/products/keyboard.png');
+(5, 'phone', 5, 100, '2023-04-26', '/image/products/phone.png'),
+(6, 'Keyboard', 5, 500, '2023-04-26', '/image/products/keyboard.png');
 
 -- --------------------------------------------------------
 
@@ -167,23 +174,33 @@ INSERT INTO `product` (`id`, `name`, `amount`, `price`, `date_release`, `image`)
 CREATE TABLE `products_of_bill` (
   `Bill_ID` int(11) NOT NULL,
   `Product_ID` int(11) NOT NULL,
-  `amount` int(11) DEFAULT NULL
+  `amount` int(11) DEFAULT NULL,
+  `customerID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `products_of_bill`
 --
 
-INSERT INTO `products_of_bill` (`Bill_ID`, `Product_ID`, `amount`) VALUES
-(1, 4, 1),
-(1, 5, 1),
-(1, 6, 1),
-(2, 4, 1),
-(2, 5, 2),
-(2, 6, 1),
-(3, 4, 1),
-(3, 5, 1),
-(3, 6, 1);
+INSERT INTO `products_of_bill` (`Bill_ID`, `Product_ID`, `amount`, `customerID`) VALUES
+(1, 5, 1, 2),
+(1, 6, 1, 2),
+(2, 5, 2, 2),
+(2, 6, 2, 2),
+(3, 5, 1, 2),
+(3, 6, 1, 2),
+(4, 5, 1, 2),
+(4, 6, 5, 2),
+(5, 5, 14, 2),
+(5, 6, 4, 2),
+(6, 5, 5, 2),
+(6, 6, 5, 2),
+(7, 5, 3, 2),
+(7, 6, 3, 2),
+(8, 5, 1, 2),
+(8, 6, 1, 2),
+(9, 5, 1, 2),
+(9, 6, 1, 2);
 
 --
 -- Indexes for dumped tables
@@ -241,8 +258,9 @@ ALTER TABLE `product`
 -- Indexes for table `products_of_bill`
 --
 ALTER TABLE `products_of_bill`
-  ADD PRIMARY KEY (`Bill_ID`,`Product_ID`),
-  ADD KEY `Product_ID` (`Product_ID`);
+  ADD PRIMARY KEY (`Bill_ID`,`Product_ID`,`customerID`),
+  ADD KEY `Product_ID` (`Product_ID`),
+  ADD KEY `customerID` (`customerID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -258,19 +276,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -319,7 +337,9 @@ ALTER TABLE `manage`
 --
 ALTER TABLE `products_of_bill`
   ADD CONSTRAINT `products_of_bill_ibfk_1` FOREIGN KEY (`Bill_ID`) REFERENCES `bill` (`id`),
-  ADD CONSTRAINT `products_of_bill_ibfk_2` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`id`);
+  ADD CONSTRAINT `products_of_bill_ibfk_2` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `products_of_bill_ibfk_3` FOREIGN KEY (`customerID`) REFERENCES `customer` (`id`),
+  ADD CONSTRAINT `products_of_bill_ibfk_4` FOREIGN KEY (`Bill_ID`) REFERENCES `bill` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
