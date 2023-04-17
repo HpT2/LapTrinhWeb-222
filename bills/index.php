@@ -57,6 +57,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="/css/header.css">
+		<link rel="stylesheet" type="text/css" href="/css/bill.css">
 	</head>
 	<body style="background-color: #a6a9be;">
 		<?php include('../base/header.php'); ?>
@@ -65,32 +66,39 @@
 						<?php
 							if (!isset($_GET["id"])){
 							?>
-								<div class="row" style="width:100%;margin-top: 50px;">
-									<div class="col-1">
-										ID
-									</div>
-									<div class="col-4">
-										Date
-									</div>
-									<div class="col-3 d-flex justify-content-end">
-										Cost
-									</div>
-									<div class="col">
-									</div>
-								</div>
+							<div class='row justify-content-center' style='margin-top: 10px;'>
+								<ul class='list-group'>
+									<li class="list-group-item d-flex justify-content-between align-items-center align-middle" style="border:none;background-color: inherit">
+										<div class="row" style="width:100%;margin-top: 50px;">
+											<div class="col-1 d-flex justify-content-center">
+												ID
+											</div>
+											<div class="col-4 d-flex justify-content-center">
+												Date
+											</div>
+											<div class="col-2 d-flex justify-content-end">
+												Cost
+											</div>
+											<div class="col">
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
 							<?php	
+								echo '<div class="scrollable">';
 								echo "<div class='row justify-content-center' style='margin-top: 10px;'>";
 								echo "<ul class='list-group'>";
 								foreach($bills as $bill){
-									echo '<li class="list-group-item d-flex justify-content-between align-items-center">';?>
+									echo '<li class="list-group-item d-flex justify-content-between align-items-center align-middle">';?>
 									<div class="row" style="width:100%">
-										<div class="col-1">
+										<div class="col-1 d-flex justify-content-center">
 											<?php echo $bill['id']; ?>
 										</div>
-										<div class="col-4">
+										<div class="col-4 d-flex justify-content-center">
 											<?php echo $bill['date']; ?>
 										</div>
-										<div class="col-3 d-flex justify-content-end">
+										<div class="col-2 d-flex justify-content-end align-middle">
 											<?php echo $bill['totalcost']; ?>
 										</div>
 										<div class="col-1">
@@ -105,8 +113,9 @@
 								}
 							echo '</ul>';
 							echo '</div>';
+							echo '</div>';
 							echo '<div class="col d-flex justify-content-center">
-							<a class="btn btn-primary" style="margin-top: 20px;">Quay về trang chủ</a></div>';
+							<a href="/homepage/" class="btn btn-primary" style="margin-top: 20px;">Back to Homepage</a></div>';
 						?>
 							<?php }else{ ?>
 								<section class="h-100 h-custom">
@@ -192,8 +201,8 @@
 									</section>
 									<div class="row">
 										<div class="col d-flex justify-content-center">
-											<a class="btn btn-primary">Quay về trang chủ</a>
-											<a href="/orders/" class="btn btn-primary" style="margin-left: 10px">Tất cả đơn hàng</a>
+											<a class="btn btn-primary" href="/homepage/">Back to Homepage</a>
+											<a href="/bills/" class="btn btn-primary" style="margin-left: 10px">Other bills</a>
 										</div>
 									</div>
 							<?php } ?>

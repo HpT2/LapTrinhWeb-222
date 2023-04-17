@@ -23,19 +23,29 @@
 	$connection->query($query);
 
 	foreach($_SESSION['products'] as $key){
-		foreach($key as $id => $amount){
-			$query = "select price from product where id=".$id;
+		foreach($key as $id => $quantity){
+			$query = "select price,amount from product where id=".$id;
 			$res = $connection->query($query);
-			$price = $res->fetch_assoc()['price'];
-			
-			$total += $price * $amount;
-			
-			$query = "insert into products_of_bill values ($Bill_id, $id, $amount, $CUSTOMER_ID)";
-			$connection->query($query);
+			$data = $res->fetch_assoc();
+			$price = $data['price'];
+			$current_amount =$data['amount'];
+
+			if($quantity <= $current_amount ){
+				
+				$total += $price * $quantity;
+				
+				$query = "insert into products_of_bill values ($Bill_id, $id, $quantity, $CUSTOMER_ID)";
+				$connection->query($query);
+
+				$current_amount -= $quantity;
+
+				$query = "update product set amount=".$current_amount." where id=".$id;
+				$connection->query($query);
+			}
 		}
 		$query = "Update bill set totalcost=".$total." where id=".$Bill_id;
 		$connection->query($query);
 	}
 	$connection->close();	
-	header('Location: /orders?id='.$Bill_id);
+	header('Location: /bills?id='.$Bill_id);
 ?>

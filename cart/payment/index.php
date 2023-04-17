@@ -36,23 +36,13 @@
 	<head>
 		<title>Payment</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="/css//payment.css">
+		
 	</head>
+	<?php include_once("../../base/header.php"); ?>
 	<body>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-2" style="border:1px solid black">
-					Home logo
-				</div>
-				<div class="col-8" style="border:1px solid black">
-					<h1>Payment</h1>
-				</div>
-				<div class="col-2" style="border:1px solid black">
-					Tt liên hệ
-				</div>
-			</div>
-		</div>
+		
+
+		<link rel="stylesheet" type="text/css" href="/css//payment.css">
 		<div class="container payment-body"">
 			<form action="pay.php">
 				<div class="content">
