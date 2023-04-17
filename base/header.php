@@ -35,7 +35,7 @@
 					<?php if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
 						echo "<a href='/bills/' class='nav-item nav-link'>History</a>";
 						}else{
-							echo "Login";
+							
 						}?>
                         <a href="/homepage/" class="nav-item nav-link">Home</a>
                         <a href="product.html" class="nav-item nav-link">Product</a>
@@ -44,12 +44,14 @@
                         <a href="/cart/" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping" style="font-size:20px"></i></a>
                     </div>
 					<?php if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
-                    	echo'<a href="">';
-						echo '<i class="fa-solid fa-user-circle"></i>';
+                    	echo'<a href="" class="nav-item nav-link">';
+						echo '<i class="fa fa-user-circle" aria-hidden="true"></i>';
 						echo '</a>';
-						echo'<a href="/login/logout.php" class="btn btn-danger py-2 px-4" style="margin-left: 5px">Logout</a>';
+						echo'<a href="/login/logout.php" class="btn btn-danger" style="margin-left: 5px">Logout</a>';
 					}else{
+						echo'<a href="" class="btn btn-primary">';
 						echo "Login";
+						echo '</a>';
 					}
 					?>
                 </div>
