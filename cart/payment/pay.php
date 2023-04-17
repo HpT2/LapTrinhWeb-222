@@ -30,7 +30,7 @@
 			
 			$total += $price * $amount;
 			
-			$query = "insert into products_of_bill values ($Bill_id, $id, $amount)";
+			$query = "insert into products_of_bill values ($Bill_id, $id, $amount, $CUSTOMER_ID)";
 			$connection->query($query);
 		}
 		$query = "Update bill set totalcost=".$total." where id=".$Bill_id;

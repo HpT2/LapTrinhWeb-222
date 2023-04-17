@@ -53,6 +53,7 @@
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 				<link rel="stylesheet" style="text/css" href="/css/bootstrap.min.css">
 				<link rel="stylesheet" style="text/css" href="/css/cart.css">
+				<link rel="stylesheet" style="text/css" href="/css/header.css">
 			</head>
 			<body>
 				<?php include('../base/header.php'); ?>

@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" type="text/css">
-        <link rel="stylesheet" href="../css/header.css" type="text/css">
 
-        <header class="p-3 bg-dark text-white">
+        <header class="p-3 bg-dark text-white" style="margin-bottom: 10px;">
             <div class="container-fluid">
                 <div class="d-flex">
 
