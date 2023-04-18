@@ -33,7 +33,7 @@
 
 		$PRODUCTS_DETAIL = array();
 		foreach($products_in_cart_id as $product_id){
-			$query = "select * from product where id=".$product_id['productID'];
+			$query = "select * from products where id=".$product_id['productID'];
 			$res = $connection->query($query);
 			$detail = $res->fetch_assoc();
 			$detail['to_money'] = $detail['price'];

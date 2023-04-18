@@ -35,7 +35,7 @@
 			$products = array();
 			$amount = array();
 			foreach($product_IDs as $id){
-				$query = "select * from product where id=".$id['product_ID'];
+				$query = "select * from products where id=".$id['product_ID'];
 				$res = $connection->query($query);
 				array_push($products, $res->fetch_assoc());
 				array_push($amount, $id['amount']);

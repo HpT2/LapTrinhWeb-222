@@ -19,7 +19,7 @@
 	$total_cost = 0;
 	foreach($_POST as $id => $value){
 		$id = explode('checkbox_',$id)[1];
-		$query = "select price from product where id=".$id;
+		$query = "select price from products where id=".$id;
 		$res = $connection->query($query);
 		$price = $res->fetch_assoc()['price'];
 		$total_cost += $value * $price;

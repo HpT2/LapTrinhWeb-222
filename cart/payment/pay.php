@@ -24,7 +24,7 @@
 
 	foreach($_SESSION['products'] as $key){
 		foreach($key as $id => $quantity){
-			$query = "select price,amount from product where id=".$id;
+			$query = "select price,amount from products where id=".$id;
 			$res = $connection->query($query);
 			$data = $res->fetch_assoc();
 			$price = $data['price'];
@@ -39,7 +39,7 @@
 
 				$current_amount -= $quantity;
 
-				$query = "update product set amount=".$current_amount." where id=".$id;
+				$query = "update products set amount=".$current_amount." where id=".$id;
 				$connection->query($query);
 			}
 		}
