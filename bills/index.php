@@ -10,12 +10,7 @@
 		//show error page
 		echo 'This page is only for customer';
 	}else{
-		$connection = new mysqli('localhost','root','','laptrinhweb_db');
-
-		// Check connection
-		if ($connection->connect_error) {
-			die("Connection failed: " . $connection->connect_error);
-		}
+		require_once('../config/config.php');
 
 		$query = "select id from customer where username='".$_SESSION['username']."'";
 		

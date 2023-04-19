@@ -41,17 +41,16 @@
                         <a href="/products/" class="nav-item nav-link">Product</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
-                        <a href="/cart/" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping" style="font-size:20px"></i></a>
-                    </div>
 					<?php if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
+						echo '<a href="/cart/" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping" style="font-size:20px"></i></a>';
                     	echo'<a href="/customer/" class="nav-item nav-link">';
-						echo '<i class="fa fa-user-circle" aria-hidden="true"></i>';
-						echo '</a>';
-						echo'<a href="/login/logout.php" class="btn btn-danger" style="margin-left: 5px">Logout</a>';
+						echo '<i class="fa-solid fa-user-circle" style="font-size:20px" ></i>';
+						echo '</a></div>';
+						echo'<div class="d-flex justify-content-center"><a href="/login/logout.php" class="btn btn-danger" style="margin-left: 5px">Logout</a></div>';
 					}else{
-						echo'<a href="/login/login.php" class="btn btn-primary">';
+						echo'</div><div class="d-flex justify-content-center"><a href="/login/login.php" class="btn btn-primary">';
 						echo "Login";
-						echo '</a>';
+						echo '</a></div>';
 					}
 					?>
                 </div>

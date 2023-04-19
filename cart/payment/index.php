@@ -5,11 +5,8 @@
 		echo "you must login to see this page";
 		exit();
 	}
-	$connection = new mysqli('localhost','root',$_SESSION['password'],'laptrinhweb_db');
-
-	if ($connection->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
+	
+	require_once('../../config/config.php');
 
 	$query = "select id,name,phone,address from customer where username='".$_SESSION['username']."'";
 	$res = $connection->query($query);

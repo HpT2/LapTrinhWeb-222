@@ -10,12 +10,8 @@
 		echo 'This page is only for customer';
 		exit();
 	}else{ 
-		$connection = new mysqli('localhost','root',$_SESSION['password'],'laptrinhweb_db');
+		require_once('../config/config.php');
 
-		// Check connection
-		if ($connection->connect_error) {
-			die("Connection failed: " . $connection->connect_error);
-	  	}
 		$query = "select * from customer where username='".$_SESSION['username']."'";
 		
 		$res = $connection->query($query);
@@ -26,19 +22,23 @@
 		$res = $connection->query($query);
 		$cartID = $res->fetch_assoc()['id'];
 
-		$query = "select productID from keep where cartID=".$cartID;
+		$query = "select productID,amount from keep where cartID=".$cartID;
 	
 		$res = $connection->query($query);
 		$products_in_cart_id = $res->fetch_all(MYSQLI_ASSOC);
 
+		$total = 0;
 		$PRODUCTS_DETAIL = array();
 		foreach($products_in_cart_id as $product_id){
 			$query = "select * from products where id=".$product_id['productID'];
 			$res = $connection->query($query);
 			$detail = $res->fetch_assoc();
-			$detail['to_money'] = $detail['price'];
+			$detail['quantity'] = $product_id['amount'];
+			$detail['subtotal'] = $detail['quantity'] * $detail['price'];
 			array_push($PRODUCTS_DETAIL, $detail);
+			$total +=  $detail['subtotal'];
 		}
+
 	
 		$connection->close();
 
@@ -51,107 +51,106 @@
 				<link rel="stylesheet" style="text/css" href="/css/bootstrap.min.css">
 				<link rel="stylesheet" style="text/css" href="/css/cart.css">
 			</head>
-			<body style="background-color: #a6a9be;">
-				<?php include('../base/header.php'); ?>
-				<div>
-					<div class="body-content">
-						<div class="container ">
-							<div class="row">
-								<h1>Cart</h1>
-							</div>
-							<div class="content">
-								<div class="product-list">
-									<div id="tbl-header" class="row tbl-header">
-										<div class="col-3">Image</div>
-										<div class="col-2">Product name</div>
-										<div class="col-2">Price</div>
-										<div class="col-2">Amount</div>
-										<div class="col-1">Total</div>
-										<div class="col-1"><input type="checkbox" class="check" id="checkall"></div>
-										<div class="col-1">
-											<button type="button" value="rm-all" name="rm-btn" class="icon"><img  src="/image/icon/thungrac.png"></button>
-										</div>
-									</div>
-									<div class="scrollable">
-										<?php
-												foreach($PRODUCTS_DETAIL as $detail){
-													echo '<div class="row tbl-item" id="product_'.$detail['id'].'">';
+		<body style="background-color: #a6a9be;">
 
-													echo '<div class="col-3"><form method="get" action="">
-														<button  type="submit"><img class="product-img" src="'.$detail['image'].'">';
-													echo '</button><input type="hidden" name="id" value="'.$detail['id'].'">';
-													echo '</form></div>';
+		
+			<?php include('../base/header.php'); ?>
+				<div class="container mt-3 mb-3">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex flex-column">
+                <div class="h3">My cart</div>
+            </div>
+        </div>
 
-													echo '<div class="col-2">'.$detail['name'].'</div>';
-													echo '<div class="col-2" id="price_of_'.$detail['id'].'">'.$detail['price'].'</div>';
-													echo '<div class="col-2">
-														<div class="btn-group" role="group">
-															<button type="button" class="btn btn-light decrease-amount" name="decrease'.$detail['id'].'">-</button>
-															<input type="number" class="amount btn-light" id="amount_of_'.$detail['id'].'" value="1">
-															<button type="button" class="btn btn-light decrease-amount" name="increase'.$detail['id'].'">+</button>
-														</div>
-													</div>';
-													echo '<div class="col-1" id="to_money_'.$detail['id'].'">'.$detail['to_money'].'</div>';
-													echo  '<div class="col-1"><input name="checkbox_'.$detail['id'].'"type="checkbox" value="1" form="buy"></div>';
-													echo '<div class="col-1">
-														<button type="button" name="rm-btn" class="icon" value="'.$detail['id'].'"><img src="/image/icon/thungrac.png"></button>
-														</div></div>';
-												}
-											?>
-									</div>
-								</div>
-								<div class="customer-info">
-									<div class="d-flex" id="info">
-										<div class="row">
-											<div class="col-6">
-												Deliver to
-											</div>
-											<div class="col-6" style="text-align: right;">
-												<a href="">Change</a>
-											</div>
-										</div>
-										<hr style="margin-bottom: 10px;">	
-										<div class="row">
-											<div class="col">
-											<?php
-												echo "<strong>".$CUSTOMER_INFO['name'].'</strong> | 
-												<strong>'.$CUSTOMER_INFO['phone'].'</strong><br>';
-												echo "<div class='home'><span id='home'>Address</span> ".$CUSTOMER_INFO['address'].'</div>';
-											?>
-											</div>
-										</div>
-									</div>
-									<div class="final">
-										<div>
-											<strong>Total cost:</strong>
-										</div>
-										<div class="row total">
-											<div class="col-10">
-												<input type="number" id="total" value="0" disabled>
-											</div>
-											<div class="col-2">
-												$
-											</div>
-										</div>
-										<div id="ntc">Please choose products</div>
-									</div>
-									<div class="d-flex justify-content-center">
-										<form method="post" action="payment/" id="buy">
-											<button class="btn btn-primary" type="submit">Buy</button>
-										</form>
-									</div>	
-								</div>
+        <div id="table" class="bg-white rounded">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+							<th scope="col"></th>
+                            <th scope="col" class="text-uppercase">item</th>
+                            <th scope="col" class="text-uppercase">Quantity</th>
+                            <th scope="col" class="text-uppercase">price each</th>
+                            <th scope="col" class="text-uppercase">total</th>
+							
+                        </tr>
+                    </thead>
+                    <tbody>
+						<?php foreach($PRODUCTS_DETAIL as $product){ ?>
+							<tr id="product_<?php echo $product['id']; ?>">
+							<td>
+							<img src="<?php echo $product['image'] ?>"
+                                        alt="">
+							<div class="close" id="close_<?php echo $product['id']; ?>">&times;</div>
+							</td>
+                            <td class="item">
+                                <div class="d-flex justify-content-center">
+                                    <div class="pl-2">
+                                       <?php echo $product['name'] ?>
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <div class="add-cmt d-flex justify-content-center"><a href="#"><span class="red text-uppercase"><span
+                                                            class="fas fa-comment pr-1"></span>Add a comment</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </td>
+                            <td>
+								<input type="number" min="1" id="quantity_<?php echo $product['id'] ?>" value="<?php echo $product['quantity']; ?>" style="width:35px; height:25px">
+							</td>
+                            <td class="font-weight-bold">
+                                $<?php echo $product['price'] ?>
+                            </td>
+							<td id="subtotal_<?php echo $product['id'] ?>">
+								<?php echo $product['subtotal']; ?>
+							</td>
+                        </tr>	
+						<?php } ?>
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
 
-								</div>
-							</div>
+            
+        </div>
+        <div class="d-flex justify-content-between">
+            <div class="text-muted">
 
-						</div>
-						
-					</div>
-				</div>
-				<?php include('../base/footer.html'); ?>
-				<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-				<script src="js/cart.js"></script>
+            </div>
+            <div class="d-flex flex-column justify-content-end align-items-end">
+                <div class="d-flex px-3 pr-md-5 py-1 subtotal">
+                    <div class="px-4">Subtotal</div>
+                    <div class="h5 font-weight-bold px-md-2" id="total">$<?php echo $total; ?></div>
+                </div>
+				<button style="border:none; background-color:inherit">
+				<div class="text-muted tag mt-2">
+                   <a href="payment/" style="text-decoration: underline; color: inherit"> Confirm <span class="fas fa-shopping-cart pl-1"></span> </a> 
+                </div>
+				</button>
+            </div>
+        </div>
+    </div>
+	
+			<?php include('../base/footer.html'); ?>
+
+		<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+		<script src="js/cart.js"></script>
+		<!-- JavaScript Libraries -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.15/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../utils/lib/wow/wow.min.js"></script>
+    <script src="../utils/lib/easing/easing.min.js"></script>
+    <script src="../utils/lib/waypoints/waypoints.min.js"></script>
+    <script src="../utils/lib/counterup/counterup.min.js"></script>
+    <script src="../utils/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../utils/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="../utils/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="../utils/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../utils/js/main.js"></script>
 			</body>
 		</html>
 	<?php } ?>

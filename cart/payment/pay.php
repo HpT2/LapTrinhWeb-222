@@ -1,11 +1,6 @@
 <?php
 	session_start();
-	$connection = new mysqli('localhost',$_SESSION['username'],$_SESSION['password'],'laptrinhweb_db');
-
-		// Check connection
-	if ($connection->connect_error) {
-		die("Connection failed: " . $connection->connect_error);
-	}
+	require_once('../../config/config.php');
 	$total = 0;
 
 	$query = "select id from customer where username='".$_SESSION['username']."'";

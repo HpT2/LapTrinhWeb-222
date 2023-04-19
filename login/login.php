@@ -11,7 +11,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['
 }
  
 // Include config file
-require_once "config.php";
+require_once "../config/config.php";
  
 // Define variables and initialize with empty values
 $username = $password = "";
@@ -40,7 +40,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			// Prepare a select statement
 			$sql = "SELECT id, username, password FROM customer WHERE username = ?";
 			
-			if($stmt = mysqli_prepare($link, $sql)){
+			if($stmt = mysqli_prepare($connection, $sql)){
 				// Bind variables to the prepared statement as parameters
 				mysqli_stmt_bind_param($stmt, "s", $param_username);
 				
@@ -69,7 +69,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 								$_SESSION['password'] = '';                          
 								// Redirect user to welcome page
 								header("location: /homepage");
-								mysqli_close($link);
+								mysqli_close($connection);
 							} else{
 								// Password is not valid, display a generic error message
 								$login_err = "Invalid username or password.";
@@ -92,7 +92,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(empty($username_err) && empty($password_err)){
 			// Prepare a select statement
 			$sql = "SELECT COUNT(*) FROM admin WHERE username = '$username' && password = SHA('$password');";
-            $res = mysqli_query($link, $sql);
+            $res = mysqli_query($connection, $sql);
             $val = mysqli_fetch_assoc($res);
             
 			if ($val['COUNT(*)'] == 1) {
@@ -101,7 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION["username"] = $username; 
                 $_SESSION["role"] = "admin";                                                                           
                 header("location: /dashboard");
-				mysqli_close($link);
+				mysqli_close($connection);
             } else{
                 // Password is not valid, display a generic error message
                 $login_err = "Invalid username or password.";
@@ -109,7 +109,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		}
     }
 }
-mysqli_close($link);
+mysqli_close($connection);
 ?>
 
 <!DOCTYPE html>
