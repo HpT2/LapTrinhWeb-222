@@ -43,97 +43,90 @@
 		$connection->close();
 
 	?>
-		<!DOCTYPE html>
-		<html lang="vi">
-			<head>
-				<title>Cart page</title>
-				<meta name="viewport" content="width=device-width, initial-scale=1">
-				<link rel="stylesheet" style="text/css" href="/css/bootstrap.min.css">
-				<link rel="stylesheet" style="text/css" href="/css/cart.css">
-			</head>
-		<body style="background-color: #a6a9be;">
-
-		
-			<?php include('../base/header.php'); ?>
-				<div class="container mt-3 mb-3">
-        <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex flex-column">
-                <div class="h3">My cart</div>
-            </div>
-        </div>
-
-        <div id="table" class="bg-white rounded">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-							<th scope="col"></th>
-                            <th scope="col" class="text-uppercase">item</th>
-                            <th scope="col" class="text-uppercase">Quantity</th>
-                            <th scope="col" class="text-uppercase">price each</th>
-                            <th scope="col" class="text-uppercase">total</th>
-							
-                        </tr>
-                    </thead>
-                    <tbody>
-						<?php foreach($PRODUCTS_DETAIL as $product){ ?>
-							<tr id="product_<?php echo $product['id']; ?>">
-							<td>
-							<img src="<?php echo $product['image'] ?>"
-                                        alt="">
-							<div class="close" id="close_<?php echo $product['id']; ?>">&times;</div>
-							</td>
-                            <td class="item">
-                                <div class="d-flex justify-content-center">
-                                    <div class="pl-2">
-                                       <?php echo $product['name'] ?>
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <div class="add-cmt d-flex justify-content-center"><a href="#"><span class="red text-uppercase"><span
-                                                            class="fas fa-comment pr-1"></span>Add a comment</span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </td>
-                            <td>
-								<input type="number" min="1" id="quantity_<?php echo $product['id'] ?>" value="<?php echo $product['quantity']; ?>" style="width:35px; height:25px">
-							</td>
-                            <td class="font-weight-bold">
-                                $<?php echo $product['price'] ?>
-                            </td>
-							<td id="subtotal_<?php echo $product['id'] ?>">
-								<?php echo $product['subtotal']; ?>
-							</td>
-                        </tr>	
-						<?php } ?>
-                        
-                        
-                    </tbody>
-                </table>
-            </div>
-
-            
-        </div>
-        <div class="d-flex justify-content-between">
-            <div class="text-muted">
-
-            </div>
-            <div class="d-flex flex-column justify-content-end align-items-end">
-                <div class="d-flex px-3 pr-md-5 py-1 subtotal">
-                    <div class="px-4">Subtotal</div>
-                    <div class="h5 font-weight-bold px-md-2" id="total">$<?php echo $total; ?></div>
-                </div>
-				<button style="border:none; background-color:inherit">
-				<div class="text-muted tag mt-2">
-                   <a href="payment/" style="text-decoration: underline; color: inherit"> Confirm <span class="fas fa-shopping-cart pl-1"></span> </a> 
-                </div>
-				</button>
-            </div>
-        </div>
-    </div>
 	
-			<?php include('../base/footer.html'); ?>
+		<!DOCTYPE html>
+			<html>
+			<head>
+				<title>Shopping Cart</title>
+				<meta charset="utf-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1">
+				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"">
+				<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+				<link rel="stylesheet" href="/css/shoppingcart.css">
+			</head>
+			<body>
+			<?php include('../base/header.php'); ?>
+				<main class="page" >
+					<section class="shopping-cart dark" style="background-color: #a6a9be;">
+						<div class="container">
+							<div class="block-heading">
+							<h2>Shopping Cart</h2>
 
-		<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+							</div>
+							<div class="content">
+								<div class="row">
+									<div class="col-md-12 col-lg-8 list">
+										<div class="items">
+										<?php foreach($PRODUCTS_DETAIL as $product){ ?>
+											<div class="product" id="product_<?php echo $product['id']; ?>">
+												<div class="row">
+													<div class="col-md-3">
+														<img class="img-fluid mx-auto d-block image" src="<?php echo $product['image']; ?>" >
+													</div>
+													<div class="col-md-8">
+														<div class="info">
+															<div class="row">
+																<div class="col-md-5 product-name">
+																	<div class="product-name">
+																		<a href="#"><?php echo $product['name'] ?></a>
+																		<div class="product-info">
+																			<div>Display: <span class="value"></span></div>
+																			<div>RAM: <span class="value"></span></div>
+																			<div>Memory: <span class="value"></span></div>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-md-4 quantity">
+																	<label for="quantity">Quantity:</label>
+																	<input id="quantity_<?php echo $product['id']; ?>" min="1" type="number" value ="<?php echo $product['quantity']; ?>" class="form-control quantity-input">
+																</div>
+																<div class="col-md-3 price">
+																	$<span id="subtotal_<?php echo $product['id']; ?>"><?php echo $product['subtotal']; ?></span>
+																</div>
+															</div>
+															
+														</div>
+													</div>
+													<div class="col-md-1 d-flex justify-content-center align-self-center">
+														<div class="close" id="close_<?php echo $product['id']; ?>"><img src="/image/icon/thungrac.png"></div>
+													</div>
+												</div>
+												<hr>
+											</div>
+										
+										<?php 	} ?>
+										</div>
+									</div>
+									<div class="col-md-12 col-lg-4">
+										<div class="summary">
+											<h3>Summary</h3>
+											<div class="summary-item"><span class="text">Subtotal</span><span id="subtotalAll" class="price">$<?php echo $total; ?></span></div>
+											<div class="summary-item"><span class="text">Discount</span><span class="price">$0</span></div>
+											<div class="summary-item"><span class="text">VAT</span><span class="price">10%</span></div>
+											<div class="summary-item"><span class="text">Total</span><span id ="total" class="price">$<?php echo $total + $total*0.1; ?></span></div>
+											<a href="payment/" class="btn btn-primary btn-lg btn-block">Checkout</a>
+										</div>
+									</div>
+								</div> 
+							</div>
+						</div>
+					</section>
+				</main>
+				<?php include('../base/footer.html'); ?>
+			</body>
+			<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+			<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 		<script src="js/cart.js"></script>
 		<!-- JavaScript Libraries -->
 
@@ -152,5 +145,5 @@
     <!-- Template Javascript -->
     <script src="../utils/js/main.js"></script>
 			</body>
-		</html>
+			</html>
 	<?php } ?>

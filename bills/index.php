@@ -28,12 +28,12 @@
 			$product_IDs = $res->fetch_all(MYSQLI_ASSOC);
 
 			$products = array();
-			$amount = array();
 			foreach($product_IDs as $id){
 				$query = "select * from products where id=".$id['product_ID'];
 				$res = $connection->query($query);
-				array_push($products, $res->fetch_assoc());
-				array_push($amount, $id['amount']);
+				$product = $res->fetch_assoc();
+				$product['quantity'] = $id['amount']; 
+				array_push($products, $product);
 			}
 			
 		}else{
@@ -56,7 +56,7 @@
 	<body style="background-color: #a6a9be;">
 		<?php include('../base/header.php'); ?>
 			<div class="container-fluid">
-					<div class="container">
+					<div class="container mt-4 mb-4">
 						<?php
 							if (!isset($_GET["id"])){
 							?>
@@ -112,87 +112,84 @@
 							<a href="/homepage/" class="btn btn-primary" style="margin-top: 20px;">Back to Homepage</a></div>';
 						?>
 							<?php }else{ ?>
-								<section class="h-100 h-custom">
-									<div class="container py-5 h-100">
-										<div class="row d-flex justify-content-center align-items-center h-100">
-										<div class="col-lg-8 col-xl-6">
-											<div class="card">
-											<div class="card-body p-5" style="background-color: #21295c; border-radius:5px">
+								<div class="card">
+									<div class="card-header bg-black"></div>
+									<div class="card-body">
 
-												<p class="lead fw-bold mb-5" style="color:#ffd166;">Purchase Reciept</p>
-
-												<div class="row">
-												<div class="col mb-3">
-													<p class="small mb-1" style="color:#ffe3a3;">Date</p>
-													<p style="color:#ffe3a3;"><?php echo $bill_detail['date']; ?></p>
-												</div>
-												<div class="col mb-3">
-													<p class="small mb-1" style="color:#ffe3a3;">Order No.</p>
-													<p style="color:#ffe3a3;"><?php echo $bill_detail['id'] ?></p>
-												</div>
-												</div>
-
-												<div class="mx-n5 px-5 py-4" style="background-color: #a6a9be;">
-													<div class='row'>
-														<div class='col-md-3 col-lg-3' style="text-align: center;">
-															<strong>Name</strong>
-														</div>
-														<div class="col-md-3 col-lg-3" style="text-align: center;">
-															<strong>Price</strong>
-														</div>
-														<div class='col-md-3 col-lg-3' style="text-align: center;">
-															<strong>Quantity</strong>
-														</div>
-														<div class='col-md-3 col-lg-3' style="text-align: center;">
-															<strong>Total</strong>
-														</div>
-													</div>
-													
-													<?php
-													$total = 0;
-													$i= 0;
-														foreach($products as $product){
-															echo "<div class='row'>";
-															echo "<div class='col-md-3 col-lg-3' style='text-align: center;'> ";
-															echo "<p>".$product['name']."</p>";
-															echo "</div>";
-															echo "<div class='col-md-3 col-lg-3' style='text-align: center;'>";
-															echo "<p> ".$product['price']." $</p>";
-															echo "</div>";
-															echo "<div class='col-md-3 col-lg-3' style='text-align: center;'>";
-															echo "<p> x".$amount[$i]."</p>";
-															echo "</div>";
-															echo "<div class='col-md-3 col-lg-3' style='text-align: center;'>";
-															echo "<p>".$product['price']*$amount[$i]." $</p>";
-															$total += $product['price']*$amount[$i];
-															echo "</div>";
-															echo "</div>";
-															$i += 1;
-														}
-													?>
-
-												</div>
-
-												<div class="row my-4">
-													<div class="col-md-7" style="text-align: center;">
-														<span class="lead fw-bold mb-0" style="color:#ffd166;">Total</span>
-													</div>
-													<div class="col-md-3">
-														<span class="lead fw-bold mb-0" style="color:#ffd166;"><?php echo $total ?> $</span>
-													</div>
-												</div>
-
-
-
-												<p class="mt-4 pt-2 mb-0"  style="color:#ffe3a3;">Want any help? <a href="#!" style="color: #f37a27;">Please contact
-													us</a></p>
-
-											</div>
+										<div class="container">
+										<div class="row">
+											<div class="col-xl-12">
+											<i class="far fa-building text-danger fa-6x float-start"></i>
 											</div>
 										</div>
+
+
+										<div class="row">
+											<div class="col-xl-12">
+
+											<ul class="list-unstyled float-end">
+												<li style="font-size: 30px; color: red;">UserIn4 here</li>
+												<li>123, Elm Street</li>
+												<li>123-456-789</li>
+												<li>mail@mail.com</li>
+											</ul>
+											</div>
 										</div>
+
+										<div class="row text-center">
+											<h3 class="text-uppercase text-center mt-3" style="font-size: 40px;">Invoice</h3>
+											<p><?php echo $bill_detail['id']; ?></p>
+										</div>
+
+										<div class="row mx-3">
+											<table class="table">
+											<thead>
+												<tr>
+												<th scope="col">Description</th>
+												<th scope="col">Amount</th>
+												<th scope="col">Subtotal</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php 
+												$total = 0;
+												foreach($products as $product){ ?>
+													<tr>
+														<td><?php echo $product['name']; ?></td>
+														<td><?php echo $product['quantity']; ?></td>
+														<td>$ <?php echo $product['price']*$product['quantity']; ?></td>
+													</tr>
+												<tr>
+												<?php 
+												$total += $product['quantity']*$product['price'];
+												} ?>
+											</tbody>
+											</table>
+
+											</div>
+		
+										<div class="row">
+											<div class="col-xl-8" style="margin-left:60px">
+											<p>Tax: 10%</p>
+											<p
+												style="font-size: 30px; color: red; font-weight: 400;font-family: Arial, Helvetica, sans-serif;">
+												Total:
+												<span><i class="fas fa-dollar-sign"></i> <?php echo $total + 0.1*$total; ?></span></p>
+											</div>
+
+										</div>
+
+										<div class="row mt-2 mb-5">
+											<p class="fw-bold">Date: <span class="text-muted"><?php echo $bill_detail['date']; ?></span></p>
+										</div>
+
+										</div>
+
+
+
 									</div>
-									</section>
+									<div class="card-footer bg-black"></div>
+									</div>
 									<div class="row">
 										<div class="col d-flex justify-content-center">
 											<a class="btn btn-primary" href="/homepage/">Back to Homepage</a>

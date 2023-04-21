@@ -56,7 +56,7 @@
                 </div>
             </nav>
 
-            <div class="container-fluid py-5  hero-header mb" id="header-homepage" style="background-color:#0d1025;">
-
+            <div class="container-fluid py-5  hero-header mb" id="header-homepage" style="hieght:fit-content;background-color:#0d1025;">
+					
             </div>
         </div>

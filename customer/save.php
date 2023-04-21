@@ -11,15 +11,15 @@ if($_SESSION['role'] != 'customer'){
   exit();
 }
 // Include config file
-require_once "../login/config.php";
+require_once "../config/config.php";
 
 if(isset($_POST['update-btn'])){
   // Validate credentials
   $updatesql = 'UPDATE customer SET name ="'.$_POST['name'].'",phone = "'.$_POST['phone'].'",address ="'.$_POST['address'].'",birthday = "'.$_POST['birthday'].'" WHERE id ='.$_SESSION["id"];
-  $link->query($updatesql);
+  $connection->query($updatesql);
 }
 
-$link->close();
+$connection->close();
 
 header("Location: /customer");
 ?>

@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', function(){
 	quantity_fields.forEach(quantity_field => {
 		let id = quantity_field.id.split('quantity_')[1];
 		quantity_field.addEventListener('change', function(e){
+			if (quantity_field.value < 1){
+				quantity_field.value = 1;
+				return;
+			}
 			$.ajax({
 				url : "handler/update_quantity.php",
 				type: 'post',
@@ -35,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function(){
 				},
 				success: function(res){	
 					document.getElementById('product_'+id).innerHTML = '';
+					updateTotal();
 				}
 			})
 		})
@@ -43,11 +48,13 @@ document.addEventListener('DOMContentLoaded', function(){
 })
 
 function updateTotal(){
-		let total = 0;
-	subtotal_fields = document.querySelectorAll('td[id^="subtotal_"')
+	let subtotalAll = 0;
+	subtotal_fields = document.querySelectorAll('span[id^="subtotal_"')
 	subtotal_fields.forEach(subtotal => {
-		total += Number(subtotal.innerHTML);
+		subtotalAll += Number(subtotal.innerHTML);
 	})
-	document.getElementById('total').innerHTML = total;
-
+	document.getElementById('subtotalAll').innerHTML = '$' +subtotalAll;
+	let total = subtotalAll + subtotalAll*0.1;
+	document.getElementById('total').innerHTML ='$'+ total;
+	
 }
