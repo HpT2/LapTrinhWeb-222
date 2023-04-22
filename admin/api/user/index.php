@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 header('Access-Control-Allow-Headers: *');
@@ -6,29 +8,24 @@ header('Access-Control-Allow-Headers: *');
     include '../connect.php';
     $db = new DBconnect;
     $con = $db->connect();
-    //print_r($con);
-    //print_r(file_get_contents('php://input'));
     $method = $_SERVER['REQUEST_METHOD'];
     switch($method){
         case 'GET':
-            $sql = "SELECT * FROM PRODUCT";
+            $sql = "SELECT * FROM CUSTOMER";
             $path = explode('/', $_SERVER['REQUEST_URI']);
-            if( isset($path[5])){
-                $sql = "SELECT * FROM PRODUCT WHERE id = $path[5]";
+            if(isset($path[5])){
+                $sql = "SELECT * FROM CUSTOMER WHERE id = $path[5]";
             }
             $stmt = $con->prepare($sql);
-            // $stmt->execute();
-            // $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            // echo json_encode($result);
             if( $stmt->execute()){
                 $res = ['status'=> 200, 'message'=>
-                'Product created successfully'];
+                'USER get successfully'];
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 echo json_encode($result);
                 return;
             } else{
                 $res = ['status'=> 400, 'message'=>
-                'Product created failed'];
+                'USER get failed'];
             }
             $error_info = $stmt->errorInfo();
             if ($error_info[0] != '00000') {
@@ -49,7 +46,7 @@ header('Access-Control-Allow-Headers: *');
                     $file_path = $_SERVER['DOCUMENT_ROOT'].'./admin/img'.'/'.$file_name;
                    
     
-                    $sql="UPDATE PRODUCT SET Name = ?, price = ?, description = ?, amount = ?, image = ? WHERE id = ?";
+                    $sql="UPDATE CUSTOMER SET Name = ?, price = ?, description = ?, amount = ?, image = ? WHERE id = ?";
                     $stmt = $con->prepare($sql);
                     $DateCreate = date('Y-m-d');
                     $type = "no";
@@ -58,10 +55,10 @@ header('Access-Control-Allow-Headers: *');
                     if( $stmt->execute([$name, $price, $description,$amount,$file_name, $id])){
                         move_uploaded_file($tmp, $file_path);
                         $res = ['status'=> 200, 'message'=>
-                        'Product edited successfully'];
+                        'USER edited successfully'];
                     } else{
                         $res = ['status'=> 400, 'message'=>
-                        'Product edited failed'];
+                        'USER edited failed'];
                     }
                     $error_info = $stmt->errorInfo();
                     if ($error_info[0] != '00000') {
@@ -84,7 +81,7 @@ header('Access-Control-Allow-Headers: *');
                 $file_path = $_SERVER['DOCUMENT_ROOT'].'./admin/img'.'/'.$file_name;
                
 
-                $sql="INSERT INTO PRODUCT(Name, price, description, amount, image) VALUES (?,?,?,?,?)";
+                $sql="INSERT INTO CUSTOMER(Name, price, description, amount, image) VALUES (?,?,?,?,?)";
                 $stmt = $con->prepare($sql);
                 $DateCreate = date('Y-m-d');
                 $type = "no";
@@ -93,10 +90,10 @@ header('Access-Control-Allow-Headers: *');
                 if( $stmt->execute([$name, $price, $description,$amount,$file_name])){
                     move_uploaded_file($tmp, $file_path);
                     $res = ['status'=> 200, 'message'=>
-                    'Product created successfully'];
+                    'USER created successfully'];
                 } else{
                     $res = ['status'=> 400, 'message'=>
-                    'Product created failed'];
+                    'USER created failed'];
                 }
                 $error_info = $stmt->errorInfo();
                 if ($error_info[0] != '00000') {
@@ -110,15 +107,15 @@ header('Access-Control-Allow-Headers: *');
         
         case "DELETE":
             $path = explode('/', $_SERVER['REQUEST_URI']);
-            $product = $path[5];
-            $sql="DELETE FROM PRODUCT WHERE id IN ($product)";
+            $user = $path[5];
+            $sql="DELETE FROM CUSTOMER WHERE id IN ($user)";
             $stmt = $con->prepare($sql);
             if( $stmt->execute()){
                 $res = ['status'=> 200, 'message'=>
-                'Product deleted successfully'];
+                'user deleted successfully'];
             } else{
                 $res = ['status'=> 400, 'message'=>
-                'Product deleted failed'];
+                'user deleted failed'];
             }
             $error_info = $stmt->errorInfo();
             if ($error_info[0] != '00000') {

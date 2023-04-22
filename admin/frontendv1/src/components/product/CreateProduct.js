@@ -4,11 +4,8 @@ import { Button, Box, TextField } from '@mui/material';
 import {useLocation, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
-import { getProductById, updateProduct } from 'services/productService';
-
+import { getProducts, createProduct } from 'services/productService';
 function CreateProduct() {
-
-    var data = new FormData();
     const location = useLocation();
     const navigate = useNavigate();
     const [myFile, setMyfile] = useState(null);
@@ -36,21 +33,18 @@ function CreateProduct() {
         data.append('description', product.description);
         data.append('image', myFile);
 
-        console.log(data);
-        const response= await axios.post('http://localhost:80/api/product/index.php', data, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        console.log(response);
-        if(response.status==200){
-          setMessage(response.data.success);
+        console.log(myFile);
+        // const response= await axios.post(process.env.REACT_APP_URL, data, {
+        //     headers: {
+        //         'Content-Type': 'multipart/form-data'
+        //     }
+        // });
+        const response = await createProduct(data);
           setTimeout(()=> {
+            alert(response.message);
             navigate('/product');
           }, 2000);
-        } else{
-          setMessage(response.data.error);
-        }
+       
     }
    
     const handleFile = (e) => {

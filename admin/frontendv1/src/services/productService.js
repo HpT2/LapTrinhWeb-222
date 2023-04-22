@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-const PRO_API_URL = "http://localhost:80/api/product/index.php"; //index.php
+const PRO_API_URL = process.env.REACT_APP_URL + '/product/index.php'; //index.php
 
 
 export const getProducts = async() =>{
     try{
+        console.log(PRO_API_URL);
         const response = await axios.get(PRO_API_URL);
+        console.log(response.data);
         return response.data;
     } catch(error){
         console.log(error);
@@ -14,8 +16,18 @@ export const getProducts = async() =>{
 }
 export const createProduct = async (product)=>{
     try{
-        const response = await axios.post(PRO_API_URL, product);
-        return response.data;
+        const response= await axios.post(PRO_API_URL, product, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        console.log(response);
+        if(response.status == 200){
+            return response.data;
+        }
+        else {
+            return response.statusText;
+        }
     } catch(error){
         console.log(error);
         return null;
@@ -32,10 +44,21 @@ export const getProductById = async (productId) =>{
     }
 }
 
-export const updateProduct= async (productId, product) =>{
+export const updateProduct= async (product) =>{
     try{
-        const response = await axios.put(PRO_API_URL + '/' + productId+'/edit', product);
-        return response.data;
+        //const response = await axios.put(PRO_API_URL + '/' + productId+'/edit', product);
+        
+        const response = await axios.post(PRO_API_URL, product, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        if(response.status == 200){
+            return response.data;
+        }
+        else {
+            return response.statusText;
+        }
     } catch(error){
         console.log(error);
         return null;
@@ -44,10 +67,10 @@ export const updateProduct= async (productId, product) =>{
 
 export const deleteProduct = async (productIds)=>{
     try{
-        
         const response = await axios.delete(PRO_API_URL + '/' + productIds+'/delete');
         //console.log(response);
-        return response.data;
+       
+        return response;
     } catch(error){
         console.log(error);
         return null;
