@@ -34,7 +34,16 @@
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
 	</head>
 	<body style="background-color: #a6a9be;">
+	        <!-- Spinner Start -->
+			<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
 		<?php include('../base/header.php'); ?>
+		
 			<div class="container-fluid" >
 					<div class="container mt-4 mb-4" style="background-color: white;padding:10px;">
 				

@@ -106,7 +106,7 @@ $connection->close();
                           <hr>
                           <div class="row">
                             <div class="col-sm-12 d-flex justify-content-center">
-                              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">
+                              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal">
                                 Edit
                               </button>
                             </div>
@@ -123,7 +123,7 @@ $connection->close();
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="updateModalLabel">Update Customer Information</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close btn btn-primary" data-bs-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -151,7 +151,7 @@ $connection->close();
                     <input type="file" class="form-control" name="avatar" value ="<?php echo $customer['image'];?>">
                   </div><br>
                   <div class="form-group">
-                    <input type="button" name="exit-btn" class="btn btn-secondary" data-dismiss="modal" value="Close">
+                    <input type="button" name="exit-btn" class="btn btn-secondary" data-bs-dismiss="modal" value="Close">
                     <input type="submit" name="update-btn" class="btn btn-primary" value="Save Changes">
                   </div>
                 </form>

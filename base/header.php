@@ -1,4 +1,6 @@
-<link href="img/favicon.ico" rel="icon">
+
+
+ <!--- <link href="img/favicon.ico" rel="icon"> --->
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +34,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
-					<?php if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
+					<?php 
+						if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
+						require_once('../config/config.php');
+						$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+						$query = "select image from customer where username='".$_SESSION['username']."'";
+						$image = $link->query($query)->fetch_assoc()['image'];
+						$link->close();
 						echo "<a href='/history/' class='nav-item nav-link'>History</a>";
 						}else{
 							
@@ -44,7 +52,12 @@
 					<?php if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
 						echo '<a href="/cart/" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping" style="font-size:20px"></i></a>';
                     	echo'<a href="/customer/" class="nav-item nav-link">';
-						echo '<i class="fa-solid fa-user-circle" style="font-size:20px" ></i>';
+						if(empty($image)){
+							echo '<i class="fa-solid fa-user-circle" style="font-size:20px" ></i>';
+						}else{
+							echo '<i><img src="'.$image.'" style="width:25px;height:25px;border-radius:10px;"></i>';
+						}
+						
 						echo '</a></div>';
 						echo'<div class="d-flex justify-content-center"><a href="/login/logout.php" class="btn btn-danger" style="margin-left: 5px">Logout</a></div>';
 					}else{
