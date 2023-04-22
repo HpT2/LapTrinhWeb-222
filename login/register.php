@@ -4,7 +4,7 @@ require_once "../config/config.php";
  
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = "";
-$username_err = $password_err = $confirm_password_err = "";
+$username_err = $password_err = $confirm_password_err = $name_err = $Address_err = $Date_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -63,20 +63,47 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
     
+	//Validate Name
+	if(empty(trim($_POST["name"]))){
+        $name_err = "Please enter your name";     
+	}else{
+		$name = trim($_POST['name']);
+	}
+
+	//Validate address
+	if(empty(trim($_POST["address"]))){
+        $Address_err = "Please enter your address";     
+	}else{
+		$address = trim($_POST['address']);
+	}
+
+	//Validate date
+	if(empty(trim($_POST["day"])) || empty(trim($_POST["month"])) || empty(trim($_POST["year"])) || !checkdate($_POST['month'], $_POST['day'], $_POST['year'])){
+        $Date_err = "Invalid date";     
+	}else{
+		$day = $_POST['day'];
+		$month = $_POST['month'];
+		$year = $_POST['year'];
+	}
+
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
+    if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($name_err) && empty($Address_err) && empty($Date_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO customer (username, password) VALUES (?, ?)";
-         
+        $sql = "INSERT INTO customer (username, password, name, address, birthday) VALUES (?, ?, ?, ?, ?)";
+
         if($stmt = mysqli_prepare($connection, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+			
+            mysqli_stmt_bind_param($stmt, "sssss", $param_username, $param_password, $param_name, $param_address, $param_date);
             
             // Set parameters
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-            
+            $param_name = $name;
+			$param_address = $address;
+			$param_date = $year.'-'.$month.'-'.$day;
+
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
@@ -93,6 +120,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 				exit;
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
+	
             }
 
             // Close statement
@@ -114,7 +142,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
 
 </head>
 
@@ -158,7 +186,40 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 <input type="password" name="confirm_password" placeholder="Confirm Password" style="height: 50px" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
                                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
                             </div><br>
-                            <div class="form-group">
+							<div class="form-group">
+                                <label>Name</label>
+                                <input type="text" name="name" placeholder="Name" style="height: 50px" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>">
+                                <span class="invalid-feedback"><?php echo $name_err; ?></span>
+                            </div><br>
+							<div class="form-group">
+                                <label>Address</label>
+                                <input type="text" name="address" placeholder="Address" style="height: 50px" class="form-control <?php echo (!empty($Address_err)) ? 'is-invalid' : ''; ?>">
+                                <span class="invalid-feedback"><?php echo $Address_err; ?></span>
+                            </div><br>
+							 <div class="form-outline datepicker w-100">
+								Your Birthdate
+								<div class="d-flex">
+
+									<div class="col-4">
+										<label for="birthday" class="form-label">Day</label>
+										<select class="form-select birth" id="birthday" name="day" style="width:70px"></select>
+									</div>
+
+
+									<div class="col-4">
+										<label for="birthmonth" class="form-label">Month </label>
+										<select class="form-select birth" id="birthmonth" name="month" style="width:70px"></select>
+									</div>
+
+									<div class="col-4">
+										<label for="birthyear" class="form-label">Year </label>
+										<select class="form-select birth" id="birthyear" name="year" style="width:100px"></select>
+									</div>
+								</div>
+								<input type="hidden" class="form-control <?php echo (!empty($Date_err)) ? 'is-invalid' : ''; ?>">						
+								<span class="invalid-feedback"><?php echo $Date_err; ?></span>
+							</div><br>
+                            <div class="form-group"> 
                                 <input type="submit" class="btn btn-primary" value="Submit" style="width:200px;">
                                 <input type="reset" class="btn btn-danger ml-2" value="Reset" style="width:200px;">
                             </div><br>
@@ -178,20 +239,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../utils/lib/wow/wow.min.js"></script>
-    <script src="../utils/lib/easing/easing.min.js"></script>
-    <script src="../utils/lib/waypoints/waypoints.min.js"></script>
-    <script src="../utils/lib/counterup/counterup.min.js"></script>
-    <script src="../utils/lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="../utils/lib/tempusdominus/js/moment.min.js"></script>
-    <script src="../utils/lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="../utils/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="../utils/js/main.js"></script>
+	<script src="js/register.js"></script>
 </body>
 
 </html>
