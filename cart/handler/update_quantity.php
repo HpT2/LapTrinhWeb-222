@@ -5,7 +5,7 @@
 	}else{
 		require_once('../../config/config.php');
 
-		if (isset($_POST['rm_id'])){
+		if (isset($_POST['upd_id'])){
 			$query = 'select id from customer where username="'.$_SESSION['username'].'"';
 			$res = $connection->query($query);
 			$Customer_id = $res->fetch_assoc();
@@ -14,9 +14,14 @@
 			$res = $connection->query($query);
 			$Cart_id = $res->fetch_assoc();
 
-			$query = 'delete from keep where cartID='.$Cart_id['id'].' and productID='.$_POST['rm_id'];
+			$query = 'update keep set amount='.$_POST['amount'].' where cartID='.$Cart_id['id'].' and productID='.$_POST['upd_id'];
+			$connection->query($query);
+
+			$query = 'select price from products where ID='.$_POST['upd_id'];
 			$res = $connection->query($query);
-			//header('Location: /cart');
+			$price = $res->fetch_assoc()['price'];
+			echo $price * $_POST['amount']; 
+			
 		}else {
 			//return error code
 		}

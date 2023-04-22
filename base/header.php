@@ -38,26 +38,25 @@
 							
 						}?>
                         <a href="/homepage/" class="nav-item nav-link">Home</a>
-                        <a href="product.html" class="nav-item nav-link">Product</a>
+                        <a href="/products/" class="nav-item nav-link">Product</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
-                        <a href="/cart/" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping" style="font-size:20px"></i></a>
-                    </div>
 					<?php if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
-                    	echo'<a href="" class="nav-item nav-link">';
-						echo '<i class="fa fa-user-circle" aria-hidden="true"></i>';
-						echo '</a>';
-						echo'<a href="/login/logout.php" class="btn btn-danger" style="margin-left: 5px">Logout</a>';
+						echo '<a href="/cart/" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping" style="font-size:20px"></i></a>';
+                    	echo'<a href="/customer/" class="nav-item nav-link">';
+						echo '<i class="fa-solid fa-user-circle" style="font-size:20px" ></i>';
+						echo '</a></div>';
+						echo'<div class="d-flex justify-content-center"><a href="/login/logout.php" class="btn btn-danger" style="margin-left: 5px">Logout</a></div>';
 					}else{
-						echo'<a href="/login/login.php" class="btn btn-primary">';
+						echo'</div><div class="d-flex justify-content-center"><a href="/login/login.php" class="btn btn-primary">';
 						echo "Login";
-						echo '</a>';
+						echo '</a></div>';
 					}
 					?>
                 </div>
             </nav>
 
-            <div class="container-fluid py-5  hero-header mb" id="header-homepage" style="background-color:#0d1025;">
-
+            <div class="container-fluid py-5  hero-header mb" id="header-homepage" style="hieght:fit-content;background-color:#0d1025;">
+					
             </div>
         </div>

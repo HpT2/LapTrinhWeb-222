@@ -1,8 +1,7 @@
-.scrollable {
-	overflow: hidden;
-	height: 400px;
+table thead tr th {
+	text-align: center;
 }
 
-.scrollable:hover {
-	overflow-y: overlay;
+td {
+	text-align: center;
 }

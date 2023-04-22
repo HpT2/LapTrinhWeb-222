@@ -10,12 +10,8 @@
 		echo 'This page is only for customer';
 		exit();
 	}else{ 
-		$connection = new mysqli('localhost','root',$_SESSION['password'],'laptrinhweb_db');
+		require_once('../config/config.php');
 
-		// Check connection
-		if ($connection->connect_error) {
-			die("Connection failed: " . $connection->connect_error);
-	  	}
 		$query = "select * from customer where username='".$_SESSION['username']."'";
 		
 		$res = $connection->query($query);
@@ -26,132 +22,128 @@
 		$res = $connection->query($query);
 		$cartID = $res->fetch_assoc()['id'];
 
-		$query = "select productID from keep where cartID=".$cartID;
+		$query = "select productID,amount from keep where cartID=".$cartID;
 	
 		$res = $connection->query($query);
 		$products_in_cart_id = $res->fetch_all(MYSQLI_ASSOC);
 
+		$total = 0;
 		$PRODUCTS_DETAIL = array();
 		foreach($products_in_cart_id as $product_id){
-			$query = "select * from product where id=".$product_id['productID'];
+			$query = "select * from products where id=".$product_id['productID'];
 			$res = $connection->query($query);
 			$detail = $res->fetch_assoc();
-			$detail['to_money'] = $detail['price'];
+			$detail['quantity'] = $product_id['amount'];
+			$detail['subtotal'] = $detail['quantity'] * $detail['price'];
 			array_push($PRODUCTS_DETAIL, $detail);
+			$total +=  $detail['subtotal'];
 		}
+
 	
 		$connection->close();
 
 	?>
+	
 		<!DOCTYPE html>
-		<html lang="vi">
+			<html>
 			<head>
-				<title>Cart page</title>
+				<title>Shopping Cart</title>
+				<meta charset="utf-8">
 				<meta name="viewport" content="width=device-width, initial-scale=1">
-				<link rel="stylesheet" style="text/css" href="/css/bootstrap.min.css">
-				<link rel="stylesheet" style="text/css" href="/css/cart.css">
+				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"">
+				<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+				<link rel="stylesheet" href="/css/shoppingcart.css">
 			</head>
-			<body style="background-color: #a6a9be;">
-				<?php include('../base/header.php'); ?>
-				<div>
-					<div class="body-content">
-						<div class="container ">
-							<div class="row">
-								<h1>Cart</h1>
+			<body>
+			<?php include('../base/header.php'); ?>
+				<main class="page" >
+					<section class="shopping-cart dark" style="background-color: #a6a9be;">
+						<div class="container">
+							<div class="block-heading">
+							<h2>Shopping Cart</h2>
+
 							</div>
 							<div class="content">
-								<div class="product-list">
-									<div id="tbl-header" class="row tbl-header">
-										<div class="col-3">Image</div>
-										<div class="col-2">Product name</div>
-										<div class="col-2">Price</div>
-										<div class="col-2">Amount</div>
-										<div class="col-1">Total</div>
-										<div class="col-1"><input type="checkbox" class="check" id="checkall"></div>
-										<div class="col-1">
-											<button type="button" value="rm-all" name="rm-btn" class="icon"><img  src="/image/icon/thungrac.png"></button>
-										</div>
-									</div>
-									<div class="scrollable">
-										<?php
-												foreach($PRODUCTS_DETAIL as $detail){
-													echo '<div class="row tbl-item" id="product_'.$detail['id'].'">';
-
-													echo '<div class="col-3"><form method="get" action="">
-														<button  type="submit"><img class="product-img" src="'.$detail['image'].'">';
-													echo '</button><input type="hidden" name="id" value="'.$detail['id'].'">';
-													echo '</form></div>';
-
-													echo '<div class="col-2">'.$detail['name'].'</div>';
-													echo '<div class="col-2" id="price_of_'.$detail['id'].'">'.$detail['price'].'</div>';
-													echo '<div class="col-2">
-														<div class="btn-group" role="group">
-															<button type="button" class="btn btn-light decrease-amount" name="decrease'.$detail['id'].'">-</button>
-															<input type="number" class="amount btn-light" id="amount_of_'.$detail['id'].'" value="1">
-															<button type="button" class="btn btn-light decrease-amount" name="increase'.$detail['id'].'">+</button>
+								<div class="row">
+									<div class="col-md-12 col-lg-8 list">
+										<div class="items">
+										<?php foreach($PRODUCTS_DETAIL as $product){ ?>
+											<div class="product" id="product_<?php echo $product['id']; ?>">
+												<div class="row">
+													<div class="col-md-3">
+														<img class="img-fluid mx-auto d-block image" src="<?php echo $product['image']; ?>" >
+													</div>
+													<div class="col-md-8">
+														<div class="info">
+															<div class="row">
+																<div class="col-md-5 product-name">
+																	<div class="product-name">
+																		<a href="#"><?php echo $product['name'] ?></a>
+																		<div class="product-info">
+																			<div>Display: <span class="value"></span></div>
+																			<div>RAM: <span class="value"></span></div>
+																			<div>Memory: <span class="value"></span></div>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-md-4 quantity">
+																	<label for="quantity">Quantity:</label>
+																	<input id="quantity_<?php echo $product['id']; ?>" min="1" type="number" value ="<?php echo $product['quantity']; ?>" class="form-control quantity-input">
+																</div>
+																<div class="col-md-3 price">
+																	$<span id="subtotal_<?php echo $product['id']; ?>"><?php echo $product['subtotal']; ?></span>
+																</div>
+															</div>
+															
 														</div>
-													</div>';
-													echo '<div class="col-1" id="to_money_'.$detail['id'].'">'.$detail['to_money'].'</div>';
-													echo  '<div class="col-1"><input name="checkbox_'.$detail['id'].'"type="checkbox" value="1" form="buy"></div>';
-													echo '<div class="col-1">
-														<button type="button" name="rm-btn" class="icon" value="'.$detail['id'].'"><img src="/image/icon/thungrac.png"></button>
-														</div></div>';
-												}
-											?>
-									</div>
-								</div>
-								<div class="customer-info">
-									<div class="d-flex" id="info">
-										<div class="row">
-											<div class="col-6">
-												Deliver to
+													</div>
+													<div class="col-md-1 d-flex justify-content-center align-self-center">
+														<div class="close" id="close_<?php echo $product['id']; ?>"><img src="/image/icon/thungrac.png"></div>
+													</div>
+												</div>
+												<hr>
 											</div>
-											<div class="col-6" style="text-align: right;">
-												<a href="">Change</a>
-											</div>
-										</div>
-										<hr style="margin-bottom: 10px;">	
-										<div class="row">
-											<div class="col">
-											<?php
-												echo "<strong>".$CUSTOMER_INFO['name'].'</strong> | 
-												<strong>'.$CUSTOMER_INFO['phone'].'</strong><br>';
-												echo "<div class='home'><span id='home'>Address</span> ".$CUSTOMER_INFO['address'].'</div>';
-											?>
-											</div>
+										
+										<?php 	} ?>
 										</div>
 									</div>
-									<div class="final">
-										<div>
-											<strong>Total cost:</strong>
+									<div class="col-md-12 col-lg-4">
+										<div class="summary">
+											<h3>Summary</h3>
+											<div class="summary-item"><span class="text">Subtotal</span><span id="subtotalAll" class="price">$<?php echo $total; ?></span></div>
+											<div class="summary-item"><span class="text">Discount</span><span class="price">$0</span></div>
+											<div class="summary-item"><span class="text">VAT</span><span class="price">10%</span></div>
+											<div class="summary-item"><span class="text">Total</span><span id ="total" class="price">$<?php echo $total + $total*0.1; ?></span></div>
+											<a href="payment/" class="btn btn-primary btn-lg btn-block">Checkout</a>
 										</div>
-										<div class="row total">
-											<div class="col-10">
-												<input type="number" id="total" value="0" disabled>
-											</div>
-											<div class="col-2">
-												$
-											</div>
-										</div>
-										<div id="ntc">Please choose products</div>
 									</div>
-									<div class="d-flex justify-content-center">
-										<form method="post" action="payment/" id="buy">
-											<button class="btn btn-primary" type="submit">Buy</button>
-										</form>
-									</div>	
-								</div>
-
-								</div>
+								</div> 
 							</div>
-
 						</div>
-						
-					</div>
-				</div>
+					</section>
+				</main>
 				<?php include('../base/footer.html'); ?>
-				<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-				<script src="js/cart.js"></script>
 			</body>
-		</html>
+			<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+			<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+		<script src="js/cart.js"></script>
+		<!-- JavaScript Libraries -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.15/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../utils/lib/wow/wow.min.js"></script>
+    <script src="../utils/lib/easing/easing.min.js"></script>
+    <script src="../utils/lib/waypoints/waypoints.min.js"></script>
+    <script src="../utils/lib/counterup/counterup.min.js"></script>
+    <script src="../utils/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../utils/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="../utils/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="../utils/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../utils/js/main.js"></script>
+			</body>
+			</html>
 	<?php } ?>
