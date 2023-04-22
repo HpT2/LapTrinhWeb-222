@@ -4,7 +4,7 @@ require_once "../config/config.php";
  
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = "";
-$username_err = $password_err = $confirm_password_err = $name_err = $Address_err = $Date_err = "";
+$username_err = $password_err = $confirm_password_err = $name_err = $Address_err = $Date_err= $Phone_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -77,6 +77,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$address = trim($_POST['address']);
 	}
 
+	if(empty(trim($_POST["phone"]))){
+        $Phone_err = "Enter your phone number";     
+	}else if (!preg_match('/^[0-9]+$/', trim($_POST["phone"])) && sizeof(trim($_POST['phone']))<9){
+			$Phone_err = "Invalid phone number";
+		}else{
+			$phone = trim($_POST['phone']);
+		}
+
 	//Validate date
 	if(empty(trim($_POST["day"])) || empty(trim($_POST["month"])) || empty(trim($_POST["year"])) || !checkdate($_POST['month'], $_POST['day'], $_POST['year'])){
         $Date_err = "Invalid date";     
@@ -87,15 +95,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	}
 
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($name_err) && empty($Address_err) && empty($Date_err)){
+    if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($name_err) && empty($Address_err) && empty($Date_err) && empty($Phone_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO customer (username, password, name, address, birthday) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO customer (username, password, name, address, birthday, phone) VALUES (?, ?, ?, ?, ?, ?)";
 
         if($stmt = mysqli_prepare($connection, $sql)){
             // Bind variables to the prepared statement as parameters
 			
-            mysqli_stmt_bind_param($stmt, "sssss", $param_username, $param_password, $param_name, $param_address, $param_date);
+            mysqli_stmt_bind_param($stmt, "ssssss", $param_username, $param_password, $param_name, $param_address, $param_date, $param_phone);
             
             // Set parameters
             $param_username = $username;
@@ -103,6 +111,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_name = $name;
 			$param_address = $address;
 			$param_date = $year.'-'.$month.'-'.$day;
+			$param_phone = $phone;
 
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -195,6 +204,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 <label>Address</label>
                                 <input type="text" name="address" placeholder="Address" style="height: 50px" class="form-control <?php echo (!empty($Address_err)) ? 'is-invalid' : ''; ?>">
                                 <span class="invalid-feedback"><?php echo $Address_err; ?></span>
+                            </div><br>
+							<div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="text" name="phone" placeholder="Phone Number" style="height: 50px" class="form-control <?php echo (!empty($Phone_err)) ? 'is-invalid' : ''; ?>">
+                                <span class="invalid-feedback"><?php echo $Phone_err; ?></span>
                             </div><br>
 							 <div class="form-outline datepicker w-100">
 								Your Birthdate

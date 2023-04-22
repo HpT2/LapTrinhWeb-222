@@ -49,7 +49,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <link rel="stylesheet" href="/css/payment.css">
+  <link rel="stylesheet" href="/utils/css/payment.css">
 </head>
 <body>
 <?php include('../../base/header.php') ?>

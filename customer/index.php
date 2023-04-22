@@ -129,7 +129,7 @@ $connection->close();
               </div>
               <div class="modal-body">
                 <!-- Update form goes here -->
-                <form action="save.php" method="post">
+                <form action="save.php" method="post" enctype="multipart/form-data">
                   <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" name="name" placeholder="Name" value = <?php echo $customer['name'];?>>
@@ -148,7 +148,7 @@ $connection->close();
                   </div><br>
 				  <div class="form-group">
                     <label for="avatar">Upload your image</label>
-                    <input type="file" class="form-control" name="avatar" value = <?php echo $customer['image'];?>>
+                    <input type="file" class="form-control" name="avatar" value ="<?php echo $customer['image'];?>">
                   </div><br>
                   <div class="form-group">
                     <input type="button" name="exit-btn" class="btn btn-secondary" data-dismiss="modal" value="Close">
@@ -170,22 +170,6 @@ $connection->close();
         <!-- Back to Top -->
     </div>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.15/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../utils/lib/wow/wow.min.js"></script>
-    <script src="../utils/lib/easing/easing.min.js"></script>
-    <script src="../utils/lib/waypoints/waypoints.min.js"></script>
-    <script src="../utils/lib/counterup/counterup.min.js"></script>
-    <script src="../utils/lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="../utils/lib/tempusdominus/js/moment.min.js"></script>
-    <script src="../utils/lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="../utils/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="../utils/js/main.js"></script>
 </body>
 
 </html>

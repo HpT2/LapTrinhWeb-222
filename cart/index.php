@@ -52,7 +52,7 @@
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"">
 				<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-				<link rel="stylesheet" href="/css/shoppingcart.css">
+				<link rel="stylesheet" href="/utils/css/shoppingcart.css">
 			</head>
 			<body>
 			<?php include('../base/header.php'); ?>
@@ -128,22 +128,7 @@
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 			<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 		<script src="js/cart.js"></script>
-		<!-- JavaScript Libraries -->
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.15/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../utils/lib/wow/wow.min.js"></script>
-    <script src="../utils/lib/easing/easing.min.js"></script>
-    <script src="../utils/lib/waypoints/waypoints.min.js"></script>
-    <script src="../utils/lib/counterup/counterup.min.js"></script>
-    <script src="../utils/lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="../utils/lib/tempusdominus/js/moment.min.js"></script>
-    <script src="../utils/lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="../utils/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="../utils/js/main.js"></script>
 			</body>
 			</html>
 	<?php } ?>

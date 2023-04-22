@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
 					<?php if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
-						echo "<a href='/bills/' class='nav-item nav-link'>History</a>";
+						echo "<a href='/history/' class='nav-item nav-link'>History</a>";
 						}else{
 							
 						}?>
