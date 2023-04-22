@@ -146,7 +146,10 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 function EnhancedTableToolbar(props){
-  const {numSelected, ids} = props;
+  const {numSelected, ids, handleDelete} = props;
+
+  // i have no idea
+
   const navigate = useNavigate();
   const handleEdit = () => {
     if(ids.length>2){
@@ -156,12 +159,6 @@ function EnhancedTableToolbar(props){
       navigate(`/product/${ids}/edit`); 
     }
   }
-  const handleDelete = () =>{
-    deleteProduct(ids);
-    console.log("aaa");
-    window.location.href = '/product';
-  }
-  
   return (
     <Toolbar
       sx={{
@@ -217,7 +214,8 @@ function EnhancedTableToolbar(props){
 }
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
-  ids: PropTypes.string.isRequired
+  ids: PropTypes.string.isRequired,
+  handleDelete: PropTypes.func.isRequired,
 }
 
 const ListProduct = () => {
@@ -233,6 +231,18 @@ const ListProduct = () => {
   const [paddingHeight, setPaddingHeight] = React.useState(0);
   const [dense, setDense] = React.useState(false);
 
+  const handleDelete = async () =>{
+    const response = await deleteProduct(selected);
+    if(response.status === 200){
+      alert("Xóa thành công");
+      const updateRows = rows.filter((row) => !selected.includes(row.id));
+      setRows(updateRows);
+    // window.location.href = '/product';
+    } 
+    else{
+      alert("Xóa thất bại");
+    }
+  }
 
 
   React.useEffect(() => {
@@ -249,6 +259,7 @@ const ListProduct = () => {
     }
     fetchData();
   }, []);
+  
 
 React.useEffect( ()=> {
   let RowOnMount = stableSort(
@@ -257,7 +268,8 @@ React.useEffect( ()=> {
   );
   RowOnMount = RowOnMount.slice(0* DEFAULT_ROWS_PER_PAGE, 0*DEFAULT_ROWS_PER_PAGE + DEFAULT_ROWS_PER_PAGE);
   setVisibleRows(RowOnMount);
-}, []);
+}, [rows]);
+
 const handleRequestSort = React.useCallback(
   (event, newOrderBy) => {
     const isAsc = orderBy === newOrderBy && order === 'asc'; //careful
@@ -309,9 +321,9 @@ const handleChanePage = React.useCallback(
       const newPaddinHeight = (dense ? 33 : 53) * numEmptyRows;
       setPaddingHeight(newPaddinHeight);
   },
-  [order, orderBy, dense, rowsPerPage],
+  [order, orderBy, dense, rowsPerPage, rows],
 );
-const handleRowsPage = React. useCallback(
+const handleRowsPage = React.useCallback(
   (event) => {
     const updateRowsPerPage = parseInt(event.target.value, 10);
     setRowsPerPage(updateRowsPerPage);
@@ -337,7 +349,7 @@ const isSelected = (id) => selected.indexOf(id) !== -1; //careful
         <Button onClick={() =>{navigate('/product/create')} }>Add new product</Button>
         <Box sx={{width: '100%'}}>
           <Paper sx={{width: '100%', mb: 2}}>
-            <EnhancedTableToolbar numSelected={selected.length} ids={selected.join(',')} />
+            <EnhancedTableToolbar numSelected={selected.length} ids={selected.join(',')} handleDelete={handleDelete}/>
             <TableContainer>
               <Table
                 sx={{ minWidth: 750 }}

@@ -1,6 +1,6 @@
 <?php
     class DBconnect{
-        private $dbName = "techCompany";
+        private $dbName = "laptrinhweb_db";
         private $server = "localhost";
         private $userName = "root";
         private $password = "";
