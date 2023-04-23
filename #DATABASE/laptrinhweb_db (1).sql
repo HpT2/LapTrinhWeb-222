@@ -144,26 +144,35 @@ CREATE TABLE `manage` (
 -- Table structure for table `product`
 --
 
-CREATE TABLE `product` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `amount` int(11) NOT NULL,
-  `price` int(11) NOT NULL,
-  `date_release` date NOT NULL,
-  `image` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL, /* */ 
+  `name` varchar(255) NOT NULL, /* */
+  `description` text NOT NULL, /* */
+  `rating` int(11) NOT NULL, /* num star of product */
+  `price` varchar(255) NOT NULL, /* */
+  `brand` varchar(255) NOT NULL, /* product type */
+  `cpu` varchar(255) NOT NULL, /* */
+  `ram` varchar(255) NOT NULL, /* */
+  `gpu` varchar(255) NOT NULL, /* */
+  `screen` varchar(255) NOT NULL, /* */
+  `battery` varchar(255) NOT NULL, /* */
+  `config1` varchar(255) NOT NULL, /* */
+  `config2` varchar(255) NOT NULL, /* */
+  `config3` varchar(255) NOT NULL, /* */
+  `image` varchar(255) NOT NULL, /* main img */
+  `image1` varchar(255) NOT NULL, /* show img */
+  `image2` varchar(255) NOT NULL, /* */
+  `image3` varchar(255) NOT NULL, /* */
+  `outstanding` varchar(255) NOT NULL, /* */
+  `guarantee` varchar(255) NOT NULL /* */
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `amount`, `price`, `date_release`, `image`) VALUES
-(1, 'banana', 10, 100, '2023-04-26', '/image/products/banana.png'),
-(2, 'computer', 10, 100, '2023-04-26', '/image/products/computer.png'),
-(3, 'usb', 10, 100, '2023-04-26', '/image/products/USB.png'),
-(4, 'TV', 10, 100, '2023-04-26', '/image/products/tv.png'),
-(5, 'phone', 5, 100, '2023-04-26', '/image/products/phone.png'),
-(6, 'Keyboard', 5, 500, '2023-04-26', '/image/products/keyboard.png');
+INSERT INTO `products` (`id`, `name`, `description`, `rating`, `price`, `brand`, `cpu`, `ram`, `gpu`, `screen`, `battery`, `config1`, `config2`, `config3`, `image`, `image1`, `image2`, `image3`, `outstanding`, `guarantee`) VALUES
+(1, 'Mac 2021', 'laptop', 4, '34,999,999', 'Macbook', 'i7 10th', '8G', '1640 ti', '15.6\" FHD (1920 x 1080) Mac ComfyView LCD, Anti-Glare', '10000mAh', 'i7 10th', 'i5 10th', 'i9 10th', 'https://cdn.dienthoaigiakho.vn/photos/1655452036715-macbookair-m2-sb-2.jpg', 'https://cdn.dienthoaigiakho.vn/photos/1655452036729-macbookair-m2-sb-3.jpg', 'https://cdn.dienthoaigiakho.vn/photos/1655452036703-macbookair-m2-sb-1.jpg', 'https://cdn.dienthoaigiakho.vn/photos/1655452036693-macbookair-m2-sb.jpg', 'Tận hưởng trải nghiệm chơi game mượt mà, không bị nhòe. Màn hình viền mỏng cũng đã được tăng tỷ lệ so với thân máy lên 80%.', 'Bảo hành: 12 tháng LaptopAZ');
 
 -- --------------------------------------------------------
 
