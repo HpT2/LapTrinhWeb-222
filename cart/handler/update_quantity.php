@@ -20,7 +20,7 @@
 			$query = 'select price from products where ID='.$_POST['upd_id'];
 			$res = $connection->query($query);
 			$price = $res->fetch_assoc()['price'];
-			echo $price * $_POST['amount']; 
+			echo intval($price * $_POST['amount']*1000)/1000; 
 			
 		}else {
 			//return error code

@@ -18,7 +18,8 @@
 	$now =  date('Y-m-d H:i:s');
 
 	$paymethod = $_POST['Pay-Method'];
-	$query = "insert into bill values ($Bill_id,$CUSTOMER_ID,'$now', 0, '$paymethod') ";
+	$query = "insert into bill values ($Bill_id,$CUSTOMER_ID,'$now', 0, '$paymethod',0) ";
+	echo $query;
 	$connection->query($query);
 
 	$query = "select * from keep where cartID=".$CART_ID;
@@ -35,12 +36,11 @@
 		$res = $connection->query($query)->fetch_assoc();
 		$price = $res['price'];
 		$product_amount = $res['amount'];
-
+		
 		$total += $amount * $price;
 
 		$query = "insert into products_of_bill values ($Bill_id, $product_id, $amount, $CUSTOMER_ID)";
 		$res = $connection->query($query);
-
 		$new_product_amount = $product_amount - $amount;
 		$query = "update products set amount=".$new_product_amount." where id=".$product_id;
 		$connection->query($query);
@@ -49,10 +49,10 @@
 
 	$query = "Delete from keep where cartID=".$CART_ID;
 	$connection->query($query);
-
+	$total = $total + $total*0.1;
 	$query = "update bill set totalcost=".$total." where id=".$Bill_id." and customerID=".$CUSTOMER_ID;
 	$connection->query($query);
 
 	$connection->close();	
-	header('Location: /bills?id='.$Bill_id);
+	header('Location: /history/bill.php?id='.$Bill_id);
 ?>

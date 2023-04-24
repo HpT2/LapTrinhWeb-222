@@ -113,7 +113,7 @@
                                     // id like'%search$': just need partially correct
                                     // echo $search;
                                     if($search == '') {
-                                        $sql = "SELECT DISTINCT brand FROM `products`";
+                                        $sql = "SELECT DISTINCT type FROM `products`";
 
                                         $result = mysqli_query($connection, $sql);
 
@@ -122,23 +122,23 @@
                                         }
 
                                         while ($row = mysqli_fetch_assoc($result)) {
-                                            $value = $row['brand'];
-                                            $sqlBrand = "SELECT * FROM `products` WHERE brand = '$value'";
-                                            $resultBrand = mysqli_query($connection, $sqlBrand);
+                                            $value = $row['type'];
+                                            $sqltype = "SELECT * FROM `products` WHERE type = '$value'";
+                                            $resulttype = mysqli_query($connection, $sqltype);
                                             echo '<h1 class="col-12 my-4">'.$value.':</h1>';
-                                            // while ($rowBrand = mysqli_fetch_assoc($resultBrand)) 
+                                            // while ($rowtype = mysqli_fetch_assoc($resulttype)) 
                                             for($i = 0; $i < 6; $i++)
                                             {
-                                                if($rowBrand = mysqli_fetch_assoc($resultBrand)) {
+                                                if($rowtype = mysqli_fetch_assoc($resulttype)) {
                                                     echo '
                                                         <div class="col-12 col-sm-6 col-md-4 product-item">
-                                                            <a class="product-item-link text-center" href="../product-detail/detail.php?data='.$rowBrand['id'].'">
+                                                            <a class="product-item-link text-center" href="../product-detail/detail.php?data='.$rowtype['id'].'">
                                                                 <div class="product-img-container">
-                                                                    <div class="product-img" style="background-image: url('.$rowBrand['image'].')"></div>
+                                                                    <div class="product-img" style="background-image: url('.$rowtype['image'].')"></div>
                                                                 </div>
                                                                 <div class="product-content">
-                                                                    <h2 class="product-title">'.$rowBrand['name'].'</h2>
-                                                                    <button class="product-price btn btn-danger mt-2">Giá: '.$rowBrand['price'].' đ</button>
+                                                                    <h2 class="product-title">'.$rowtype['name'].'</h2>
+                                                                    <button class="product-price btn btn-danger mt-2">Giá: '.$rowtype['price'].' đ</button>
                                                                 </div>
                                                             </a>
                                                         </div>
@@ -162,7 +162,7 @@
                                         $sql="Select * from `products` where id like '%$search%'
                                         or name like '%$search%'
                                         or price like '%$search%'
-                                        or brand='$search'";    
+                                        or type='$search'";    
                                         $_SESSION['sql_data'] = $sql;
                                         $result=mysqli_query($connection, $sql);
                                         if($result) {

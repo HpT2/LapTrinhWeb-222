@@ -55,6 +55,6 @@ function updateTotal(){
 	})
 	document.getElementById('subtotalAll').innerHTML = '$' +subtotalAll;
 	let total = subtotalAll + subtotalAll*0.1;
-	document.getElementById('total').innerHTML ='$'+ total;
+	document.getElementById('total').innerHTML ='$'+ parseFloat(total).toPrecision(5);
 	
 }

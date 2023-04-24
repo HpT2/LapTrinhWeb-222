@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2023 at 05:33 AM
+-- Generation Time: Apr 24, 2023 at 07:17 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -50,6 +50,14 @@ CREATE TABLE `bill` (
   `CHECKED` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `bill`
+--
+
+INSERT INTO `bill` (`id`, `customerID`, `date`, `totalcost`, `Pay_method`, `CHECKED`) VALUES
+(1, 14, '2023-04-24 06:48:44', 38, 'zalopay', b'0'),
+(2, 14, '2023-04-24 06:49:40', 379, 'cash', b'0');
+
 -- --------------------------------------------------------
 
 --
@@ -84,19 +92,20 @@ CREATE TABLE `customer` (
   `phone` varchar(100) DEFAULT NULL,
   `address` varchar(256) DEFAULT NULL,
   `birthday` date DEFAULT NULL,
-  `adminID` int(11) DEFAULT NULL,
-  `image` text DEFAULT NULL
+  `active` int(11) DEFAULT NULL,
+  `image` text DEFAULT NULL,
+  `status` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`id`, `username`, `password`, `name`, `phone`, `address`, `birthday`, `adminID`, `image`) VALUES
-(1, 'vinhtoan', '$2y$10$BvzPjKizP1YIZcQ1ppm25.WsXBPdBxhn7i1cyNgzuQ31vOEf23ubW', NULL, NULL, NULL, NULL, NULL, NULL),
-(14, 'tung1', '$2y$10$9K2Du/nGAMImy0c./UeL8eyQMOBbwYqtTudCVT.IShe2GrTWKGh76', 'Tùng', '0971479222', '372', '2002-02-17', NULL, '/image/customer/tung1.png'),
-(15, 'tung2', '$2y$10$MrwKSy7y8/NhY/l703PUmOX6NzM0FXoIccUgtIIzgFf85uJ52aPii', 'Tùng', '0971479331', '372', '2005-01-19', NULL, NULL),
-(16, 'tung223', '$2y$10$3wv/f6VyuQJbk7v26vvh.eRNeagzhZc28iKTno1rQT.X45neieRfy', 'Tùng', '0971479331', '372', '1960-12-01', NULL, NULL);
+INSERT INTO `customer` (`id`, `username`, `password`, `name`, `phone`, `address`, `birthday`, `active`, `image`, `status`) VALUES
+(1, 'vinhtoan', '$2y$10$BvzPjKizP1YIZcQ1ppm25.WsXBPdBxhn7i1cyNgzuQ31vOEf23ubW', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, 'tung1', '$2y$10$9K2Du/nGAMImy0c./UeL8eyQMOBbwYqtTudCVT.IShe2GrTWKGh76', 'Tùng', '0971479222', '372', '2002-02-17', 1, '/image/customer/tung1.png', NULL),
+(15, 'tung2', '$2y$10$MrwKSy7y8/NhY/l703PUmOX6NzM0FXoIccUgtIIzgFf85uJ52aPii', 'Tùng', '0971479331', '372', '2005-01-19', NULL, NULL, NULL),
+(16, 'tung223', '$2y$10$3wv/f6VyuQJbk7v26vvh.eRNeagzhZc28iKTno1rQT.X45neieRfy', 'Tùng', '0971479331', '372', '1960-12-01', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -110,13 +119,6 @@ CREATE TABLE `keep` (
   `amount` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `keep`
---
-
-INSERT INTO `keep` (`cartID`, `productID`, `amount`) VALUES
-(14, 1, 3);
-
 -- --------------------------------------------------------
 
 --
@@ -126,23 +128,18 @@ INSERT INTO `keep` (`cartID`, `productID`, `amount`) VALUES
 CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` text NOT NULL,
   `price` varchar(255) NOT NULL,
-  `brand` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   `image1` varchar(255) NOT NULL,
   `image2` varchar(255) NOT NULL,
   `image3` varchar(255) NOT NULL,
   `amount` int(11) DEFAULT NULL,
   `rating` int(11) NOT NULL,
-  `cpu` varchar(255) NOT NULL,
+  `chip` varchar(255) NOT NULL,
   `ram` varchar(255) NOT NULL,
-  `gpu` varchar(255) NOT NULL,
   `screen` varchar(255) NOT NULL,
   `battery` varchar(255) NOT NULL,
-  `config1` varchar(255) NOT NULL,
-  `config2` varchar(255) NOT NULL,
-  `config3` varchar(255) NOT NULL,
   `outstanding` varchar(255) NOT NULL,
   `guarantee` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -151,8 +148,8 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `description`, `price`, `brand`, `image`, `image1`, `image2`, `image3`, `amount`, `rating`, `cpu`, `ram`, `gpu`, `screen`, `battery`, `config1`, `config2`, `config3`, `outstanding`, `guarantee`) VALUES
-(1, 'Mac 2021', 'laptop', '34,999,999', 'Macbook', 'https://cdn.dienthoaigiakho.vn/photos/1655452036715-macbookair-m2-sb-2.jpg', 'https://cdn.dienthoaigiakho.vn/photos/1655452036729-macbookair-m2-sb-3.jpg', 'https://cdn.dienthoaigiakho.vn/photos/1655452036703-macbookair-m2-sb-1.jpg', 'https://cdn.dienthoaigiakho.vn/photos/1655452036693-macbookair-m2-sb.jpg', NULL, 4, 'i7 10th', '8G', '1640 ti', '15.6\" FHD (1920 x 1080) Mac ComfyView LCD, Anti-Glare', '10000mAh', 'i7 10th', 'i5 10th', 'i9 10th', 'Tận hưởng trải nghiệm chơi game mượt mà, không bị nhòe. Màn hình viền mỏng cũng đã được tăng tỷ lệ so với thân máy lên 80%.', 'Bảo hành: 12 tháng LaptopAZ');
+INSERT INTO `products` (`id`, `name`, `price`, `type`, `image`, `image1`, `image2`, `image3`, `amount`, `rating`, `chip`, `ram`, `screen`, `battery`, `outstanding`, `guarantee`) VALUES
+(1, 'Mac 2021', '34.44', 'Macbook', 'https://cdn.dienthoaigiakho.vn/photos/1655452036715-macbookair-m2-sb-2.jpg', 'https://cdn.dienthoaigiakho.vn/photos/1655452036729-macbookair-m2-sb-3.jpg', 'https://cdn.dienthoaigiakho.vn/photos/1655452036703-macbookair-m2-sb-1.jpg', 'https://cdn.dienthoaigiakho.vn/photos/1655452036693-macbookair-m2-sb.jpg', 90, 4, 'i7 10th', '8G', '15.6\" FHD (1920 x 1080) Mac ComfyView LCD, Anti-Glare', '10000mAh', 'Tận hưởng trải nghiệm chơi game mượt mà, không bị nhòe. Màn hình viền mỏng cũng đã được tăng tỷ lệ so với thân máy lên 80%.', 'Bảo hành: 12 tháng LaptopAZ');
 
 -- --------------------------------------------------------
 
@@ -166,6 +163,14 @@ CREATE TABLE `products_of_bill` (
   `amount` int(11) DEFAULT NULL,
   `customerID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `products_of_bill`
+--
+
+INSERT INTO `products_of_bill` (`Bill_ID`, `Product_ID`, `amount`, `customerID`) VALUES
+(1, 1, 1, 14),
+(2, 1, 10, 14);
 
 --
 -- Indexes for dumped tables
@@ -196,7 +201,7 @@ ALTER TABLE `cart`
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `adminID` (`adminID`);
+  ADD KEY `adminID` (`active`);
 
 --
 -- Indexes for table `keep`
@@ -268,12 +273,6 @@ ALTER TABLE `bill`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`customerID`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `customer`
---
-ALTER TABLE `customer`
-  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`adminID`) REFERENCES `admin` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `keep`

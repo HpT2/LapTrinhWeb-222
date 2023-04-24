@@ -36,7 +36,7 @@
                     <div class="navbar-nav ms-auto py-0 pe-4">
 					<?php 
 						if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
-						require_once('../config/config.php');
+
 						$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 						$query = "select image from customer where username='".$_SESSION['username']."'";
 						$image = $link->query($query)->fetch_assoc()['image'];

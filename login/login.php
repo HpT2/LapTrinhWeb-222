@@ -4,7 +4,7 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['role'] == 'customer'){
-    header("location: welcome.php");
+    header("location: /homepage");
     exit;
 }else{
 	//navigate to admin page
@@ -66,12 +66,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 								$_SESSION["id"] = $id;
 								$_SESSION["username"] = $username;                            
 								$_SESSION["role"] = "customer";  
-								$_SESSION['password'] = '';  
-								$_SESSION['active'] = '0';
-                        
+
+								$sql = "UPDATE customer set active=1 where username = '".$username."'";
+								$connection->query($sql);
+
+								mysqli_close($connection);
+								$stmt->close();
 								// Redirect user to welcome page
 								header("location: /homepage");
-								mysqli_close($connection);
+								exit;
+								
 							} else{
 								// Password is not valid, display a generic error message
 								$login_err = "Invalid username or password.";
