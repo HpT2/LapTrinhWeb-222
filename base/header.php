@@ -36,7 +36,7 @@
                     <div class="navbar-nav ms-auto py-0 pe-4">
 					<?php 
 						if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
-						require_once('../config/config.php');
+
 						$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 						$query = "select image from customer where username='".$_SESSION['username']."'";
 						$image = $link->query($query)->fetch_assoc()['image'];
@@ -47,8 +47,8 @@
 						}?>
                         <a href="/homepage/" class="nav-item nav-link">Home</a>
                         <a href="/product-search/" class="nav-item nav-link">Product</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="#about" class="nav-item nav-link">About</a>
+                        <a href="#contact" class="nav-item nav-link">Contact</a>
 					<?php if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
 						echo '<a href="/cart/" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping" style="font-size:20px"></i></a>';
                     	echo'<a href="/customer/" class="nav-item nav-link">';

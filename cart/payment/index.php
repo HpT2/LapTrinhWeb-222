@@ -82,7 +82,7 @@
 					<span class="price">10%</span>
 					<p class="item-name">VAT</p>
 				</div>
-            <div class="total">Total<span class="price">$<?php echo $total ?></span></div>
+            <div class="total">Total<span class="price">$<?php echo $total*0.1 + $total; ?></span></div>
           </div>
           <div class="card-details">
             <h3 class="title">Pay Method</h3>

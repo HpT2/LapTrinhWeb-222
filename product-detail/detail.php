@@ -13,7 +13,13 @@
         $row=mysqli_fetch_assoc($result);
         // echo $row['name'];
     }
+	else{
+		echo "product not exist";
+	}
 
+	$query = "select * from comment where productid=$data";
+	$res = $connection->query($query);
+	$comments = $res->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -56,14 +62,7 @@
 									</div>
 								'
 							?>
-							<div class="row pt-4">
-								<div class="col-6 d-flex justify-content-center">
-									<button type="submit" class="btn btn-danger">Mua ngay</button>
-								</div>
-								<div class="col-6 d-flex justify-content-center">
-									<button type="submit" class="btn btn-warning">Thêm vào giỏ hàng</button>
-								</div>
-							</div>
+							
 						</div>
 						<div class="col-sm-6 py-5">
 							<?php 
@@ -73,7 +72,7 @@
 							?>
 							<small>
 								<?php 
-									echo ''.$row['brand'].''
+									echo ''.$row['type'].''
 								?>
 							</small>
 							<div class="d-flex">
@@ -154,22 +153,19 @@
 							<!-- order-details -->
 							<div id="order-details" class="  d-flex flex-column text-dark">
 								<small>Dự kiến giao hàng: 5 ngày</small>
-								<small>Loại sản phẩm: <span class="text-primary" href="#"><?php echo ''.$row['brand'].'' ?> </span></small>
+								<small>Loại sản phẩm: <span class="text-primary" href="#"><?php echo ''.$row['type'].'' ?> </span></small>
 								<small><i class="fas fa-map-marker-alt color-primary mr-2"></i>Xuất xứ : Chính hãng</small>
 							</div>
 
 							<!-- size -->
 							<div class="size my-3">
-								<h6 class=" ">Cấu hình:</h6>
-								<div class="d-flex justify-content-between">
-									<div class=" border p-2 btn-primary">
-										<button class="btn p-0"><?php echo ''.$row['config1'].'' ?></button>
-									</div>
-									<div class=" border p-2">
-										<button class="btn p-0 "><?php echo ''.$row['config2'].'' ?></button>
-									</div>
-									<div class=" border p-2">
-										<button class="btn p-0"><?php echo ''.$row['config3'].'' ?></button>
+								<div class="d-flex">
+									<div class="col-12 d-flex justify-content-center">
+										<?php if(!isset($_SESSION['username']) || $_SESSION['loggedin'] == false ){ ?>
+										<a class="btn btn-primary" href="/login/login.php" >Thêm vào giỏ hàng</button>
+										<?php }else{ ?>
+										<button type="button" id="add2cart" value="<?php echo $row['id']; ?>" class="btn btn-primary">Thêm vào giỏ hàng</button>
+										<?php }?>
 									</div>
 								</div>
 							</div>
@@ -178,21 +174,15 @@
 
 						</div>
 
-						<div class="detail col col-12 pt-5">
+						<div class="detail col col-12 pt-5" style="margin:auto;">
 							<h3>Mô tả</h3>
-							<div class="bg-white shadow-sm pt-4 pl-2 pr-2 pb-2">
+							<div class="pt-4 pl-2 pr-2 pb-2">
 								<!-- Card form tabs -->
 								<ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3">
 									<li class="nav-item">
 										<a data-toggle="pill" href="#info-product" class="nav-link active "> Thông tin sản
 											phẩm
 										</a>
-									</li>
-									<li class="nav-item">
-										<a data-toggle="pill" href="#outstanding" class="nav-link "> Đặc điểm nổi bật </a>
-									</li>
-									<li class="nav-item">
-										<a data-toggle="pill" href="#quanranting" class="nav-link "> Thông tin bảo hành </a>
 									</li>
 								</ul>
 							</div>
@@ -202,7 +192,7 @@
 									<table class="table table-striped">
 										<tr>
 											<th>Loại sản phẩm</th>
-											<th><?php echo $row['brand']; ?></th>
+											<th><?php echo $row['type']; ?></th>
 										</tr>
 										<!-- <tr>
 											<th>Bảo hành</th>
@@ -213,8 +203,8 @@
 											<th><?php echo $row['name']; ?></th>
 										</tr>
 										<tr>
-											<th>CPU</th>
-											<th><?php echo $row['cpu']; ?></th>
+											<th>Chip</th>
+											<th><?php echo $row['chip']; ?></th>
 										</tr>
 										<tr>
 											<th>RAM</th>
@@ -226,10 +216,7 @@
 											<th>Ổ cứng</th>
 											<th>256GB SSD M.2 PCIE, 1x slot SATA3 2.5"</th>
 										</tr> -->
-										<tr>
-											<th>Card đồ họa</th>
-											<th><?php echo $row['gpu']; ?></th>
-										</tr>
+	
 										<tr>
 											<th>Màn hình</th>
 											<th><?php echo $row['screen']; ?></th>
@@ -300,16 +287,51 @@
 						</div>
 					</div>
 				</div>
+				<div class="d-flex justify-content-center">
+						<a class="btn btn-primary mt-5" role="button" href="/product-search/index.php">Back to the search</a>
+				</div>
 			</section>
 			<!-- product -->
-
 			
-			<div class="row justify-content-center">
-				<div class="col-3 align-self-center">
-					<a class="btn btn-primary mt-5" role="button" href="/product-search/index.php">Back to the search</a>
-				</div>
-				
-			</div>
+			<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5 col-md-6 col-12 pb-4">
+                <h1>Comments</h1>
+				<?php 
+					foreach($comments as $comment){
+						$customer_id = $comment['customerID'];
+						$query = "select image, name from customer where id=$customer_id";
+						$res = $connection->query($query);
+						$customer_data = $res->fetch_assoc();
+						$image = $customer_data['image'];
+						$name = $customer_data['name'];
+						echo '<div class="comment mt-4 text-justify float-left">';
+						echo '<img src="'.$image.'" alt="" class="rounded-circle" width="40" height="40">';
+						echo '<h4>'.$name.'</h4>';
+						echo ' <span>'.$comment['comment_date'].'</span><br>';
+						echo '<p style="margin-top:5px; margin-left:5px">'.$comment['content'].'</p>';
+						echo '</div>';
+					}
+				?>
+
+            </div>
+			
+            <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
+                <form id="algin-form">
+                    <div class="form-group">
+                        <h4>Leave a comment</h4>
+                        <textarea name="msg" id="comment-field" msg cols="30" rows="5" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group mt-2">
+                        <button type="button" id="post-comment" value="<?php echo $row['id']; ?>" class="btn btn-primary">Post Comment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+			
 
 			<!-- Top Sale -->
 			<section id="top-sale">
@@ -379,6 +401,9 @@
 
     <!-- Custom Javascript -->
     <script src="./assets/js/detail.js"></script>
+	<script src="assets/js/add2cart.js"></script>
+	<script src="assets/js/post_comment.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 </body>
 
 </html>

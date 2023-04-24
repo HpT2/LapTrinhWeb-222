@@ -22,7 +22,6 @@ $imageFileType = strtolower(pathinfo($_FILES['avatar']['name'],PATHINFO_EXTENSIO
 
 
 
-
 // Allow certain file formats
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 && $imageFileType != "gif" ) {
