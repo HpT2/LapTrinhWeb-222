@@ -66,7 +66,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 								$_SESSION["id"] = $id;
 								$_SESSION["username"] = $username;                            
 								$_SESSION["role"] = "customer";  
-								$_SESSION['password'] = '';                          
+								$_SESSION['password'] = '';  
+								$_SESSION['active'] = '0';
+                        
 								// Redirect user to welcome page
 								header("location: /homepage");
 								mysqli_close($connection);
