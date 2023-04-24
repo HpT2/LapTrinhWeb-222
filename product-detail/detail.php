@@ -156,13 +156,14 @@
 
 							<!-- size -->
 							<div class="size my-3">
-								<div class="d-flex justify-content-between">
-								<div class="col-6 d-flex justify-content-center">
-									<button type="button" class="btn btn-danger" value="<?php $row['id']; ?>">Mua ngay</button>
-								</div>
-								<div class="col-6 d-flex justify-content-center">
-									<button type="submit" class="btn btn-warning">Thêm vào giỏ hàng</button>
-							</div>
+								<div class="d-flex">
+									<div class="col-12 d-flex justify-content-center">
+										<?php if(!isset($_SESSION['username']) || $_SESSION['loggedin'] == false ){ ?>
+										<a class="btn btn-primary" href="/login/login.php" >Thêm vào giỏ hàng</button>
+										<?php }else{ ?>
+										<button type="button" id="add2cart" value="<?php echo $row['id']; ?>" class="btn btn-primary">Thêm vào giỏ hàng</button>
+										<?php }?>
+									</div>
 								</div>
 							</div>
 							<!-- !size -->
@@ -359,6 +360,8 @@
 
     <!-- Custom Javascript -->
     <script src="./assets/js/detail.js"></script>
+	<script src="assets/js/add2cart.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 </body>
 
 </html>

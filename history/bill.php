@@ -12,10 +12,11 @@
 	}else{
 		require_once('../config/config.php');
 
-		$query = "select id from customer where username='".$_SESSION['username']."'";
+		$query = "select * from customer where id='".$_SESSION['id']."'";
 		
 		$res = $connection->query($query);
-		$CUSTOMER_ID = $res->fetch_assoc()['id'];
+		$cusomer_info =  $res->fetch_assoc();
+		$CUSTOMER_ID = $cusomer_info['id'];
 		
 		if(isset($_GET['id'])){
 			$bills = $_GET['id'];
@@ -54,7 +55,7 @@
 	<head>
 		<title>Orders</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+
 	</head>
 	<body style="background-color: #a6a9be;">
 		<?php include('../base/header.php'); ?>
@@ -67,7 +68,7 @@
 										<div class="container">
 										<div class="row">
 											<div class="col-xl-12">
-											<i class="far fa-building text-danger fa-6x float-start"></i>
+											<h1 class="text-primary m-0"><i class="fa-solid fa-apple-whole"></i> 4Tech</h1>
 											</div>
 										</div>
 
@@ -75,11 +76,10 @@
 										<div class="row">
 											<div class="col-xl-12">
 
-											<ul class="list-unstyled float-end">
-												<li style="font-size: 30px; color: red;">UserIn4 here</li>
-												<li>123, Elm Street</li>
-												<li>123-456-789</li>
-												<li>mail@mail.com</li>
+											<ul class="list-unstyled text-primay float-end">
+												<li><h1 class="text-primary m-0"><?php echo $cusomer_info['username']; ?></h1></li>
+												<li><?php echo $cusomer_info['address']; ?></li>
+												<li><?php echo $cusomer_info['phone']; ?></li>
 											</ul>
 											</div>
 										</div>
