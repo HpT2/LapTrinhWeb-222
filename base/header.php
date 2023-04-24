@@ -46,17 +46,16 @@
 							
 						}?>
                         <a href="/homepage/" class="nav-item nav-link">Home</a>
-                        <a href="/products/" class="nav-item nav-link">Product</a>
+                        <a href="/product-search/" class="nav-item nav-link">Product</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
 					<?php if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
 						echo '<a href="/cart/" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping" style="font-size:20px"></i></a>';
                     	echo'<a href="/customer/" class="nav-item nav-link">';
 						if(empty($image)){
-							echo '<i class="fa-solid fa-user-circle" style="font-size:20px" ></i>';
-						}else{
-							echo '<i><img src="'.$image.'" style="width:25px;height:25px;border-radius:10px;"></i>';
+							$image = "/image/customer/default.png";
 						}
+						echo '<i><img src="'.$image.'" style="width:25px;height:25px;border-radius:20px;"></i>';
 						
 						echo '</a></div>';
 						echo'<div class="d-flex justify-content-center"><a href="/login/logout.php" class="btn btn-danger" style="margin-left: 5px">Logout</a></div>';
