@@ -47,8 +47,8 @@
 						}?>
                         <a href="/homepage/" class="nav-item nav-link">Home</a>
                         <a href="/product-search/" class="nav-item nav-link">Product</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="#about" class="nav-item nav-link">About</a>
+                        <a href="#contact" class="nav-item nav-link">Contact</a>
 					<?php if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
 						echo '<a href="/cart/" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping" style="font-size:20px"></i></a>';
                     	echo'<a href="/customer/" class="nav-item nav-link">';

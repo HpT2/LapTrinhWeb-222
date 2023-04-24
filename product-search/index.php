@@ -52,7 +52,7 @@
 								<div class="collapse navbar-collapse" id="navbarCollapse">
 									<div class="navbar-nav ms-auto py-0 pe-4">
 
-										<a href="/homepage/" class="btn btn-secondary nav-item nav-link">Home</a>
+										<a href="/homepage/" class="btn btn-outline-secondary text-secondary nav-item nav-link">Home</a>
 										<a href="/product-search/" class="nav-item nav-link">Product</a>
 										<a href="about.html" class="nav-item nav-link">About</a>
 										<a href="contact.html" class="nav-item nav-link">Contact</a>

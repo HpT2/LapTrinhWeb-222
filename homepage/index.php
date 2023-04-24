@@ -94,7 +94,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" id="about">
                         <h5 class="section-title ff-secondary text-start text-primary fw-normal">About Us</h5>
                         <h1 class="mb-4">Welcome to <i class="fa-solid fa-apple-whole text-primary me-2"></i>4Tech</h1>
                         <p class="mb-4">Welcome to our online store, your go-to destination for all things Apple! With a legacy of 15 years in the business, we pride ourselves on being your trusted source for the latest and greatest Apple devices. From iPhones and iPads to MacBooks and iMacs, we offer a wide range of top-quality, cutting-edge Apple products that have been delighting tech enthusiasts for years. Our website features a user-friendly interface, making it easy for you to browse and select from our extensive collection of Apple devices. With a commitment to exceptional customer service and competitive prices, we strive to provide you with the best shopping experience possible. Whether you're a seasoned Apple aficionado or a newbie to the Apple ecosystem, our website is your one-stop-shop for all your Apple needs. Join our loyal customer base and experience the joy of owning an Apple device today!</p>
@@ -371,7 +371,7 @@
 
 
         <!-- Team Start -->
-        <div class="container-fluid pt-5 pb-3">
+        <div class="container-fluid pt-5 pb-3" id="contact">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h5 class="section-title ff-secondary text-center text-primary fw-normal">Team Members</h5>

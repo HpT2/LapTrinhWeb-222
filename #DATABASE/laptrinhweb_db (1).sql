@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2023 at 09:53 AM
+-- Generation Time: Apr 24, 2023 at 11:05 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -89,8 +89,16 @@ INSERT INTO `cart` (`id`, `customerID`) VALUES
 CREATE TABLE `comment` (
   `productID` int(11) NOT NULL,
   `customerID` int(11) NOT NULL,
-  `content` text NOT NULL
+  `content` text NOT NULL,
+  `comment_date` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`productID`, `customerID`, `content`, `comment_date`) VALUES
+(1, 14, 'sadsadasd', '2023-04-24 11:00:42');
 
 -- --------------------------------------------------------
 

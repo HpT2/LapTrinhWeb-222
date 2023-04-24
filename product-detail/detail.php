@@ -17,6 +17,9 @@
 		echo "product not exist";
 	}
 
+	$query = "select * from comment where productid=$data";
+	$res = $connection->query($query);
+	$comments = $res->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -289,7 +292,45 @@
 				</div>
 			</section>
 			<!-- product -->
+			
+			<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5 col-md-6 col-12 pb-4">
+                <h1>Comments</h1>
+				<?php 
+					foreach($comments as $comment){
+						$customer_id = $comment['customerID'];
+						$query = "select image, name from customer where id=$customer_id";
+						$res = $connection->query($query);
+						$customer_data = $res->fetch_assoc();
+						$image = $customer_data['image'];
+						$name = $customer_data['name'];
+						echo '<div class="comment mt-4 text-justify float-left">';
+						echo '<img src="'.$image.'" alt="" class="rounded-circle" width="40" height="40">';
+						echo '<h4>'.$name.'</h4>';
+						echo ' <span>'.$comment['comment_date'].'</span><br>';
+						echo '<p style="margin-top:5px; margin-left:5px">'.$comment['content'].'</p>';
+						echo '</div>';
+					}
+				?>
 
+            </div>
+			
+            <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
+                <form id="algin-form">
+                    <div class="form-group">
+                        <h4>Leave a comment</h4>
+                        <textarea name="msg" id="comment-field" msg cols="30" rows="5" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group mt-2">
+                        <button type="button" id="post-comment" value="<?php echo $row['id']; ?>" class="btn btn-primary">Post Comment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 			
 
 			<!-- Top Sale -->
@@ -361,6 +402,7 @@
     <!-- Custom Javascript -->
     <script src="./assets/js/detail.js"></script>
 	<script src="assets/js/add2cart.js"></script>
+	<script src="assets/js/post_comment.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 </body>
 
