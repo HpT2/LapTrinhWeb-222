@@ -1,14 +1,6 @@
 <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "shop";
-
-    $conn = new mysqli($servername, $username, $password, $database);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    session_start();
+	require_once "../config/config.php";
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +22,9 @@
 </head>
 
 <body>
+	<?php include "../base/header.php" ?>
+
+	<div class="container mt-5 mb-5">
     <!-- Search -->
     <div class="container">
         <div class="row">
@@ -73,7 +68,6 @@
                     <div class="product-list">
                         <div class="row">
                             <?php
-                                session_start();
 
                                 $sql_data = isset($_SESSION['sql_data']) ? $_SESSION['sql_data'] : "Select * from `products`";
 
@@ -81,10 +75,10 @@
                                 if(isset($_POST['increase-sort-submit']) || isset($_POST['decrease-sort-submit'])) {
                                     if(isset($_POST['increase-sort-submit'])) {
                                         $sql_data .= " ORDER BY price ASC";
-                                        $result=mysqli_query($conn, $sql_data);
+                                        $result=mysqli_query($connection, $sql_data);
                                     } else if(isset($_POST['decrease-sort-submit'])) {
                                         $sql_data .= " ORDER BY price DESC";
-                                        $result=mysqli_query($conn, $sql_data);
+                                        $result=mysqli_query($connection, $sql_data);
                                     }
                                     if($result) {
                                         // Num of products > 0
@@ -121,16 +115,16 @@
                                     if($search == '') {
                                         $sql = "SELECT DISTINCT brand FROM `products`";
 
-                                        $result = mysqli_query($conn, $sql);
+                                        $result = mysqli_query($connection, $sql);
 
                                         if (!$result) {
-                                            die("Query failed: " . mysqli_error($conn));
+                                            die("Query failed: " . mysqli_error($connection));
                                         }
 
                                         while ($row = mysqli_fetch_assoc($result)) {
                                             $value = $row['brand'];
                                             $sqlBrand = "SELECT * FROM `products` WHERE brand = '$value'";
-                                            $resultBrand = mysqli_query($conn, $sqlBrand);
+                                            $resultBrand = mysqli_query($connection, $sqlBrand);
                                             echo '<h1 class="col-12 my-4">'.$value.':</h1>';
                                             // while ($rowBrand = mysqli_fetch_assoc($resultBrand)) 
                                             for($i = 0; $i < 6; $i++)
@@ -170,7 +164,7 @@
                                         or price like '%$search%'
                                         or brand='$search'";    
                                         $_SESSION['sql_data'] = $sql;
-                                        $result=mysqli_query($conn, $sql);
+                                        $result=mysqli_query($connection, $sql);
                                         if($result) {
                                             // Num of products > 0
                                             if(mysqli_num_rows($result) > 0) {
@@ -209,7 +203,8 @@
         </div>
         <!-- !Product -->
     </div>
-
+	</div>
+	<?php include "../base/footer.html"; ?>
     <script src='./assets/js/search.js'></script>
 </body>
 
