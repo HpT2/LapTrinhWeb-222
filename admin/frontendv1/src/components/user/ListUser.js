@@ -1,6 +1,6 @@
 import { Button, Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination,
     TableRow, TableSortLabel, Toolbar, Typography, Paper, Checkbox, IconButton, Tooltip,
-    FormControlLabel, Switch, Snackbar, Alert } from '@mui/material';
+    FormControlLabel, Switch, Snackbar, Alert, Avatar } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditOutlined from '@mui/icons-material/EditOutlined';
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -13,20 +13,22 @@ import { AllOut, ConstructionOutlined } from '@mui/icons-material';
 import { getUserById, getUsers, deleteUser } from 'services/userService';
 function createData(
   id,
+  image,
   name,
   phone,
   birthday,
   address,
-  situation="ban",
-  status="active"
+  status,
+  active,
 ){
 return { id,
+    image,
     name,
     phone,
     birthday,
     address,
-    situation,
-    status
+    status,
+    active,
    };
 }
 
@@ -73,6 +75,12 @@ disablePadding: false,
 label: 'ID',
 },
 {
+id: 'image',
+numeric: true,
+disablePadding: false,
+label: 'Avatar',
+},
+{
 id: 'name',
 numeric: true,
 disablePadding: false,
@@ -102,6 +110,12 @@ id: 'situation',
 numeric: true,
 disablePadding: false,
 label: 'Situation',
+},
+{
+id: 'active',
+numeric: true,
+disablePadding: false,
+label: 'Active',
 }
 ];
 const DEFAULT_ORDER = 'asc';
@@ -289,8 +303,8 @@ React.useEffect(() => {
     const response = await getUsers();
     const newData = response.map((user) => {
       console.log(user.birthday);
-      return createData(user.id, user.name, user.phone, user.birthday, user.address);
-    });
+      return createData(user.id,user.image, user.name, user.phone, user.birthday, user.address, user.status, user.active);
+    }); 
     setRows(newData);
     console.log(newData);
   } catch (error) {
@@ -430,11 +444,17 @@ return (
                   <TableCell component="th" id={labelId} scope="row" padding="none">
                      {row.id}
                   </TableCell>
+
+                  <TableCell align="right">
+                          {/* <img src= width="90vw" height="60vh"/> */}
+                          <Avatar alt="Remy Sharp" src= {'http://localhost:80/'+row.image}/>
+                  </TableCell>
                   <TableCell align="right">{row.name}</TableCell>
                   <TableCell align="right">{row.phone}</TableCell>
                   <TableCell align="right">{row.birthday}</TableCell>
                   <TableCell align="right">{row.address}</TableCell>
-                  <TableCell align="right">{row.situation}</TableCell>
+                  <TableCell align="right">{row.status}</TableCell>
+                  <TableCell align="right">{row.active}</TableCell>
                 </TableRow>
               );
             }) : <div>loading...</div>}

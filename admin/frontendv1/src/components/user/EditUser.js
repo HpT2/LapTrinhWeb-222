@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
-import { Button, TextField,Box, Select, MenuItem, InputLabel, Snackbar, Alert  } from '@mui/material';
-import {useLocation, useNavigate, useParams} from 'react-router-dom';
+import { Button, TextField,Box, Select, MenuItem, InputLabel, Snackbar, Alert,FormControl, NativeSelect  } from '@mui/material';
+import {useLocation, useNavigate, useParams, useResolvedPath} from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { getUserById, updateUser } from 'services/userService';
@@ -19,9 +19,10 @@ function EditUser() {
         phone: '',
         birthday: '',
         address: '',
-        Status: '',
+        status: '',
     });
-    const [srcFile, setSrcFile] = useState('http://localhost:80/image/user/'+ user.image);
+    
+    const [srcFile, setSrcFile] = useState('http://localhost:80/image/customer/'+ user.image); //at here
     const {id} = useParams();
     const [open, setOpen] = React.useState(false);
     const handleClose = () => {
@@ -33,7 +34,8 @@ function EditUser() {
           const response = await getUserById(id);
           console.log(response[0]);
           setUser(response[0]);
-          setSrcFile('http://localhost:80/image/user/'+response[0].image);
+          setSrcFile('http://localhost:80/image/customer/'+response[0].image);
+          
         } catch (error) {
           console.error(error);
         }
@@ -61,7 +63,6 @@ function EditUser() {
         data.append('status', user.status);
         data.append('image', myFile);
 
-        console.log(myFile);
         const response = await updateUser(data);
         console.log(response);
         if(response.status==200){
@@ -78,9 +79,9 @@ function EditUser() {
     const handleFile =  (e) => {
         e.preventDefault();
         const file =  e.target.files[0];
-        setUser({ ...user, image: file });
+        // setUser({ ...user, image: file });
         setMyfile(file);
-        setSrcFile('http://localhost:80/image/user/'+file.name);
+        
         console.log("name of file is " + file.name);
     }
   return (
@@ -107,21 +108,22 @@ function EditUser() {
          />
       </LocalizationProvider>
      
-      <InputLabel id="Status">Status</InputLabel>
+      <InputLabel id="status">Status</InputLabel>
       <Select
             labelId="Status"
             id="status"
-            value={user.Status}
+            value={user.status}
             label="Status"
             onChange={handleChange}
-            name="Status"
+            name="status"
         >
 
             <MenuItem value="VIP">VIP</MenuItem>
-            <MenuItem value={"Normal"}>Normal</MenuItem>
-            <MenuItem value={"Ban"}>Ban</MenuItem>
+            <MenuItem value="Normal">Normal</MenuItem>
+            <MenuItem value="Ban">Ban</MenuItem>
             <MenuItem value={""}></MenuItem>
         </Select>
+      
       <img src={srcFile} alt="image" width="100px" height="100%"></img>
       <input  type='file' id="file" lable= "image" name="image" onChange={handleFile} ></input>
       <Button variant="contained" onClick={handleSubmit}>Submit</Button>
