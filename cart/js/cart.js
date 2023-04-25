@@ -12,7 +12,9 @@ document.addEventListener('DOMContentLoaded', function(){
 				quantity_field.value = 1;
 				return;
 			}
-			if (quantity_field.value > quantity_field.max){
+			if (Number(quantity_field.value) > Number(quantity_field.max)){
+				console.log(quantity_field.value);
+				console.log(quantity_field.max);
 				quantity_field.value = quantity_field.max;
 				return;
 			}
@@ -42,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function(){
 					rm_id : id
 				},
 				success: function(res){	
-					document.getElementById('product_'+id).innerHTML = '';
+					document.getElementsByClassName('items')[0].removeChild(document.getElementById('product_'+id));
 					updateTotal();
 				}
 			})
@@ -65,6 +67,10 @@ function updateTotal(){
 	})
 	document.getElementById('subtotalAll').innerHTML = '$' +subtotalAll;
 	let total = subtotalAll + subtotalAll*0.1;
-	document.getElementById('total').innerHTML ='$'+ parseFloat(total).toPrecision(5);
+	if(total == 0){
+		document.getElementById('total').innerHTML = '$ 0';
+		return;
+	}
+	document.getElementById('total').innerHTML ='$'+ Number(total);
 	
 }

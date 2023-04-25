@@ -69,7 +69,7 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
-<body>
+<body style="background-color: #a6a9be;">
 	<?php include "../base/header.php" ?>
 
 	<div class="row" id="alert-row" style="display:none">
@@ -89,8 +89,8 @@
 				</div>
 			</div>
 
-	<div class="container bg-white mt-3">
-	<form class="search-bar" method="get">
+	<div class="container bg-white " style="padding-top: 10px;">
+		<form class="search-bar" method="get">
 					<div class="col-12">
 						<div class="row mb-2">
 							<div class="col-7 d-flex justify-content-end"><input class="search-input pl-3"  type="text" placeholder="Input keyword..." name="search" /></div>
@@ -150,7 +150,7 @@
 		?>
 
 			
-				
+	</div></div>
 
 				
 						
