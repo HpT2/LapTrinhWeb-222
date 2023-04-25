@@ -18,7 +18,7 @@
 	if(isset($_POST['post-comment-btn'])){
 		$product_id = $_POST['post-comment-btn'];
 		$comment = $_POST['post-comment-field'];
-		$query = "insert into comment values ($product_id, $customer_id, '$comment', '$now')";
+		$query = "insert into comment (productID, customerID, content, comment_date) values ($product_id, $customer_id, '$comment', '$now')";
 		$connection->query($query);
 		$connection->close();
 		header("Location: /product-detail/detail.php?data=".$product_id."#comment-section");
