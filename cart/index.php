@@ -79,7 +79,7 @@
 											<div class="product" id="product_<?php echo $product['id']; ?>">
 												<div class="row">
 													<div class="col-md-3">
-														<img class="img-fluid mx-auto d-block image" src="<?php echo $product['image']; ?>" >
+														<img class="img-fluid mx-auto d-block image" src="<?php echo "/image/products/".$product['image']; ?>" >
 													</div>
 													<div class="col-md-8">
 														<div class="info">

@@ -156,7 +156,7 @@ mysqli_close($connection);
                     ?>
                     <div style="padding: 20px;" class="d-flex justify-content-center">
                         <form action="" method="post">
-                            <div class="form-group" style="width:400px;">
+                            <div class="form-group">
                                 <label>Username</label>
                                 <input type="text" name="username" placeholder="Username" style="height: 50px" class="form-control  <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
                                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
@@ -166,9 +166,14 @@ mysqli_close($connection);
                                 <input type="password" name="password" placeholder="Password" style="height: 50px" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
                                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
                             </div><br>
-                            <div class="form-group">
-                                <input type="submit" name="customer-login-btn" class="btn btn-primary" value="Login as customer" style="width:200px;">
-                                <input type="submit" name="admin-login-btn" class="btn btn-primary" value="Login as admin" style="width:200px;">
+                            <div class="form-group row">
+								<div class="col d-flex justify-content-center mt-3">
+								<input type="submit" name="customer-login-btn" class="btn btn-primary" value="Login as customer" style="width:200px;">
+								</div>
+								<div class="col d-flex justify-content-center mt-3">
+								<input type="submit" name="admin-login-btn" class="btn btn-primary	" value="Login as admin" style="width:200px;">
+								</div>
+                                
                             </div><br>
                             <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
                         </form>
@@ -187,20 +192,7 @@ mysqli_close($connection);
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../utils/lib/wow/wow.min.js"></script>
-    <script src="../utils/lib/easing/easing.min.js"></script>
-    <script src="../utils/lib/waypoints/waypoints.min.js"></script>
-    <script src="../utils/lib/counterup/counterup.min.js"></script>
-    <script src="../utils/lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="../utils/lib/tempusdominus/js/moment.min.js"></script>
-    <script src="../utils/lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="../utils/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="../utils/js/main.js"></script>
 </body>
 
 </html>
