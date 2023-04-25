@@ -15,6 +15,7 @@ function EditUser() {
     const [myFile, setMyfile] = useState(null);
     const [message, setMessage]= useState(null);
     const [user, setUser] = useState({
+        username: '',
         name: '',
         phone: '',
         birthday: '',
@@ -35,7 +36,7 @@ function EditUser() {
           console.log(response[0]);
           setUser(response[0]);
           setSrcFile('http://localhost:80/image/customer/'+response[0].image);
-          
+          console.log(user);
         } catch (error) {
           console.error(error);
         }
@@ -56,6 +57,7 @@ function EditUser() {
         e.preventDefault();
         const data = new FormData();
         data.append('id', id);
+        data.append('username', user.username);
         data.append('name', user.name);
         data.append('phone', user.phone);
         data.append('address', user.address);

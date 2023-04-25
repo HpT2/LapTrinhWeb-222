@@ -303,7 +303,7 @@ React.useEffect(() => {
     const response = await getUsers();
     const newData = response.map((user) => {
       console.log(user.birthday);
-      return createData(user.id,user.image, user.name, user.phone, user.birthday, user.address, user.status, user.active);
+      return createData(user.id, user.image, user.name, user.phone, user.birthday, user.address, user.status, user.active);
     }); 
     setRows(newData);
     console.log(newData);
@@ -447,7 +447,7 @@ return (
 
                   <TableCell align="right">
                           {/* <img src= width="90vw" height="60vh"/> */}
-                          <Avatar alt="Remy Sharp" src= {'http://localhost:80/'+row.image}/>
+                          <Avatar alt="Remy Sharp" src= {'http://localhost:80/customer/image/'+row.image}/>
                   </TableCell>
                   <TableCell align="right">{row.name}</TableCell>
                   <TableCell align="right">{row.phone}</TableCell>

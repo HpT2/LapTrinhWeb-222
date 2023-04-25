@@ -35,22 +35,23 @@ header('Access-Control-Allow-Headers: *');
             break;
         case 'POST':
             if(isset($_POST['id'])){
-                
+                    //$username = $_POST['username'];
                     $id = $_POST['id'];
                     $name = $_POST['name'];
                     $phone = $_POST['phone'];
                     $address = $_POST['address'];
                     $birthday = $_POST['birthday'];
                     $status = $_POST['status'];
-                    $sql="UPDATE CUSTOMER SET Name = ?, phone = ?, address = ?, birthday = ?, status=?, image = ? WHERE id = ?";
+                    $sql="UPDATE CUSTOMER SET Name = ?, phone = ?, address = ?, birthday = ?, status=? WHERE id = ?";
                     if(isset($_FILES['image'])){
+                        echo "aaaaaaa";
                         $file_name = $_FILES['image']['name'];
                         $tmp = $_FILES['image']['tmp_name'];
-                        $file_path = $_SERVER['DOCUMENT_ROOT'].'./image/customer'.'/'.$file_name;
-                        $sql="UPDATE CUSTOMER SET Name = ?, phone = ?, address = ?, birthday = ?, image = ? WHERE id = ?";
+                        $file_path = $_SERVER['DOCUMENT_ROOT'].'./customer/image'.'/'.$file_name;
+                        $sql="UPDATE CUSTOMER SET Name = ?, phone = ?, address = ?, birthday = ?, image = ?, status =? WHERE id = ?";
                         $stmt = $con->prepare($sql);
                         $DateCreate = date('Y-m-d');
-                        if( $stmt->execute([$name, $phone,$address, $birthday, $file_name, $status, $id])){
+                        if( $stmt->execute([$name, $phone, $address, $birthday, $file_name, $status, $id])){
                             move_uploaded_file($tmp, $file_path);
                             $res = ['status'=> 200, 'message'=>
                             'USER edited successfully'];
@@ -67,7 +68,7 @@ header('Access-Control-Allow-Headers: *');
                     }
                     $stmt = $con->prepare($sql);
                     $DateCreate = date('Y-m-d');
-                    if( $stmt->execute([$name, $phone,$address, $birthday, $status, $id])){
+                    if( $stmt->execute([$name, $phone, $address, $birthday, $status, $id])){
                         $res = ['status'=> 200, 'message'=>
                         'USER edited successfully'];
                     } else{
