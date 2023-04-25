@@ -35,7 +35,7 @@ header('Access-Control-Allow-Headers: *');
             break;
         case 'POST':
             if(isset($_POST['id'])){
-                    //$username = $_POST['username'];
+                    $username = $_POST['username'];
                     $id = $_POST['id'];
                     $name = $_POST['name'];
                     $phone = $_POST['phone'];
@@ -44,10 +44,13 @@ header('Access-Control-Allow-Headers: *');
                     $status = $_POST['status'];
                     $sql="UPDATE CUSTOMER SET Name = ?, phone = ?, address = ?, birthday = ?, status=? WHERE id = ?";
                     if(isset($_FILES['image'])){
-                        echo "aaaaaaa";
-                        $file_name = $_FILES['image']['name'];
+                        
+                        $file_name = $username.'.png';
                         $tmp = $_FILES['image']['tmp_name'];
-                        $file_path = $_SERVER['DOCUMENT_ROOT'].'./customer/image'.'/'.$file_name;
+                        $file_path = $_SERVER['DOCUMENT_ROOT'].'./image/customer'.'/'.$file_name;
+                        if(file_exists($file_path)){
+                            unlink($file_path);
+                        }
                         $sql="UPDATE CUSTOMER SET Name = ?, phone = ?, address = ?, birthday = ?, image = ?, status =? WHERE id = ?";
                         $stmt = $con->prepare($sql);
                         $DateCreate = date('Y-m-d');

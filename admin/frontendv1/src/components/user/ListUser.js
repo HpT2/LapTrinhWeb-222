@@ -447,7 +447,7 @@ return (
 
                   <TableCell align="right">
                           {/* <img src= width="90vw" height="60vh"/> */}
-                          <Avatar alt="Remy Sharp" src= {'http://localhost:80/customer/image/'+row.image}/>
+                          <Avatar alt="Remy Sharp" src= {'http://localhost:80/image/customer/'+row.image}/>
                   </TableCell>
                   <TableCell align="right">{row.name}</TableCell>
                   <TableCell align="right">{row.phone}</TableCell>

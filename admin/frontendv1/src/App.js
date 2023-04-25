@@ -13,6 +13,7 @@ import ListProduct from "components/product/ListProduct";
 import CreateProduct from "components/product/CreateProduct";
 import EditProduct from "components/product/EditProduct";
 import DashBoard from "components/dashboard/DashBoard";
+import ListOrder from "components/order/ListOrder";
 function App(){
     const mode = useSelector((state) => state.global.mode);
     const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -31,6 +32,8 @@ function App(){
                             <Route path="/product/:id/edit" element={<EditProduct />} />
                             <Route path= "/users" element={<ListUser />} />
                             <Route path= "/user/:id/edit" element={<EditUser />} />
+                            <Route path="/orders" element={<ListOrder />} />
+                            
                         </Route>
                     </Routes>
                     
