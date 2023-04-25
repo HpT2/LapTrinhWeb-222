@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2023 at 11:05 AM
+-- Generation Time: Apr 25, 2023 at 06:34 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -35,6 +35,13 @@ CREATE TABLE `admin` (
   `phone` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `password`, `name`, `phone`) VALUES
+(1, 'tung1', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Tùng', '0971479331');
+
 -- --------------------------------------------------------
 
 --
@@ -56,6 +63,7 @@ CREATE TABLE `bill` (
 
 INSERT INTO `bill` (`id`, `customerID`, `date`, `totalcost`, `Pay_method`, `CHECKED`) VALUES
 (1, 14, '2023-04-24 06:48:44', 38, 'zalopay', b'0'),
+(1, 19, '2023-04-24 16:43:50', 38, 'cash', b'0'),
 (2, 14, '2023-04-24 06:49:40', 379, 'cash', b'0'),
 (3, 14, '2023-04-24 07:40:31', 152, 'cash', b'0'),
 (4, 14, '2023-04-24 09:52:39', 84738, 'cash', b'0');
@@ -77,8 +85,11 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`id`, `customerID`) VALUES
 (14, 14),
-(15, 15),
-(16, 16);
+(17, 17),
+(18, 18),
+(19, 19),
+(20, 20),
+(21, 21);
 
 -- --------------------------------------------------------
 
@@ -98,7 +109,10 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`productID`, `customerID`, `content`, `comment_date`) VALUES
-(1, 14, 'sadsadasd', '2023-04-24 11:00:42');
+(1, 14, 'not good', '2023-04-25'),
+(1, 17, 'good', '2012-04-24'),
+(1, 18, 'good', '2012-04-24'),
+(1, 19, 'not good, baddddddddddddddddddasdasdsadsa', '2023-04-24');
 
 -- --------------------------------------------------------
 
@@ -124,10 +138,12 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `username`, `password`, `name`, `phone`, `address`, `birthday`, `active`, `image`, `status`) VALUES
-(1, 'vinhtoan', '$2y$10$BvzPjKizP1YIZcQ1ppm25.WsXBPdBxhn7i1cyNgzuQ31vOEf23ubW', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(14, 'tung1', '$2y$10$9K2Du/nGAMImy0c./UeL8eyQMOBbwYqtTudCVT.IShe2GrTWKGh76', 'Tùng', '0971479222', '372', '2002-02-17', 1, '/image/customer/tung1.png', NULL),
-(15, 'tung2', '$2y$10$MrwKSy7y8/NhY/l703PUmOX6NzM0FXoIccUgtIIzgFf85uJ52aPii', 'Tùng', '0971479331', '372', '2005-01-19', NULL, NULL, NULL),
-(16, 'tung223', '$2y$10$3wv/f6VyuQJbk7v26vvh.eRNeagzhZc28iKTno1rQT.X45neieRfy', 'Tùng', '0971479331', '372', '1960-12-01', NULL, NULL, NULL);
+(14, 'tung1', '$2y$10$9K2Du/nGAMImy0c./UeL8eyQMOBbwYqtTudCVT.IShe2GrTWKGh76', 'Tùng', '0971479222', '372', '2002-02-17', 0, 'tung1.png', 'null'),
+(17, 'tung2', '$2y$10$aIyRddOIbvnjvAMcA2vpbeq8Bqfrj0SCOKD1fhrZfG5BAxIRYRplu', 'Tùng', '0971479331', '372/12/7', '1960-01-01', 0, 'default.png', 'normal'),
+(18, 'tung3', '$2y$10$IsAQgejI64xdf.SdOfP4iOqadrgB29JLGUT.Ppxv.iRDnj7eJXTHi', 'Tùng', '0971479331', '372/23/7 cmt8 tphcm', '2002-02-17', NULL, 'default.png', 'normal'),
+(19, 'tung4', '$2y$10$uCXij4KfCCp17Pd3hhdkbO27KyJf5.qCyBFnPYifBlHg3cqq5YwaK', 'Tung66', '0971479331', '372/23/7', '2002-02-17', 0, 'tung4.png', 'normal'),
+(20, 'tung5', '$2y$10$gB3q38BSafKiNva/7fXwgObx6DQNBf9V6dsqFwMjVaSeqXCi1fj1y', 'Tùng Hoa', '123456789', 'Tùng Hoa', '1960-01-01', NULL, 'default.png', 'normal'),
+(21, 'tung6', '$2y$10$IbcN2r4g.ubpzqepOoSbdOCJNPxJko.RsvgnTXQq6PQW6yP/QRKHO', 'tung', '0971479331', '123456', '1960-01-01', 1, 'default.png', 'normal');
 
 -- --------------------------------------------------------
 
@@ -171,8 +187,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `type`, `image`, `image1`, `image2`, `image3`, `amount`, `rating`, `chip`, `ram`, `screen`, `battery`, `outstanding`, `guarantee`) VALUES
-(1, 'Mac 2021', '34.44', 'Macbook', 'https://cdn.dienthoaigiakho.vn/photos/1655452036715-macbookair-m2-sb-2.jpg', 'https://cdn.dienthoaigiakho.vn/photos/1655452036729-macbookair-m2-sb-3.jpg', 'https://cdn.dienthoaigiakho.vn/photos/1655452036703-macbookair-m2-sb-1.jpg', 'https://cdn.dienthoaigiakho.vn/photos/1655452036693-macbookair-m2-sb.jpg', 85, 4, 'i7 10th', '8G', '15.6\" FHD (1920 x 1080) Mac ComfyView LCD, Anti-Glare', '10000mAh', 'Tận hưởng trải nghiệm chơi game mượt mà, không bị nhòe. Màn hình viền mỏng cũng đã được tăng tỷ lệ so với thân máy lên 80%.', 'Bảo hành: 12 tháng LaptopAZ'),
-(2, 'Macbook Pro 16 M1 Max 10', '77000.1', 'Macbook', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/m/a/macbook-pro-2021-05_4_2.jpg', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/m/a/macbook-pro-2021-006_4.jpg', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/m/a/macbook-pro-2021-005_3.jpg', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/m/a/macbook-pro-2021-003_3.jpg', 89, 4, 'Apple M1 Max 10 CPU', '32GB', '15.6\" FHD (1920 x 1080) Mac ComfyView LCD, Anti-Glare', '16.2 inches - 120Hz, Liquid Retina, Mini LED, XDR', 'Không chỉ là điểm nhận biết trên các thiết bị smartphone, hiện nay tai thỏ đã xuất hiện trên thế hệ Macbook mới nhất. Macbook Pro 16 M1 Max với thiết kế độc đáo, màn hình chất lượng mang lại trải nghiệm vượt  trội. Máy tính Macbook Pro 16 inch 2021 được t', 'Chính sách bảo hành của Apple luôn được đánh giá cao trong ngành công nghiệp công nghệ. Với mỗi sản phẩm mà khách hàng mua, Apple cung cấp một thời gian bảo hành hợp lý để đảm bảo sự hài lòng và yên tâm cho khách hàng. Thông thường, thời gian bảo hành của'),
+(1, 'Mac 2021', '34.44', 'Macbook', 'https://cdn.dienthoaigiakho.vn/photos/1655452036715-macbookair-m2-sb-2.jpg', 'https://cdn.dienthoaigiakho.vn/photos/1655452036729-macbookair-m2-sb-3.jpg', 'https://cdn.dienthoaigiakho.vn/photos/1655452036703-macbookair-m2-sb-1.jpg', 'https://cdn.dienthoaigiakho.vn/photos/1655452036693-macbookair-m2-sb.jpg', 80, 4, 'i7 10th', '8G', '15.6\" FHD (1920 x 1080) Mac ComfyView LCD, Anti-Glare', '10000mAh', 'Tận hưởng trải nghiệm chơi game mượt mà, không bị nhòe. Màn hình viền mỏng cũng đã được tăng tỷ lệ so với thân máy lên 80%.', 'Bảo hành: 12 tháng LaptopAZ'),
+(2, 'Macbook Pro 16 M1 Max 10', '77000.1', 'Macbook', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/m/a/macbook-pro-2021-05_4_2.jpg', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/m/a/macbook-pro-2021-006_4.jpg', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/m/a/macbook-pro-2021-005_3.jpg', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/m/a/macbook-pro-2021-003_3.jpg', 88, 4, 'Apple M1 Max 10 CPU', '32GB', '15.6\" FHD (1920 x 1080) Mac ComfyView LCD, Anti-Glare', '16.2 inches - 120Hz, Liquid Retina, Mini LED, XDR', 'Không chỉ là điểm nhận biết trên các thiết bị smartphone, hiện nay tai thỏ đã xuất hiện trên thế hệ Macbook mới nhất. Macbook Pro 16 M1 Max với thiết kế độc đáo, màn hình chất lượng mang lại trải nghiệm vượt  trội. Máy tính Macbook Pro 16 inch 2021 được t', 'Chính sách bảo hành của Apple luôn được đánh giá cao trong ngành công nghiệp công nghệ. Với mỗi sản phẩm mà khách hàng mua, Apple cung cấp một thời gian bảo hành hợp lý để đảm bảo sự hài lòng và yên tâm cho khách hàng. Thông thường, thời gian bảo hành của'),
 (10, 'MacBook Air M1 256GB', '1800', 'Macbook', 'https://www.maccenter.vn/App_images/MacBookAir-2020-M1-SpaceGray-A.jpg', 'https://www.maccenter.vn/App_images/MacBookAir-2020-M1-SpaceGray-B.jpg', 'https://www.maccenter.vn/App_images/MacBookAir-2020-M1-SpaceGray-C.jpg', 'https://www.maccenter.vn/App_images/MacBookAir-2020-M1-SpaceGray-D.jpg', 98, 5, 'The 7-core GPU in M1 chip', '8GB', '13.3-inch (diagonal) LED-backlit display with IPS technology; 2560-by-1600 native resolution at 227 pixels per inch with support for millions of colors', 'Built-in 49.9-watt-hour lithium-polymer battery', 'Tận hưởng trải nghiệm mượt mà, không bị nhòe. Màn hình viền mỏng cũng đã được tăng tỷ lệ so với thân máy lên 80%.', 'Chính sách bảo hành của Apple luôn được đánh giá cao trong ngành công nghiệp công nghệ. Với mỗi sản phẩm mà khách hàng mua, Apple cung cấp một thời gian bảo hành hợp lý để đảm bảo sự hài lòng và yên tâm cho khách hàng. Thông thường, thời gian bảo hành của'),
 (11, 'Apple Macbook Air M2 2022', '2569', 'Macbook', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/m/a/macbook_air_m2_1_1.jpg', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/2/_/2_54_9.png', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/3/_/3_40_7.png', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/6/_/6_17_6.png', 114, 4, 'Apple M2 8 nhân CPU', '8GB', '13.3 inch 2560 x 1664 pixels Retina display', '58.2Whrs lên đến 20 giờ', 'Sau thành công của dòng Macbook M1 thì Apple lại chuẩn bị mang đến cho người dùng dòng sản phẩm Macbook Air 2022 với những điểm nâng cấp đáng chú ý. Bên cạnh đó mức giá thành lại thấp hơn so với hiện tại, chắc chắn rằng các iFan đang rất nóng lòng chờ đón', 'Chính sách bảo hành của Apple luôn được đánh giá cao trong ngành công nghiệp công nghệ. Với mỗi sản phẩm mà khách hàng mua, Apple cung cấp một thời gian bảo hành hợp lý để đảm bảo sự hài lòng và yên tâm cho khách hàng. Thông thường, thời gian bảo hành của'),
 (12, 'Macbook Pro 14 inch 2021', '4649', 'Macbook', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/m/a/macbook-pro-2021-06.jpg', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/m/a/macbook-pro-2021-001_1.jpg', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/m/a/macbook-pro-2021-005_1.jpg', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/m/a/macbook-pro-2021-004_1.jpg', 87, 5, 'M1 Pro/M1 Max', '16GB', '14.2 inches - 120Hz, Liquid Retina, Mini LED, XDR', '60Whrs lên đến 24 giờ', 'Kế thừa những tinh hoa từ đời MacBook tốt nhất cùng với những nâng cấp đáng kể trong nhiều năm qua, Macbook Pro 14 inch dự kiến sẽ là mẫu laptop làm cho giới công nghệ \"phát sốt\", cũng như là cỗ máy xử lý công việc tối ưu h', 'Chính sách bảo hành của Apple luôn được đánh giá cao trong ngành công nghiệp công nghệ. Với mỗi sản phẩm mà khách hàng mua, Apple cung cấp một thời gian bảo hành hợp lý để đảm bảo sự hài lòng và yên tâm cho khách hàng. Thông thường, thời gian bảo hành của'),
@@ -212,6 +228,7 @@ CREATE TABLE `products_of_bill` (
 
 INSERT INTO `products_of_bill` (`Bill_ID`, `Product_ID`, `amount`, `customerID`) VALUES
 (1, 1, 1, 14),
+(1, 1, 1, 19),
 (2, 1, 10, 14),
 (3, 1, 4, 14),
 (4, 1, 1, 14),
@@ -231,7 +248,7 @@ ALTER TABLE `admin`
 -- Indexes for table `bill`
 --
 ALTER TABLE `bill`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id`,`customerID`),
   ADD KEY `customerID` (`customerID`);
 
 --
@@ -284,7 +301,7 @@ ALTER TABLE `products_of_bill`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `bill`
@@ -296,13 +313,13 @@ ALTER TABLE `bill`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `products`
