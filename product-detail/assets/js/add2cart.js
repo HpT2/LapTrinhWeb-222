@@ -7,6 +7,7 @@ document.getElementById('add2cart').addEventListener('click', function(e){
 			id : add_id,
 		},
 		success : function (res){
+			console.log(res);
 			if(res){
 				document.getElementById('alert-row').style.display = 'block';
 				document.getElementById('alert-message').innerHTML = res;
@@ -14,6 +15,7 @@ document.getElementById('add2cart').addEventListener('click', function(e){
 				document.getElementById('alert-row').style.display = 'block';
 				document.getElementById('alert-message').innerHTML = 'Added';
 			}
+			
 		}
 	});
 })
