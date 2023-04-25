@@ -18,7 +18,7 @@
 	$now =  date('Y-m-d H:i:s');
 
 	$paymethod = $_POST['Pay-Method'];
-	$query = "insert into bill values ($Bill_id,$CUSTOMER_ID,'$now', 0, '$paymethod',0) ";
+	$query = "insert into bill (id,customerID,date,totalcost,pay_method,status) values ($Bill_id,$CUSTOMER_ID,'$now', 0, '$paymethod','waiting') ";
 	echo $query;
 	$connection->query($query);
 
@@ -40,6 +40,7 @@
 		$total += $amount * $price;
 
 		$query = "insert into products_of_bill values ($Bill_id, $product_id, $amount, $CUSTOMER_ID)";
+		echo $query."<br>";
 		$res = $connection->query($query);
 		$new_product_amount = $product_amount - $amount;
 		$query = "update products set amount=".$new_product_amount." where id=".$product_id;
@@ -56,3 +57,4 @@
 	$connection->close();	
 	header('Location: /history/bill.php?id='.$Bill_id);
 ?>
+//		customerID	

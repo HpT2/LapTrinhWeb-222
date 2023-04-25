@@ -18,10 +18,29 @@
 	  $res = $connection->query($query);
 	  $pass = $res->fetch_assoc()['password'];
 
-	  $hashed = password_hash($_POST['old'], PASSWORD_DEFAULT);
-	  if(password_verify($hashed, $pass)){
+	  if(!password_verify($_POST['old'], $pass)){
 		echo "Old password is not correct";
-		return;
+		exit();
 	  }
-	  echo "correct";
+	  
+
+
+	  $new = $_POST['new'];
+	  $retype = $_POST['rt'];
+	  
+	  if(strlen($new) < 6){
+		echo "New password length must be over 6";
+		exit();
+	  }
+
+	  if($retype != $new){
+		echo "New password and retype does not match";
+		exit();
+	  }
+
+	  $newpass_hash = password_hash($_POST['new'], PASSWORD_DEFAULT);
+	  $query = "UPDATE CUSTOMER SET password='$newpass_hash'where id=$id";
+	  $connection->query($query);
+	  $connection->close();
+
 ?>

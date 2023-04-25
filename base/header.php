@@ -34,7 +34,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
-					<?php 
+                        <a href="/homepage/" class="nav-item nav-link">Home</a>
+                        <a href="/product-search/" class="nav-item nav-link">Product</a>
+						<?php 
 						if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){
 
 						$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
@@ -42,11 +44,8 @@
 						$image = $link->query($query)->fetch_assoc()['image'];
 						$link->close();
 						echo "<a href='/history/' class='nav-item nav-link'>History</a>";
-						}else{
-							
-						}?>
-                        <a href="/homepage/" class="nav-item nav-link">Home</a>
-                        <a href="/product-search/" class="nav-item nav-link">Product</a>
+						}
+					?>
                         <a href="#about" class="nav-item nav-link">About</a>
                         <a href="#contact" class="nav-item nav-link">Contact</a>
 					<?php if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true && $_SESSION['role']=='customer'){

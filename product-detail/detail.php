@@ -47,8 +47,23 @@
 <body>
 
 	<?php include "../base/header.php"; ?>
-	<div class="container">
 
+			<div class="row" id="alert-row" style="display:none">
+				<div class="col-12 d-flex justify-content-end">
+					<div class="alert-box" style="width:fit-content;">
+						<div class="alert alert-warning d-flex" style="padding:0px 5px 0px 5px;">
+							<div class="col-10 d-flex align-self-center">
+								<strong id='alert-message'>Added</strong>
+							</div>
+							<div class="col-2 d-flex justify-content-end">
+								<button type="button" class="close" id="close-alert" aria-label="Close" style="background-color: inherit;border:none">
+									<h3><span aria-hidden="true" style="color:red; font-size:15;">&times;</span></h3>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
 
 		<!-- !Search -->
 
@@ -62,13 +77,13 @@
 						<div class="col-sm-6">
 							<?php 
 								echo '
-									<div style="background-image: url('.$row['image'].')" class="img-show">
+									<div style="background-image: url(/image/products/'.$row['image'].')" class="img-show">
 									</div>
 									<div class="img-selects">
-										<div style="background-image: url('.$row['image'].')" class="img-select"></div>
-										<div style="background-image: url('.$row['image1'].')" class="img-select"></div>
-										<div style="background-image: url('.$row['image2'].')" class="img-select"></div>
-										<div style="background-image: url('.$row['image3'].')" class="img-select"></div>
+										<div style="background-image: url(/image/products/'.$row['image'].')" class="img-select"></div>
+										<div style="background-image: url(/image/products/'.$row['image1'].')" class="img-select"></div>
+										<div style="background-image: url(/image/products/'.$row['image2'].')" class="img-select"></div>
+										<div style="background-image: url(/image/products/'.$row['image3'].')" class="img-select"></div>
 									</div>
 								'
 							?>
@@ -85,47 +100,20 @@
 									echo ''.$row['type'].''
 								?>
 							</small>
-							<div class="d-flex">
-								<div class="rating text-warning">
-									<!-- <span><i class="fas fa-star"></i></span>
-									<span><i class="fas fa-star"></i></span>
-									<span><i class="fas fa-star"></i></span>
-									<span><i class="fas fa-star"></i></span>
-									<span><i class="far fa-star"></i></span> -->
-									<?php 
-										for ($star = 0; $star < 5; $star++) {
-											if($star < $row['rating']){
-												echo '<span><i class="fas fa-star"></i></span>';
-											} else {
-												echo '<span><i class="far fa-star"></i></span>';
-											}
-										} 
-									?>
-								</div>
-							</div>
+
 							<hr class="m-0">
 
 							<!--- product price  -->
 							<table class="my-3">
 								<tr class="">
-									<td>Giá gốc:</td>
-									<td>
-										<strike>
-											<?php 
-												echo ''.$row['price'].'đ'
-											?>
-										</strike>
-									</td>
-								</tr>
-								<tr class="">
-									<td>Giá ưu đãi:</td>
+									<td>Price:</td>
 									<td class="text-danger pl-2">
 										<span>
 											<?php 
-												echo ''.$row['price'].'đ'
+												echo '$ '.$row['price'];
 											?>
 										</span>
-										<small class="text-dark">&nbsp;&nbsp;Bao gồm thuế</small>
+										<small class="text-dark">&nbsp;&nbsp;Tax not included</small>
 									</td>
 								</tr>
 							</table>
@@ -138,22 +126,19 @@
 										<div class="my-2">
 											<span class="fas fa-retweet border p-3 rounded-pill text-success"></span>
 										</div>
-										<a href="#" class="  text-decoration-none">10 Ngày <br> Hoàn
-											trả</a>
+										<a href="#" class="  text-decoration-none">Refund within 10 days</a>
 									</div>
 									<div class="returning-policy text-center mr-5">
 										<div class="my-2">
 											<span class="fas fa-truck  border p-3 rounded-pill text-success"></span>
 										</div>
-										<a href="#" class="  text-decoration-none">Giao hàng<br>nhanh
-											chóng</a>
+										<a href="#" class="  text-decoration-none">Fast delivery</a>
 									</div>
 									<div class="returning-policy text-center mr-5">
 										<div class="my-2">
 											<span class="fas fa-check-double border p-3 rounded-pill text-success"></span>
 										</div>
-										<a href="#" class="  text-decoration-none">Bảo hành<br>1
-											năm</a>
+										<a href="#" class="  text-decoration-none">1 year guarantee</a>
 									</div>
 								</div>
 							</div>
@@ -162,9 +147,9 @@
 
 							<!-- order-details -->
 							<div id="order-details" class="  d-flex flex-column text-dark">
-								<small>Dự kiến giao hàng: 5 ngày</small>
-								<small>Loại sản phẩm: <span class="text-primary" href="#"><?php echo ''.$row['type'].'' ?> </span></small>
-								<small><i class="fas fa-map-marker-alt color-primary mr-2"></i>Xuất xứ : Chính hãng</small>
+								<small>Delivery duaration: in 5 days</small>
+								<small>Product type: <span class="text-primary" href="#"><?php echo ''.$row['type'].'' ?> </span></small>
+								<small><i class="fas fa-map-marker-alt color-primary mr-2"></i>Origin : Genuine</small>
 							</div>
 
 							<!-- size -->
@@ -172,9 +157,9 @@
 								<div class="d-flex">
 									<div class="col-12 d-flex justify-content-center">
 										<?php if(!isset($_SESSION['username']) || $_SESSION['loggedin'] == false ){ ?>
-										<a class="btn btn-primary" href="/login/login.php" >Thêm vào giỏ hàng</a>
+										<a class="btn btn-primary" href="/login/login.php" >Add to your cart <i class="fa-solid fa-cart-shopping"></i></a>
 										<?php }else{ ?>
-										<button type="button" id="add2cart" value="<?php echo $row['id']; ?>" class="btn btn-primary">Thêm vào giỏ hàng</button>
+										<button type="button" id="add2cart" value="<?php echo $row['id']; ?>" class="btn btn-primary">Add to your cart <i class="fa-solid fa-cart-shopping"></i></button>
 										<?php }?>
 									</div>
 								</div>
@@ -185,29 +170,25 @@
 						</div>
 
 						<div class="detail col col-12 pt-5" style="margin:auto;">
-							<h3>Mô tả</h3>
+							<h3>Description</h3>
 							<div class="pt-4 pl-2 pr-2 pb-2">
 								<!-- Card form tabs -->
 								<ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3">
 									<li class="nav-item">
-										<a data-toggle="pill" class="nav-link active "> Thông tin sản
-											phẩm
+										<a data-toggle="pill" class="nav-link active "> 
+											Product Info
 										</a>
 									</li>
 								</ul>
 							</div>
 							<div class="tab-content">
 								<div id="info-product" class="tab-pane fade show active pt-3">
-									<h4>Thông số kĩ thuật</h4>
+									<h4>Specifications</h4>
 									<table class="table table-striped">
 										<tr>
-											<th>Loại sản phẩm</th>
+											<th>Product type</th>
 											<th><?php echo $row['type']; ?></th>
 										</tr>
-										<!-- <tr>
-											<th>Bảo hành</th>
-											<th>12 tháng</th>
-										</tr> -->
 										<tr>
 											<th>Model</th>
 											<th><?php echo $row['name']; ?></th>
@@ -228,61 +209,13 @@
 										</tr> -->
 	
 										<tr>
-											<th>Màn hình</th>
+											<th>Screen</th>
 											<th><?php echo $row['screen']; ?></th>
 										</tr>
-										<!-- <tr>
-											<th>Cổng giao tiếp</th>
-											<th> 1x USB 3.1, 2x USB 2.0, HDMI, RJ-45</th>
-										</tr>
 										<tr>
-											<th>Ổ quang</th>
-											<th>None</th>
-										</tr>
-										<tr>
-											<th>Audio</th>
-											<th>Realtek High Definition</th>
-										</tr>
-										<tr>
-											<th>Đọc thẻ nhớ</th>
-											<th>None</th>
-										</tr>
-										<tr>
-											<th>Chuẩn LAN</th>
-											<th>10/100/1000 Mbps</th>
-										</tr>
-										<tr>
-											<th>Chuẩn WIFI</th>
-											<th>802.11 ac</th>
-										</tr>
-										<tr>
-											<th>Bluetooth</th>
-											<th>v4.2</th>
-										</tr>
-										<tr>
-											<th>Webcam</th>
-											<th>HD Webcam</th>
-										</tr>
-										<tr>
-											<th>Hệ điều hành</th>
-											<th>Windows 10 Home</th>
-										</tr> -->
-										<tr>
-											<th>Pin</th>
+											<th>Battery</th>
 											<th><?php echo $row['battery']; ?></th>
 										</tr>
-										<!-- <tr>
-											<th>Trọng lượng</th>
-											<th>1.7 kg</th>
-										</tr>
-										<tr>
-											<th>Màu sắc</th>
-											<th>Shale Black</th>
-										</tr>
-										<tr>
-											<th>Kích thước</th>
-											<th>363 x 247.5 x 19.9 (mm)</th>
-										</tr> -->
 									</table>
 
 								</div>
@@ -298,7 +231,7 @@
 					</div>
 				</div>
 				<div class="d-flex justify-content-center">
-						<a class="btn btn-primary mt-5" role="button" href="/product-search/index.php">Back to the search</a>
+						<a class="btn btn-primary mt-5" role="button" href="/product-search/index.php">Back to products page</a>
 				</div>
 				<hr>
 			</section>
@@ -439,22 +372,13 @@
 													</div>
 													<div class="text-center recommend-product-info">
 														<h6 class="recommend-product-name">'.$row['name'].'</h6>
-														<div class="recommend-product-rating text-warning ">
 													';
-
-													for ($star = 0; $star < 5; $star++) {
-														if($star < $row['rating']){
-															echo '<span><i class="fas fa-star"></i></span>';
-														} else {
-															echo '<span><i class="far fa-star"></i></span>';
-														}
-													}
 													echo '
-													</div>
+		
 														<div class="recommend-product-price py-2">
-															<span>'.$row['price'].'đ</span>
+															<span>$ '.$row['price'].'</span>
 														</div>
-														<button type="submit" class="btn btn-warning mr-5 ml-5">Chi tiết</button>
+														<button type="submit" class="btn btn-warning mr-5 ml-5">Detail</button>
 													</div>
 												</a> 
 													';
@@ -482,6 +406,7 @@
         integrity="sha256-pTxD+DSzIwmwhOqTFN+DB+nHjO4iAsbgfyFq5K5bcE0=" crossorigin="anonymous"></script>
 
     <!-- Custom Javascript -->
+	<script src="assets/js/alert.js"></script>
     <script src="./assets/js/detail.js"></script>
 	<script src="assets/js/add2cart.js"></script>
 	<script src="assets/js/post_comment.js"></script>

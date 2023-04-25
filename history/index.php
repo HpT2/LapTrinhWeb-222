@@ -31,6 +31,7 @@
 		<title>Orders</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/history.css">
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
 	</head>
 	<body style="background-color: #a6a9be;">
@@ -55,18 +56,18 @@
 									<th >Date</th>
 									<th >Total</th>
 									<th>Pay Method</th>
-									<th>Action</th>
+									<th>Status</th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php 
 									foreach($bills as $bill){
-										echo "<tr style='vertical-align:middle;'>";
+										echo "<tr style='vertical-align:middle;' name='bill_".$bill['id']."'>";
 											echo "<td>".$bill['id']."</td>";
 											echo "<td>".$bill['date']."</td>";
 											echo "<td>$".$bill['totalcost']."</td>";
 											echo "<td>".$bill['Pay_method']."</td>";	
-											echo "<td><a class='btn btn-primary' href='bill.php?id=".$bill['id']."'>Detail</a></td>";
+											echo "<td>".$bill['status']."</td>";
 										echo "</tr>";
 									}
 								?>
