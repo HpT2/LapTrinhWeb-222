@@ -88,15 +88,15 @@
 																	<div class="product-name">
 																		<a href="#"><?php echo $product['name'] ?></a>
 																		<div class="product-info">
-																			<div>Display: <span class="value"></span></div>
-																			<div>RAM: <span class="value"></span></div>
-																			<div>Memory: <span class="value"></span></div>
+																			<div>Display: <span class="value"><?php echo $product['screen']; ?></span></div>
+																			<div>RAM: <span class="value"><?php echo $product['ram']; ?></span></div>
+																			<div>Chip: <span class="value"><?php echo $product['chip']; ?></span></div>
 																		</div>
 																	</div>
 																</div>
 																<div class="col-md-4 quantity">
 																	<label for="quantity">Quantity:</label>
-																	<input id="quantity_<?php echo $product['id']; ?>" min="1" type="number" value ="<?php echo $product['quantity']; ?>" class="form-control quantity-input">
+																	<input id="quantity_<?php echo $product['id']; ?>" min="1" type="number" max="<?php echo $product['amount']; ?>" value ="<?php echo $product['quantity']; ?>" class="form-control quantity-input">
 																</div>
 																<div class="col-md-3 price">
 																	$<span id="subtotal_<?php echo $product['id']; ?>"><?php echo $product['subtotal']; ?></span>

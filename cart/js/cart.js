@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', function(){
 				quantity_field.value = 1;
 				return;
 			}
+			if (quantity_field.value > quantity_field.max){
+				quantity_field.value = quantity_field.max;
+				return;
+			}
 			$.ajax({
 				url : "handler/update_quantity.php",
 				type: 'post',
