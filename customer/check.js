@@ -39,7 +39,8 @@ document.addEventListener("DOMContentLoaded",function(){
 					document.getElementById('retype-err').style.display="block";
 					document.getElementById('retype-err').innerHTML = res;
 				}else{
-					alert("Password Changed");
+					document.getElementsByName("exit-btn-pass")[0].click();
+					document.getElementById('alert-box').style.display = 'block';
 				}
 			}
 		});
@@ -54,5 +55,9 @@ document.addEventListener("DOMContentLoaded",function(){
 		document.getElementsByName('old-pass')[0].value = "";
 		document.getElementsByName('new-pass')[0].value = "";
 		document.getElementsByName('retype-new-pass')[0].value = "";
+	})
+
+	document.getElementById('close-alert').addEventListener('click',function(e){
+		document.getElementById('alert-box').style = 'display: none !important';
 	})
 })

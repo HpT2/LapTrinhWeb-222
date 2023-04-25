@@ -47,8 +47,23 @@
 <body>
 
 	<?php include "../base/header.php"; ?>
-	<div class="container">
 
+			<div class="row" id="alert-row" style="display:none">
+				<div class="col-12 d-flex justify-content-end">
+					<div class="alert-box" style="width:fit-content;">
+						<div class="alert alert-warning d-flex" style="padding:0px 5px 0px 5px;">
+							<div class="col-10 d-flex align-self-center">
+								<strong id='alert-message'>Added</strong>
+							</div>
+							<div class="col-2 d-flex justify-content-end">
+								<button type="button" class="close" id="close-alert" aria-label="Close" style="background-color: inherit;border:none">
+									<h3><span aria-hidden="true" style="color:red; font-size:15;">&times;</span></h3>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
 
 		<!-- !Search -->
 
@@ -482,6 +497,7 @@
         integrity="sha256-pTxD+DSzIwmwhOqTFN+DB+nHjO4iAsbgfyFq5K5bcE0=" crossorigin="anonymous"></script>
 
     <!-- Custom Javascript -->
+	<script src="assets/js/alert.js"></script>
     <script src="./assets/js/detail.js"></script>
 	<script src="assets/js/add2cart.js"></script>
 	<script src="assets/js/post_comment.js"></script>

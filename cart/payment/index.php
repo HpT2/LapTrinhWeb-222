@@ -108,11 +108,15 @@
 			  <div class="form-group col-sm-10 d-flex align-self-center">
 				Thanh toán bằng ví ZaloPay
 			</div>
+			<div class="row" id="method-err" style="color:red;display:none;">
+				Please choose a method
+			</div>
               <div class="form-group col-sm-12">
-                <button type="submit" class="btn btn-primary btn-block">Proceed</button>
+                <button type="submit" class="btn btn-primary btn-block" id="proceed">Proceed</button>
               </div>
             </div>
           </div>
+	
         </form>
       </div>
     </section>
@@ -121,5 +125,6 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="js/payment.js"></script>
 </body>
 </html>

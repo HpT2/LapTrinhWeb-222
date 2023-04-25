@@ -112,7 +112,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			$param_address = $address;
 			$param_date = $year.'-'.$month.'-'.$day;
 			$param_phone = $phone;
-			$param_image = "/image/customer/default.png";
+			$param_image = "default.png";
 			$param_status = "normal";
 
             // Attempt to execute the prepared statement
@@ -131,7 +131,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 				exit;
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
-	
+				
             }
 
             // Close statement

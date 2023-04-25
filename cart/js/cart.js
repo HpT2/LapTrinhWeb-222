@@ -45,6 +45,12 @@ document.addEventListener('DOMContentLoaded', function(){
 		})
 	})
 	
+	document.getElementById('checkout').addEventListener('click', function(e){
+		if(document.getElementsByClassName('items')[0].children.length == 0){
+			console.log(document.getElementsByClassName('items')[0].children.length);
+			e.preventDefault();
+		}	
+	})
 })
 
 function updateTotal(){

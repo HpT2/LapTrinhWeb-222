@@ -45,8 +45,19 @@ $connection->close();
 
 		<?php include("../base/header.php"); ?>
         <!-- Navbar & Hero End -->
-        
         <div class="container">
+		<div class="alert alert-warning d-flex" id="alert-box" style="display:none !important;">
+			<div class="col-10 d-flex align-self-center">
+				<strong>Password change success!</strong>
+			</div>
+			<div class="col-2 d-flex justify-content-end">
+			<button type="button" class="close" id="close-alert" aria-label="Close" style="background-color: inherit;border:none">
+				<h3><span aria-hidden="true" style="color:red; font-size:15;">&times;</span></h3>
+			</button>
+			</div>
+			
+		</div>
+
             <div class="main-body" style="margin-top: 10px;">
                   <div class="row gutters-sm">
                     <div class="col-md-4 mb-3">
@@ -120,6 +131,7 @@ $connection->close();
                   </div>
                 </div>
             </div> 
+
         <!-- Modal -->
         <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -207,6 +219,7 @@ $connection->close();
         <!-- Back to Top -->
     </div>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
 	<script src="check.js"></script>
 </body>
 

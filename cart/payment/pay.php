@@ -18,7 +18,7 @@
 	$now =  date('Y-m-d H:i:s');
 
 	$paymethod = $_POST['Pay-Method'];
-	$query = "insert into bill values ($Bill_id,$CUSTOMER_ID,'$now', 0, '$paymethod',0) ";
+	$query = "insert into bill values ($Bill_id,$CUSTOMER_ID,'$now', 0, '$paymethod','waiting') ";
 	echo $query;
 	$connection->query($query);
 

@@ -8,10 +8,16 @@ document.getElementById('add2cart').addEventListener('click', function(e){
 		},
 		success : function (res){
 			if(res){
-				alert(res);
+				document.getElementById('alert-row').style.display = 'block';
+				document.getElementById('alert-message').innerHTML = res;
 			}else{
-				alert("added");
+				document.getElementById('alert-row').style.display = 'block';
+				document.getElementById('alert-message').innerHTML = 'Added';
 			}
 		}
-	})
+	});
+})
+
+document.getElementById('close-alert').addEventListener('click', function(e){
+	document.getElementById('alert-row').style.display = 'none';
 })

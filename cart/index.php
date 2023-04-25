@@ -122,7 +122,9 @@
 											<div class="summary-item"><span class="text">Discount</span><span class="price">$0</span></div>
 											<div class="summary-item"><span class="text">VAT</span><span class="price">10%</span></div>
 											<div class="summary-item"><span class="text">Total</span><span id ="total" class="price">$<?php echo $total + $total*0.1; ?></span></div>
-											<a href="payment/" class="btn btn-primary btn-lg btn-block">Checkout</a>
+											<form method="post" action="payment/">
+												<button type="submit" class="btn btn-primary btn-lg btn-block" id="checkout">Checkout</button>
+											</form>
 										</div>
 									</div>
 								</div> 
@@ -135,7 +137,7 @@
 			<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 			<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-		<script src="js/cart.js"></script>
+			<script src="js/cart.js"></script>
 
 			</body>
 			</html>

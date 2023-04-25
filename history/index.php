@@ -55,6 +55,7 @@
 									<th >Date</th>
 									<th >Total</th>
 									<th>Pay Method</th>
+									<th>Status</th>
 									<th>Action</th>
 								</tr>
 							</thead>
@@ -66,6 +67,7 @@
 											echo "<td>".$bill['date']."</td>";
 											echo "<td>$".$bill['totalcost']."</td>";
 											echo "<td>".$bill['Pay_method']."</td>";	
+											echo "<td>".$bill['status']."</td>";
 											echo "<td><a class='btn btn-primary' href='bill.php?id=".$bill['id']."'>Detail</a></td>";
 										echo "</tr>";
 									}

@@ -154,4 +154,15 @@
     }
 }
 
+.alert-box {
+	position: fixed;
+	z-index: 9;
+	right:0;
+	bottom: 0;
+	margin-right: 10px;
+}
+
+#alert-box {
+	height: 30px;
+}
 
