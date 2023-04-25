@@ -98,12 +98,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($name_err) && empty($Address_err) && empty($Date_err) && empty($Phone_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO customer (username, password, name, address, birthday, phone) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO customer (username, password, name, address, birthday, phone,image, status) VALUES (?, ?, ?, ?, ?, ?,?, ?)";
 
         if($stmt = mysqli_prepare($connection, $sql)){
             // Bind variables to the prepared statement as parameters
 			
-            mysqli_stmt_bind_param($stmt, "ssssss", $param_username, $param_password, $param_name, $param_address, $param_date, $param_phone);
+            mysqli_stmt_bind_param($stmt, "ssssssss", $param_username, $param_password, $param_name, $param_address, $param_date, $param_phone, $param_image, $param_status);
             
             // Set parameters
             $param_username = $username;
@@ -112,6 +112,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			$param_address = $address;
 			$param_date = $year.'-'.$month.'-'.$day;
 			$param_phone = $phone;
+			$param_image = "/image/customer/default.png";
+			$param_status = "normal";
 
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
