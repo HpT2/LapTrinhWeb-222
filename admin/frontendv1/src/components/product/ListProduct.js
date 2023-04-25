@@ -17,9 +17,9 @@ function createData(
   name,
   price,
   quantity,
-  description
+  image
 ){
-  return { id, name, price, quantity, description };
+  return { id, name, price, quantity, image };
 }
 
 // var rows=[
@@ -84,10 +84,10 @@ const headCells= [
     label: 'Quantity (cái)',
   },
   {
-    id: 'description',
+    id: 'image',
     numeric: true,
     disablePadding: false,
-    label: 'Description',
+    label: 'Image',
   },
 ];
 const DEFAULT_ORDER = 'asc';
@@ -250,7 +250,7 @@ const ListProduct = () => {
       try {
         const response = await getProducts();
         const newData = response.map((product) => {
-          return createData(product.id, product.name, product.price, product.amount, product.description, product.image);
+          return createData(product.id, product.name, product.price, product.amount, product.image);
         });
         setRows(newData);
       } catch (error) {
@@ -392,7 +392,9 @@ const isSelected = (id) => selected.indexOf(id) !== -1; //careful
                         <TableCell align="right">{row.name}</TableCell>
                         <TableCell align="right">{row.price}</TableCell>
                         <TableCell align="right">{row.quantity}</TableCell>
-                        <TableCell align="right">{row.description}</TableCell>
+                        <TableCell align="right">
+                          <img src={'http://localhost:80/image/products/'+row.image} width="90vw" height="60vh"/>
+                        </TableCell>
                       </TableRow>
                     );
                   }) : <div>loading...</div>}

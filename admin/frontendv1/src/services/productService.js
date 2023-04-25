@@ -5,9 +5,9 @@ const PRO_API_URL = process.env.REACT_APP_URL + '/product/index.php'; //index.ph
 
 export const getProducts = async() =>{
     try{
-        console.log(PRO_API_URL);
+       
         const response = await axios.get(PRO_API_URL);
-        console.log(response.data);
+        
         return response.data;
     } catch(error){
         console.log(error);
@@ -36,7 +36,6 @@ export const createProduct = async (product)=>{
 export const getProductById = async (productId) =>{
     try{
         const response = await axios.get(PRO_API_URL + '/' + productId);
-        console.log(PRO_API_URL + '/' + productId);
         return response.data;
     } catch(error){
         console.log(error);
