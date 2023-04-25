@@ -346,7 +346,7 @@
 									$query = "select image from customer where id=$customer_id";
 									$res = $connection->query($query);
 									$customer_data = $res->fetch_assoc();
-									$image = $customer_data['image'];
+									$image = "/image/customer/".$customer_data['image'];
 								?>
 									<div class="d-flex flex-row comment-row" style="width:100%;">
                                     <div class="p-2"><span class="round"><img src="<?php echo $image; ?>" alt="user" width="50"></span></div>
@@ -383,7 +383,7 @@
 									$query = "select image, username from customer where id=$customer_id";
 									$res = $connection->query($query);
 									$customer_data = $res->fetch_assoc();
-									$image = $customer_data['image'];
+									$image = "/image/customer/".$customer_data['image'];
 									$name = $customer_data['username'];	
 								?>
 									<div class="d-flex flex-row comment-row" style="width:100%;">
@@ -429,11 +429,12 @@
 									if(mysqli_num_rows($result) > 0) {
 										if($row = mysqli_fetch_assoc($result)){
 											// '.$row['name'].'
+											$p_img = '/image/products/'.$row['image'];
 											echo '
 												<a href="/product-detail/detail.php?data='.$row['id'].'" class="recommend-product-link item py-2">
 													<div class="product  ">
 														<div class="d-flex flex-column">
-															<div style="background-image: url('.$row['image'].')" class="recommend-product-img img-fluid"></div>
+															<div style="background-image: url('.$p_img.')" class="recommend-product-img img-fluid"></div>
 														</div> 
 													</div>
 													<div class="text-center recommend-product-info">

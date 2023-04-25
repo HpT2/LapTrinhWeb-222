@@ -167,8 +167,10 @@ header('Access-Control-Allow-Headers: *');
         
         case "DELETE":
             $path = explode('/', $_SERVER['REQUEST_URI']);
-            $product = $path[5];
-            $sql="DELETE FROM PRODUCT WHERE id IN ($product)";
+             $product = $path[5];
+            
+            print_r($product);
+            $sql="DELETE FROM PRODUCTS WHERE id IN ($product)";
             $stmt = $con->prepare($sql);
             if( $stmt->execute()){
                 $res = ['status'=> 200, 'message'=>

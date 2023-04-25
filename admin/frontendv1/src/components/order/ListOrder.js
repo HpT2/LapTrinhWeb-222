@@ -33,14 +33,12 @@ import {
 import axios from "axios";
 import { AllOut, ConstructionOutlined } from "@mui/icons-material";
 import {
-  createProduct,
-  getProductById,
-  getProducts,
-  deleteProduct,
-} from "services/productService";
+  getOrders,
+  deleteOrder
+} from "../../services/orderService";
 
-function createData(id, customer, totalcost, payMethod, date,  check) {
-  return { id, customer, totalcost, payMethod, date,  check};
+function createData(indx, id, customer, totalcost, payMethod, date,  status) {
+  return {indx, id, customer, totalcost, payMethod, date, status};
 }
 
 // var rows=[
@@ -79,6 +77,12 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
+    id: "index",
+    numeric: true,
+    disablePadding: true,
+    label: "Index",
+  },
+  {
     id: "id",
     numeric: true,
     disablePadding: true,
@@ -108,6 +112,12 @@ const headCells = [
     numeric: true,
     disablePadding: false,
     label: "Date",
+  },
+  {
+    id: "status",
+    numeric: true,
+    disablePadding: false,
+    label: "Status",
   },
 ];
 const DEFAULT_ORDER = "asc";
@@ -179,10 +189,10 @@ function EnhancedTableToolbar(props) {
   const navigate = useNavigate();
   const handleEdit = () => {
     if (ids.length > 2) {
-      alert("Chỉ được chọn 1 sản phẩm để sửa"); // will replace with another alert later if have time
-      navigate("/product");
+      alert("Chỉ được chọn 1 order để xem"); // will replace with another alert later if have time
+      navigate("/orders");
     } else {
-      navigate(`/product/${ids}/edit`);
+      navigate(`/order/${ids}/edit`);
     }
   };
   return (
@@ -214,7 +224,7 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          Products
+          Orders
         </Typography>
       )}
       {numSelected > 0 ? (
@@ -246,7 +256,7 @@ EnhancedTableToolbar.propTypes = {
   handleDelete: PropTypes.func.isRequired,
 };
 
-const ListProduct = () => {
+const ListOrder = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [rows, setRows] = React.useState([]);
@@ -260,12 +270,12 @@ const ListProduct = () => {
   const [dense, setDense] = React.useState(false);
 
   const handleDelete = async () => {
-    const response = await deleteProduct(selected);
+    const response = await deleteOrder(selected);
     if (response.status === 200) {
       alert("Xóa thành công");
-      const updateRows = rows.filter((row) => !selected.includes(row.id));
+      const updateRows = rows.filter((row) => !selected.includes(row.indx));
       setRows(updateRows);
-      // window.location.href = '/product';
+      // window.location.href = '/Order';
     } else {
       alert("Xóa thất bại");
     }
@@ -274,16 +284,19 @@ const ListProduct = () => {
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const response = await getProducts();
-        const newData = response.map((product) => {
+        const response = await getOrders();
+        const newData = response.map((order) => {
           return createData(
-            product.id,
-            product.name,
-            product.price,
-            product.amount,
-            product.image
+            order.indx,
+            order.id,
+            order.name,
+            order.totalcost,
+            order.Pay_method,
+            order.date,
+            order.status
           );
         });
+        console.log(newData);
         setRows(newData);
       } catch (error) {
         console.error(error);
@@ -330,11 +343,11 @@ const ListProduct = () => {
     }
     setSelected([]);
   };
-  const handleClick = (event, id) => {
-    const selectedIndex = selected.indexOf(id);
+  const handleClick = (event, indx) => {
+    const selectedIndex = selected.indexOf(indx);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selected, indx);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -384,20 +397,20 @@ const ListProduct = () => {
   const handleChangeDense = (event) => {
     setDense(event.target.checked);
   };
-  const isSelected = (id) => selected.indexOf(id) !== -1; //careful
+  const isSelected = (indx) => selected.indexOf(indx) !== -1; //careful
 
   //careful
 
   return (
     <div>
-      <h1>List Product</h1>
-      <Button
+      <h1>List Order</h1>
+      {/* <Button
         onClick={() => {
           navigate("/product/create");
         }}
       >
         Add new product
-      </Button>
+      </Button> */}
       <Box sx={{ width: "100%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
           <EnhancedTableToolbar
@@ -422,20 +435,22 @@ const ListProduct = () => {
               <TableBody>
                 {visibleRows ? (
                   visibleRows.map((row, index) => {
-                    const isItemSelected = isSelected(row.id);
+                    const isItemSelected = isSelected(row.indx);
                     const labelId = `enhanced-table-checkbox-${index}`;
                     return (
                       <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row.id)}
+                        onClick={(event) => handleClick(event, row.indx)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
-                        key={row.id}
+                        key={row.indx}
                         selected={isItemSelected}
+                        sx={{ cursor: 'pointer' }}
                       >
                         <TableCell padding="checkbox">
                           <Checkbox
+                           color="primary"
                             checked={isItemSelected}
                             inputProps={{ "aria-labelledby": labelId }}
                           />
@@ -446,20 +461,19 @@ const ListProduct = () => {
                           scope="row"
                           padding="none"
                         >
+                          {row.indx}
+                        </TableCell>
+                        <TableCell
+                        align="right"
+                        >
                           {row.id}
                         </TableCell>
-                        <TableCell align="right">{row.name}</TableCell>
-                        <TableCell align="right">{row.price}</TableCell>
-                        <TableCell align="right">{row.quantity}</TableCell>
-                        <TableCell align="right">
-                          <img
-                            src={
-                              "http://localhost:80/image/products/" + row.image
-                            }
-                            width="90vw"
-                            height="60vh"
-                          />
-                        </TableCell>
+                        <TableCell align="right">{row.customer}</TableCell>
+                        <TableCell align="right">{row.totalcost}</TableCell>
+                        <TableCell align="right">{row.payMethod}</TableCell>
+                        <TableCell align="right">{row.date}</TableCell>
+                        <TableCell align="right">{row.status}</TableCell>
+                        
                       </TableRow>
                     );
                   })
@@ -493,4 +507,4 @@ const ListProduct = () => {
   );
 };
 
-export default ListProduct;
+export default ListOrder;

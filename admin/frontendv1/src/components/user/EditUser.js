@@ -121,7 +121,7 @@ function EditUser() {
         >
 
             <MenuItem value="VIP">VIP</MenuItem>
-            <MenuItem value="Normal">Normal</MenuItem>
+            <MenuItem value="normal">Normal</MenuItem>
             <MenuItem value="Ban">Ban</MenuItem>
             <MenuItem value={""}></MenuItem>
         </Select>

@@ -54,6 +54,8 @@
                     	echo'<a href="/customer/" class="nav-item nav-link">';
 						if(empty($image)){
 							$image = "/image/customer/default.png";
+						}else{
+							$image = "/image/customer/".$image;
 						}
 						echo '<i><img src="'.$image.'" style="width:25px;height:25px;border-radius:20px;"></i>';
 						
@@ -68,7 +70,7 @@
                 </div>
             </nav>
 
-            <div class="container-fluid py-5  hero-header mb" id="header-homepage" style="hieght:fit-content;background-color:#0d1025;">
+            <div class="container-fluid py-5  hero-header mb" id="header-homepage" style="height:fit-content;background-color:#0d1025;">
 					
             </div>
         </div>

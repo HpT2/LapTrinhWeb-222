@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const PRO_API_URL = process.env.REACT_APP_URL + '/order/index.php'; //index.php
-
+const BILL_API_URL = process.env.REACT_APP_URL +'/order/product.php';
 
 export const getOrders = async() =>{
     try{
@@ -12,28 +12,11 @@ export const getOrders = async() =>{
         return null;
     }
 }
-export const createOrder = async (Order)=>{
-    try{
-        const response= await axios.post(PRO_API_URL, Order, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        console.log(response);
-        if(response.status == 200){
-            return response.data; 
-        }
-        else {
-            return response.statusText;
-        }
-    } catch(error){
-        console.log(error);
-        return null;
-    }
-}
+
 export const getOrderById = async (OrderId) =>{
     try{
         const response = await axios.get(PRO_API_URL + '/' + OrderId);
+        console.log(response);
         return response.data;
     } catch(error){
         console.log(error);
@@ -68,6 +51,17 @@ export const deleteOrder = async (OrderIds)=>{
         //console.log(response);
        
         return response;
+    } catch(error){
+        console.log(error);
+        return null;
+    }
+}
+
+export const getProductOfBill = async(billId, customerId) =>{
+    try{
+        const response = await axios.get(BILL_API_URL+ '/'+ billId +'/'+ customerId);      
+        console.log(response.data);
+        return response.data;
     } catch(error){
         console.log(error);
         return null;

@@ -15,7 +15,6 @@ import {
 } from '@mui/material'
 
 import{
-    SettingsOutlined,
     ChevronLeft,
     ChevronRightOutlined,
     HomeOutlined,
@@ -28,7 +27,8 @@ import{
     CalendarMonthOutlined,
     AdminPanelSettingsOutlined,
     TrendingUpOutlined,
-    PieChartOutline
+    PieChartOutline,
+    AddBoxOutlined
 }
 from '@mui/icons-material';
 import { useEffect, useState } from 'react';
@@ -54,7 +54,7 @@ const navItems = [
         icon: <Groups2Outlined />,
     },
     {
-        name: "Transactions",
+        name: "Comments",
         icon: <ReceiptLongOutlined />,
     },
     {
@@ -65,32 +65,15 @@ const navItems = [
         name: "Product",
         icon: <PointOfSaleOutlined />,
     },
+
     {
-        name: "Daily",
-        icon: <TodayOutlined />,
-    },
-    {
-        name: "Monthly",
-        icon: <CalendarMonthOutlined />,
-    },
-    {
-        name: "Manage",
-        icon: null,
-    },
-    {
-        name: "Settings",
-        icon: <AdminPanelSettingsOutlined />,
-    },
-    {
-        name: "Analytics",
-        icon: <TrendingUpOutlined />,
+        name: "Create",
+        icon: <AddBoxOutlined />,
     },
     {
         name: "Charts",
         icon: <PieChartOutline />,
     },
-
-
 ]
 
 

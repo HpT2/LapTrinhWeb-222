@@ -109,6 +109,9 @@ $connection->close();
                               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal">
                                 Edit
                               </button>
+							  <button style="margin-left:5px" id="showchangeModal" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changepassModal">
+                                Change password
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -123,9 +126,6 @@ $connection->close();
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="updateModalLabel">Update Customer Information</h5>
-                <button type="button" class="close btn btn-primary" data-bs-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
               </div>
               <div class="modal-body">
                 <!-- Update form goes here -->
@@ -162,6 +162,43 @@ $connection->close();
             </div>
           </div>
         </div>
+
+		<div class="modal fade" id="changepassModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">Change password</h5>
+              </div>
+              <div class="modal-body">
+                <!-- Update form goes here -->
+                <form action="changepass.php" method="post" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label>Old password</label>
+                    <input type="password" name="old-pass" class="form-control" name="name">
+                  </div><br>
+                  <div class="form-group">
+                    <label>New password</label>
+                    <input type="password" name="new-pass"  class="form-control" name="phone">
+                  </div><br>
+                  <div class="form-group">
+                    <label>Retype new password</label>
+                    <input type="password" name="retype-new-pass" class="form-control" name="address">
+                  </div><br>
+				  <div class="form-group">
+                    <p style="display:none; color:red;" id="retype-err"></p>
+                  </div>
+                  <div class="form-group">
+                    <input type="button" name="exit-btn-pass" class="btn btn-secondary" data-bs-dismiss="modal" value="Close">
+                    <input type="button" name="change-pass-btn" class="btn btn-primary" value="Change">
+                  </div>
+                </form>
+              </div>
+              <!-- <div class="modal-footer">
+                
+              </div> -->
+            </div>
+          </div>
+        </div>
         <!-- Footer Start -->
         <?php include('../base/footer.html'); ?>
         <!-- Footer End -->
@@ -169,7 +206,8 @@ $connection->close();
 
         <!-- Back to Top -->
     </div>
-
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+	<script src="check.js"></script>
 </body>
 
 </html>

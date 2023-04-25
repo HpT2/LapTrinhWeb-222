@@ -187,10 +187,7 @@ const handleClose = () =>{
 
 
   const handleEdit = () => {
-
     if(ids.length>2){
-  // will replace with another alert later if have time
-        
         setOpen(true);
         navigate('/users');
       } else{

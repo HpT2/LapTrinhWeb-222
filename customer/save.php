@@ -43,7 +43,7 @@ if ($uploadOk == 0) {
 
 if(isset($_POST['update-btn'])){
   // Validate credentials
-  	$updatesql = 'UPDATE customer SET name ="'.$_POST['name'].'",phone = "'.$_POST['phone'].'",address ="'.$_POST['address'].'",birthday = "'.$_POST['birthday'].'",image="'.$image.'" WHERE id ='.$_SESSION["id"];
+  	$updatesql = 'UPDATE customer SET name ="'.$_POST['name'].'",phone = "'.$_POST['phone'].'",address ="'.$_POST['address'].'",birthday = "'.$_POST['birthday'].'",image="'.$_SESSION['username'].".png".'" WHERE id ='.$_SESSION["id"];
   	echo $updatesql;
 	$connection->query($updatesql);
 
