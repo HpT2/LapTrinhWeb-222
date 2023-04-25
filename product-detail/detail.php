@@ -20,6 +20,16 @@
 	$query = "select * from comment where productid=$data";
 	$res = $connection->query($query);
 	$comments = $res->fetch_all(MYSQLI_ASSOC);
+	
+	$cur_user_comment = false;
+	if(isset($_SESSION['username']) && $_SESSION['loggedin'] == true){
+		foreach($comments as $comment){
+			if($comment['customerID'] == $_SESSION['id']){
+				$cur_user_comment = $comment;
+				break;
+			}
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +40,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product information</title>
 
-    <link rel="stylesheet" href="./assets/css/base-detail.css">
+
     <link rel="stylesheet" href="./assets/css/style-detail.css">
 </head>
 
@@ -162,7 +172,7 @@
 								<div class="d-flex">
 									<div class="col-12 d-flex justify-content-center">
 										<?php if(!isset($_SESSION['username']) || $_SESSION['loggedin'] == false ){ ?>
-										<a class="btn btn-primary" href="/login/login.php" >Thêm vào giỏ hàng</button>
+										<a class="btn btn-primary" href="/login/login.php" >Thêm vào giỏ hàng</a>
 										<?php }else{ ?>
 										<button type="button" id="add2cart" value="<?php echo $row['id']; ?>" class="btn btn-primary">Thêm vào giỏ hàng</button>
 										<?php }?>
@@ -180,7 +190,7 @@
 								<!-- Card form tabs -->
 								<ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3">
 									<li class="nav-item">
-										<a data-toggle="pill" href="#info-product" class="nav-link active "> Thông tin sản
+										<a data-toggle="pill" class="nav-link active "> Thông tin sản
 											phẩm
 										</a>
 									</li>
@@ -290,48 +300,118 @@
 				<div class="d-flex justify-content-center">
 						<a class="btn btn-primary mt-5" role="button" href="/product-search/index.php">Back to the search</a>
 				</div>
+				<hr>
 			</section>
 			<!-- product -->
-			
-			<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-5 col-md-6 col-12 pb-4">
-                <h1>Comments</h1>
-				<?php 
-					foreach($comments as $comment){
-						$customer_id = $comment['customerID'];
-						$query = "select image, name from customer where id=$customer_id";
-						$res = $connection->query($query);
-						$customer_data = $res->fetch_assoc();
-						$image = $customer_data['image'];
-						$name = $customer_data['name'];
-						echo '<div class="comment mt-4 text-justify float-left">';
-						echo '<img src="'.$image.'" alt="" class="rounded-circle" width="40" height="40">';
-						echo '<h4>'.$name.'</h4>';
-						echo ' <span>'.$comment['comment_date'].'</span><br>';
-						echo '<p style="margin-top:5px; margin-left:5px">'.$comment['content'].'</p>';
-						echo '</div>';
-					}
-				?>
+			<div class="container d-flex justify-content-center mt-100 mb-100" id="comment-section">
+				<div class="row" style="width:100%;">
+					<div class="col-md-12">
 
-            </div>
-			
-            <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
-                <form id="algin-form">
-                    <div class="form-group">
-                        <h4>Leave a comment</h4>
-                        <textarea name="msg" id="comment-field" msg cols="30" rows="5" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group mt-2">
-                        <button type="button" id="post-comment" value="<?php echo $row['id']; ?>" class="btn btn-primary">Post Comment</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-			
+						<div class="card">	
+                            <div class="card-body">
+                                <h4 class="card-title">Recent Comments</h4>
+                                <h6 class="card-subtitle">Latest Comments section by users</h6> </div>
+							
+							<?php if(!$cur_user_comment && isset($_SESSION['username']) && $_SESSION['loggedin']){ ?>
+								<form action="comment.php" method="post">
+									<div class="container mb-3">
+										<div class="row d-flex justify-content-center">
+										<div class="col-md-12 col-lg-10 col-xl-8">
+											<div class="card">
+											
+											<div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+												<div class="d-flex flex-start w-100">
+												<img class="rounded-circle shadow-1-strong me-3"
+													src="<?php echo $image; ?>" alt="avatar" width="40"
+													height="40" />
+													<div class="form-outline w-100">
+														<textarea class="form-control" name="post-comment-field" rows="4"
+														style="background: #fff;"></textarea>
+													</div>
+												</div>
+												<div class="float-end mt-2 pt-1">
+													<button type="submit" value="<?php echo $data; ?>" class="btn btn-primary btn-sm" name="post-comment-btn">Post comment</button>
+												</div>
+											</div>
+											</div>
+										</div>
+										</div>
+									</div>
+								</form>
+							<?php } ?>
+
+                            <div class="comment-widgets m-b-20">
+								<?php if($cur_user_comment){ 
+									$customer_id = $cur_user_comment['customerID'];
+									$query = "select image from customer where id=$customer_id";
+									$res = $connection->query($query);
+									$customer_data = $res->fetch_assoc();
+									$image = $customer_data['image'];
+								?>
+									<div class="d-flex flex-row comment-row" style="width:100%;">
+                                    <div class="p-2"><span class="round"><img src="<?php echo $image; ?>" alt="user" width="50"></span></div>
+                                    <div class="comment-text w-100">
+                                        <h5><?php echo $_SESSION['username'] ; ?></h5>
+                                        <div class="comment-footer">
+                                            <span class="date"><?php echo $cur_user_comment['comment_date']; ?></span>
+                                            <span class="action-icons">
+                                                    <a href="" name="show-edit-box" data-abc="true"><i class="fa fa-pencil"></i></a>
+													<form action="delete_comment.php" method="post" style="display: inline;">
+														<button type="submit" style="color:red;border:none;background-color:inherit;" name="delete" value="<?php echo $data; ?>"><i class="fa fa-close"></i></button>
+													</form>
+													
+												</span>
+                                        </div>
+										<div class="d-flex">
+											<div class="col-12" id="cur_comment">
+												<p class="m-b-5 m-t-10" id="comment-content"><?php echo $cur_user_comment['content']; ?></p>
+											</div>
+											<div class="col-8">
+												<textarea style="width:100%; display:none" id="edit-comment"><?php echo $cur_user_comment['content']; ?></textarea>
+											</div>
+											<div class="col-4 d-flex align-self-center" style="margin-left: 3px;">
+												<button value="<?php echo $cur_user_comment['productID']; ?>" style="border: none;background-color:inherit;color:yellowgreen; text-decoration:underline;" id="edit">Edit</button>
+											</div>
+										</div>
+                                        
+                                    </div>
+                                </div>
+								<?php } ?>
+								<?php foreach($comments as $comment){ 
+									if ($cur_user_comment && $comment['customerID'] == $cur_user_comment['customerID']) continue;
+									$customer_id = $comment['customerID'];
+									$query = "select image, username from customer where id=$customer_id";
+									$res = $connection->query($query);
+									$customer_data = $res->fetch_assoc();
+									$image = $customer_data['image'];
+									$name = $customer_data['username'];	
+								?>
+									<div class="d-flex flex-row comment-row" style="width:100%;">
+                                    <div class="p-2"><span class="round"><img src="<?php echo $image; ?>" alt="user" width="50"></span></div>
+                                    <div class="comment-text w-100">
+                                        <h5><?php echo $name ; ?></h5>
+                                        <div class="comment-footer">
+                                            <span class="date"><?php echo $comment['comment_date']; ?></span>
+
+                                        </div>
+										<div class="d-flex">
+											<div class="col-12" id="cur_comment">
+												<p class="m-b-5 m-t-10" id="comment-content"><?php echo $comment['content']; ?></p>
+											</div>
+										</div>
+                                        
+                                    </div>
+                                </div>
+								<?php } ?>
+                                
+
+                            
+                            </div>
+                        </div>
+
+      </div>
+  </div>
+</div>
 
 			<!-- Top Sale -->
 			<section id="top-sale">
@@ -350,7 +430,7 @@
 										if($row = mysqli_fetch_assoc($result)){
 											// '.$row['name'].'
 											echo '
-												<a href="http://localhost/web-shop-project/product-search/detail.php?data='.$row['id'].'" class="recommend-product-link item py-2">
+												<a href="/product-detail/detail.php?data='.$row['id'].'" class="recommend-product-link item py-2">
 													<div class="product  ">
 														<div class="d-flex flex-column">
 															<div style="background-image: url('.$row['image'].')" class="recommend-product-img img-fluid"></div>
@@ -381,6 +461,7 @@
 								}
 								
 							}
+							
 						?>
 					</div>
 					<!-- owl carousel: slider -->

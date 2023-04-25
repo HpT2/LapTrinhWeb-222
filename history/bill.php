@@ -20,8 +20,9 @@
 		
 		if(isset($_GET['id'])){
 			$bills = $_GET['id'];
-			$query = "select * from bill where id=".$_GET['id'];
+			$query = "select * from bill where id=".$_GET['id']." and customerID=".$_SESSION['id'];
 			$res = $connection->query($query);
+
 			if($connection->affected_rows == 0){
 				$connection->close();
 				header("Location: /history");
