@@ -54,10 +54,6 @@ const navItems = [
         icon: <Groups2Outlined />,
     },
     {
-        name: "Comments",
-        icon: <ReceiptLongOutlined />,
-    },
-    {
         name: "Sale",
         icon: null,
     },
@@ -69,6 +65,10 @@ const navItems = [
     {
         name: "Create",
         icon: <AddBoxOutlined />,
+    },
+    {
+        name: "Function",
+        icon: null,
     },
     {
         name: "Logout",
