@@ -63,7 +63,7 @@
 								<?php 
 									foreach($bills as $bill){
 										echo "<tr style='vertical-align:middle;' name='bill_".$bill['id']."'>";
-											echo "<td>".$bill['id']."</td>";
+											echo "<td>#".$bill['id']."</td>";
 											echo "<td>".$bill['date']."</td>";
 											echo "<td>$".$bill['totalcost']."</td>";
 											echo "<td>".$bill['Pay_method']."</td>";	
