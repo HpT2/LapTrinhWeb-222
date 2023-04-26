@@ -13,6 +13,15 @@
 			$query = 'select id from cart where CustomerID='.$Customer_id['id'];
 			$res = $connection->query($query);
 			$Cart_id = $res->fetch_assoc();
+			
+			$query = "select amount from products where ID=".$_POST['upd_id'];
+			$res = $connection->query($query);
+			$amount_left = $res->fetch_assoc()['amount'];
+			if($amount_left < $_POST['amount']){
+				$connection->close();
+				echo json_encode([ 'amount_left' => $amount_left]);
+				exit();
+			}
 
 			$query = 'update keep set amount='.$_POST['amount'].' where cartID='.$Cart_id['id'].' and productID='.$_POST['upd_id'];
 			$connection->query($query);
@@ -20,7 +29,7 @@
 			$query = 'select price from products where ID='.$_POST['upd_id'];
 			$res = $connection->query($query);
 			$price = $res->fetch_assoc()['price'];
-			echo intval($price * $_POST['amount']*1000)/1000; 
+			echo json_encode(['update_amount' => intval($price * $_POST['amount']*1000)/1000]); 
 			
 		}else {
 			//return error code

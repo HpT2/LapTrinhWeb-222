@@ -2,7 +2,7 @@
 	session_start();
 	if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
 		//show error page
-		header("Location: /login/login.php");
+		http_response_code(400);
 		exit();
 	  }
 	  if($_SESSION['role'] != 'customer'){
