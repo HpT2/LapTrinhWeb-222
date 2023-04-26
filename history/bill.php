@@ -106,7 +106,7 @@
 													<tr>
 														<td><?php echo $product['name']; ?></td>
 														<td><?php echo $product['quantity']; ?></td>
-														<td>$ <?php echo $product['price']*$product['quantity']; ?></td>
+														<td>$<?php echo $product['price']*$product['quantity']; ?></td>
 													</tr>
 												<tr>
 												<?php 
@@ -123,7 +123,7 @@
 											<p
 												style="font-size: 30px; color: red; font-weight: 400;font-family: Arial, Helvetica, sans-serif;">
 												Total:
-												<span><i class="fas fa-dollar-sign"></i> <?php echo $total + 0.1*$total; ?></span></p>
+												<span><i class="fas fa-dollar-sign"></i><?php echo $total + 0.1*$total; ?></span></p>
 											</div>
 
 										</div>

@@ -79,7 +79,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 	if(empty(trim($_POST["phone"]))){
         $Phone_err = "Enter your phone number";     
-	}else if (!preg_match('/^[0-9]+$/', trim($_POST["phone"])) && sizeof(trim($_POST['phone']))<9){
+	}else if (!preg_match('/^[0-9]+$/', trim($_POST["phone"])) && sizeof(str_split($_POST['phone']))<9){
 			$Phone_err = "Invalid phone number";
 		}else{
 			$phone = trim($_POST['phone']);

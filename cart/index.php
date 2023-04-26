@@ -97,6 +97,7 @@
 																<div class="col-md-4 quantity">
 																	<label for="quantity">Quantity:</label>
 																	<input id="quantity_<?php echo $product['id']; ?>" min="1" type="number" max="<?php echo $product['amount']; ?>" value ="<?php echo $product['quantity']; ?>" class="form-control quantity-input">
+																	<p id="quantity_err_<?php echo $product['id'];?>" style="color:red"></p>
 																</div>
 																<div class="col-md-3 price">
 																	$<span id="subtotal_<?php echo $product['id']; ?>"><?php echo $product['subtotal']; ?></span>

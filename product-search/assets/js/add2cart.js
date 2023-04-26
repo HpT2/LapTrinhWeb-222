@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded",function(){
 						document.getElementById('alert-row').style.display = 'block';
 						document.getElementById('alert-message').innerHTML = 'Added';
 					}
+				},
+				error: function(err){
+					window.location.href = "/login/login.php";
 				}
 			})
 		})

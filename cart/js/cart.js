@@ -7,16 +7,16 @@ document.addEventListener('DOMContentLoaded', function(){
 	quantity_fields = document.querySelectorAll('input[id^=quantity_]');
 	quantity_fields.forEach(quantity_field => {
 		let id = quantity_field.id.split('quantity_')[1];
+		
 		quantity_field.addEventListener('change', function(e){
+			document.getElementById('quantity_err_'+id).innerHTML = '';
 			if (quantity_field.value < 1){
 				quantity_field.value = 1;
-				return;
 			}
 			if (Number(quantity_field.value) > Number(quantity_field.max)){
 				console.log(quantity_field.value);
 				console.log(quantity_field.max);
 				quantity_field.value = quantity_field.max;
-				return;
 			}
 			$.ajax({
 				url : "handler/update_quantity.php",
@@ -26,8 +26,13 @@ document.addEventListener('DOMContentLoaded', function(){
 					amount: quantity_field.value
 				},
 				success: function(res){	
-					document.getElementById('subtotal_'+id).innerHTML = res;
-					updateTotal();
+					let response = JSON.parse(res);
+					if(typeof(response.amount_left) != "undefined"){
+						document.getElementById('quantity_err_'+id).innerHTML = 'This product only has '+response.amount_left + ' left';
+					}else{
+						document.getElementById('subtotal_'+id).innerHTML = response.update_amount;
+						updateTotal();
+					}	
 				}
 			})
 		})
