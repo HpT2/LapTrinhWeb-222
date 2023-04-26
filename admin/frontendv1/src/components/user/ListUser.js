@@ -11,6 +11,39 @@ import {useLocation, useNavigate, useParams, useState} from 'react-router-dom';
 import axios from 'axios';
 import { AllOut, ConstructionOutlined } from '@mui/icons-material';
 import { getUserById, getUsers, deleteUser } from 'services/userService';
+
+
+//test
+import { styled } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    backgroundColor: '#44b700',
+    color: '#44b700',
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    '&::after': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      animation: 'ripple 1.2s infinite ease-in-out',
+      border: '1px solid currentColor',
+      content: '""',
+    },
+  },
+  '@keyframes ripple': {
+    '0%': {
+      transform: 'scale(.8)',
+      opacity: 1,
+    },
+    '100%': {
+      transform: 'scale(2.4)',
+      opacity: 0,
+    },
+  },
+}));
 function createData(
   id,
   image,
@@ -111,12 +144,12 @@ numeric: true,
 disablePadding: false,
 label: 'Situation',
 },
-{
-id: 'active',
-numeric: true,
-disablePadding: false,
-label: 'Active',
-}
+// {
+// id: 'active',
+// numeric: true,
+// disablePadding: false,
+// label: 'Active',
+// }
 ];
 const DEFAULT_ORDER = 'asc';
 const DEFAULT_ORDER_BY = 'id';
@@ -443,15 +476,24 @@ return (
                   </TableCell>
 
                   <TableCell align="right">
-                          {/* <img src= width="90vw" height="60vh"/> */}
-                          <Avatar alt="Remy Sharp" src= {'http://localhost:80/image/customer/'+row.image}/>
+                    {row.active == 1 ? (
+                      <StyledBadge
+                        overlap="circular"
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                        variant="dot"
+                      >
+                        <Avatar alt="Remy Sharp" src={'http://localhost:80/image/customer/'+row.image} />
+                      </StyledBadge>
+                    ) : (
+                      <Avatar alt="Remy Sharp" src={'http://localhost:80/image/customer/'+row.image} style={{ marginRight: '0vw' }} />
+                    )}
                   </TableCell>
                   <TableCell align="right">{row.name}</TableCell>
                   <TableCell align="right">{row.phone}</TableCell>
                   <TableCell align="right">{row.birthday}</TableCell>
                   <TableCell align="right">{row.address}</TableCell>
                   <TableCell align="right">{row.status}</TableCell>
-                  <TableCell align="right">{row.active}</TableCell>
+                  
                 </TableRow>
               );
             }) : <div>loading...</div>}

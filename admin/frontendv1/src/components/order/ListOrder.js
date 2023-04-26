@@ -36,6 +36,8 @@ import {
   getOrders,
   deleteOrder
 } from "../../services/orderService";
+//test
+
 
 function createData(indx, id, customer, totalcost, payMethod, date,  status) {
   return {indx, id, customer, totalcost, payMethod, date, status};
@@ -80,7 +82,7 @@ const headCells = [
     id: "index",
     numeric: true,
     disablePadding: true,
-    label: "Index",
+    label: "",
   },
   {
     id: "id",

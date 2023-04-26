@@ -71,7 +71,7 @@ const navItems = [
         icon: <AddBoxOutlined />,
     },
     {
-        name: "Charts",
+        name: "Logout",
         icon: <PieChartOutline />,
     },
 ]
